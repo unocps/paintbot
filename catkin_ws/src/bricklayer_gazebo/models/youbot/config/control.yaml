@@ -1,0 +1,21 @@
+bricklayer:
+    # The joint state controller handles publishing transforms for any moving joints
+    joint_state_controller:
+        type: joint_state_controller/JointStateController
+        publish_rate: 50
+
+    arm_joint_1_controller:
+        type: position_controllers/JointPositionController
+        joint: arm_joint_1
+    arm_joint_2_controller:
+        type: position_controllers/JointPositionController
+        joint: arm_joint_2
+    arm_joint_3_controller:
+        type: position_controllers/JointPositionController
+        joint: arm_joint_3
+    arm_joint_4_controller:
+        type: position_controllers/JointPositionController
+        joint: arm_joint_4
+    arm_joint_5_controller:
+        type: position_controllers/JointPositionController
+        joint: arm_joint_5

@@ -11,3 +11,6 @@
 
 ## Running
 1. Run `roslaunch bricklayer_gazebo bricklayer.launch`.
+
+## Robot
+The robot used is based directly on the Kuka Youbot model available from the default model database in Gazebo.
