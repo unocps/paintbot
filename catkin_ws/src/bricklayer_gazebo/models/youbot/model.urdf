@@ -77,7 +77,7 @@
     <axis xyz="0  0  1"/>
     <limit effort="0.0" lower="0.0" upper="0.0" velocity="0.0"/>
   </joint>
-  <joint name="caster_joint_bl" type="continuous">
+  <joint name="caster_joint_bl" type="fixed">
     <parent link="base_link"/>
     <child link="caster_link_bl"/>
     <origin rpy="0  0  0" xyz="-0.228  0.158 -0.034"/>
@@ -89,9 +89,8 @@
     <child link="wheel_link_bl"/>
     <origin rpy="0  0  0" xyz="0  0  0"/>
     <axis xyz="0  1  0"/>
-    <limit effort="1.0" lower="0.0" upper="0.0" velocity="0.0"/>
   </joint>
-  <joint name="caster_joint_br" type="continuous">
+  <joint name="caster_joint_br" type="fixed">
     <parent link="base_link"/>
     <child link="caster_link_br"/>
     <origin rpy="0  0  0" xyz="-0.228 -0.158 -0.034"/>
@@ -103,9 +102,8 @@
     <child link="wheel_link_br"/>
     <origin rpy="0  0  0" xyz="0  0  0"/>
     <axis xyz="0  1  0"/>
-    <limit effort="1.0" lower="0.0" upper="0.0" velocity="0.0"/>
   </joint>
-  <joint name="caster_joint_fl" type="continuous">
+  <joint name="caster_joint_fl" type="fixed">
     <parent link="base_link"/>
     <child link="caster_link_fl"/>
     <origin rpy="0  0  0" xyz="0.228  0.158 -0.034"/>
@@ -117,9 +115,8 @@
     <child link="wheel_link_fl"/>
     <origin rpy="0  0  0" xyz="0  0  0"/>
     <axis xyz="0  1  0"/>
-    <limit effort="1.0" lower="0.0" upper="0.0" velocity="0.0"/>
   </joint>
-  <joint name="caster_joint_fr" type="continuous">
+  <joint name="caster_joint_fr" type="fixed">
     <parent link="base_link"/>
     <child link="caster_link_fr"/>
     <origin rpy="0  0  0" xyz="0.228 -0.158 -0.034"/>
@@ -131,7 +128,6 @@
     <child link="wheel_link_fr"/>
     <origin rpy="0  0  0" xyz="0  0  0"/>
     <axis xyz="0  1  0"/>
-    <limit effort="1.0" lower="0.0" upper="0.0" velocity="0.0"/>
   </joint>
   <joint name="plate_joint" type="fixed">
     <parent link="base_link"/>
@@ -542,6 +538,72 @@
       <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
     </joint>
   </transmission>
+  <transmission name="wheel_joint_fl_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="wheel_joint_fl_act">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="wheel_joint_fl">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+  <transmission name="wheel_joint_fr_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="wheel_joint_fr_act">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="wheel_joint_fr">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+  <transmission name="wheel_joint_bl_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="wheel_joint_bl_act">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="wheel_joint_bl">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+  <transmission name="wheel_joint_br_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="wheel_joint_br_act">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="wheel_joint_br">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+
+  <!-- TODO: Are these values good? -->
+  <gazebo reference="wheel_link_fl">
+    <mu1 value="200.0"/>
+    <mu2 value="100.0"/>
+    <kp value="10000000.0" />
+    <kd value="1.0" />
+  </gazebo>
+  <gazebo reference="wheel_link_fr">
+    <mu1 value="200.0"/>
+    <mu2 value="100.0"/>
+    <kp value="10000000.0" />
+    <kd value="1.0" />
+  </gazebo>
+  <gazebo reference="wheel_link_bl">
+    <mu1 value="200.0"/>
+    <mu2 value="100.0"/>
+    <kp value="10000000.0" />
+    <kd value="1.0" />
+  </gazebo>
+  <gazebo reference="wheel_link_br">
+    <mu1 value="200.0"/>
+    <mu2 value="100.0"/>
+    <kp value="10000000.0" />
+    <kd value="1.0" />
+  </gazebo>
 
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
