@@ -7,17 +7,17 @@
     </include>
 
     <!-- Spawn robot -->
-    <param name="/paintbot/robot_description" textfile="$(find paintbot_gazebo)/models/paintbot/paintbot.urdf" />
+    <param name="/paintbot/robot_description" textfile="$(find paintbot_description)/urdf/paintbot.urdf" />
     <node name="paintbot_spawner"
         pkg="gazebo_ros"
         type="spawn_model"
         output="screen"
         ns="/paintbot"
-        args="-urdf -param robot_description -model models/paintbot/paintbot -z 0.09" />
+        args="-urdf -param robot_description -model paintbot -z 0.09" />
 
     <!-- Spawn controllers -->
     <rosparam command="load"
-        file="$(find paintbot_gazebo)/models/paintbot/config/control.yaml" />
+        file="$(find paintbot_description)/config/control.yaml" />
     <node name="paintbot_controller_spawner"
         pkg="controller_manager"
         type="spawner"
