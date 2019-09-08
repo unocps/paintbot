@@ -579,32 +579,6 @@
     </joint>
   </transmission>
 
-  <!-- TODO: Are these values good? -->
-  <gazebo reference="wheel_link_fl">
-    <mu1 value="200.0"/>
-    <mu2 value="100.0"/>
-    <kp value="10000000.0" />
-    <kd value="1.0" />
-  </gazebo>
-  <gazebo reference="wheel_link_fr">
-    <mu1 value="200.0"/>
-    <mu2 value="100.0"/>
-    <kp value="10000000.0" />
-    <kd value="1.0" />
-  </gazebo>
-  <gazebo reference="wheel_link_bl">
-    <mu1 value="200.0"/>
-    <mu2 value="100.0"/>
-    <kp value="10000000.0" />
-    <kd value="1.0" />
-  </gazebo>
-  <gazebo reference="wheel_link_br">
-    <mu1 value="200.0"/>
-    <mu2 value="100.0"/>
-    <kp value="10000000.0" />
-    <kd value="1.0" />
-  </gazebo>
-
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
       <robotNamespace>/bricklayer</robotNamespace>
