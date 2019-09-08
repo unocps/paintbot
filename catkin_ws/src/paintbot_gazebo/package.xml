@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>bricklayer_gazebo</name>
+  <name>paintbot_gazebo</name>
   <version>0.0.0</version>
-  <description>The bricklayer_gazebo package</description>
+  <description>The paintbot_gazebo package</description>
 
   <author email="rlankin@unomaha.edu">Ryan Lankin</author>
 

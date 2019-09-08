@@ -1,4 +1,4 @@
-bricklayer:
+paintbot:
     # The joint state controller handles publishing transforms for any moving joints
     joint_state_controller:
         type: joint_state_controller/JointStateController
@@ -20,7 +20,8 @@ bricklayer:
         type: position_controllers/JointPositionController
         joint: arm_joint_5
 
-    # TODO: Should an Ackermann-based controller by used insetad
+    # TODO: Add controllers for caster joints (and change caster joints to continuous) to simulate mecanum wheels
+    # TODO: Change these to simple velocity controllers
     diff_drive_controller:
         type: diff_drive_controller/DiffDriveController
         publish_rate: 50

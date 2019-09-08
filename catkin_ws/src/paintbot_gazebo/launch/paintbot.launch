@@ -2,32 +2,32 @@
     <arg name="paused" default="true" />
 
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
-        <!-- <arg name="world_name" value="$(find bricklayer_gazebo)/worlds/bricklayer.world"/> -->
+        <!-- <arg name="world_name" value="$(find paintbot_gazebo)/worlds/paintbot.world"/> -->
         <arg name="paused" value="$(arg paused)" />
     </include>
 
     <!-- Spawn robot -->
-    <param name="/bricklayer/robot_description" textfile="$(find bricklayer_gazebo)/models/youbot/model.urdf" />
-    <node name="bricklayer_spawner"
+    <param name="/paintbot/robot_description" textfile="$(find paintbot_gazebo)/models/paintbot/paintbot.urdf" />
+    <node name="paintbot_spawner"
         pkg="gazebo_ros"
         type="spawn_model"
         output="screen"
-        ns="/bricklayer"
-        args="-urdf -param robot_description -model models/youbot/model -z 0.09" />
+        ns="/paintbot"
+        args="-urdf -param robot_description -model models/paintbot/paintbot -z 0.09" />
 
     <!-- Spawn controllers -->
     <rosparam command="load"
-        file="$(find bricklayer_gazebo)/models/youbot/config/control.yaml" />
-    <node name="bricklayer_controller_spawner"
+        file="$(find paintbot_gazebo)/models/paintbot/config/control.yaml" />
+    <node name="paintbot_controller_spawner"
         pkg="controller_manager"
         type="spawner"
         respawn="false"
         output="screen"
-        ns="/bricklayer"
+        ns="/paintbot"
         args="joint_state_controller arm_joint_1_controller arm_joint_2_controller arm_joint_3_controller arm_joint_4_controller arm_joint_5_controller diff_drive_controller" />
 
     <node name="robot_state_publisher"
         pkg="robot_state_publisher"
         type="state_publisher"
-        ns="/bricklayer" />
+        ns="/paintbot" />
 </launch>
