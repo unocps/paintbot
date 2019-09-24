@@ -373,14 +373,14 @@
   </link>
   <link name="wheel_link_bl">
     <inertial>
-      <mass value="0.400000"/>
+      <mass value="1.000000"/>
       <origin rpy="0  0  0" xyz="0  0  0"/>
-      <inertia ixx="0.012412" ixy="-0.000712" ixz="0.000503" iyy="0.015218" iyz="-0.000004" izz="0.011764"/>
+      <inertia ixx="0.002240" ixy="0.0" ixz="0.0" iyy="0.002240" iyz="0.0" izz="0.002813"/>
     </inertial>
     <collision name="wheel_link_bl_geom">
       <origin rpy="1.5708  0      0" xyz="0  0  0"/>
       <geometry>
-        <cylinder length="0.005000" radius="0.050000"/>
+        <cylinder length="0.100000" radius="0.075000"/>
       </geometry>
     </collision>
     <visual name="wheel_link_bl_geom_visual">
@@ -399,14 +399,14 @@
   </link>
   <link name="wheel_link_br">
     <inertial>
-      <mass value="0.400000"/>
+      <mass value="1.000000"/>
       <origin rpy="0  0  0" xyz="0  0  0"/>
-      <inertia ixx="0.012412" ixy="-0.000712" ixz="0.000503" iyy="0.015218" iyz="-0.000004" izz="0.011764"/>
+      <inertia ixx="0.002240" ixy="0.0" ixz="0.0" iyy="0.002240" iyz="0.0" izz="0.002813"/>
     </inertial>
     <collision name="wheel_link_br_geom">
       <origin rpy="1.5708  0      0" xyz="0  0  0"/>
       <geometry>
-        <cylinder length="0.005000" radius="0.050000"/>
+        <cylinder length="0.100000" radius="0.075000"/>
       </geometry>
     </collision>
     <visual name="wheel_link_br_geom_visual">
@@ -425,14 +425,14 @@
   </link>
   <link name="wheel_link_fl">
     <inertial>
-      <mass value="0.400000"/>
+      <mass value="1.000000"/>
       <origin rpy="0  0  0" xyz="0  0  0"/>
-      <inertia ixx="0.012412" ixy="-0.000712" ixz="0.000503" iyy="0.015218" iyz="-0.000004" izz="0.011764"/>
+      <inertia ixx="0.002240" ixy="0.0" ixz="0.0" iyy="0.002240" iyz="0.0" izz="0.002813"/>
     </inertial>
     <collision name="wheel_link_fl_geom">
       <origin rpy="1.5708  0      0" xyz="0  0  0"/>
       <geometry>
-        <cylinder length="0.005000" radius="0.050000"/>
+        <cylinder length="0.100000" radius="0.075000"/>
       </geometry>
     </collision>
     <visual name="wheel_link_fl_geom_visual">
@@ -451,14 +451,14 @@
   </link>
   <link name="wheel_link_fr">
     <inertial>
-      <mass value="0.400000"/>
+      <mass value="1.000000"/>
       <origin rpy="0  0  0" xyz="0  0  0"/>
-      <inertia ixx="0.012412" ixy="-0.000712" ixz="0.000503" iyy="0.015218" iyz="-0.000004" izz="0.011764"/>
+      <inertia ixx="0.002240" ixy="0.0" ixz="0.0" iyy="0.002240" iyz="0.0" izz="0.002813"/>
     </inertial>
     <collision name="wheel_link_fr_geom">
       <origin rpy="1.5708  0      0" xyz="0  0  0"/>
       <geometry>
-        <cylinder length="0.005000" radius="0.050000"/>
+        <cylinder length="0.100000" radius="0.075000"/>
       </geometry>
     </collision>
     <visual name="wheel_link_fr_geom_visual">
@@ -548,6 +548,16 @@
       <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
     </joint>
   </transmission>
+  <!-- <transmission name="caster_joint_fl_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="caster_joint_fl_act">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="caster_joint_fl">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+  </transmission> -->
   <transmission name="wheel_joint_fr_trans">
     <type>transmission_interface/SimpleTransmission</type>
     <actuator name="wheel_joint_fr_act">
@@ -558,6 +568,16 @@
       <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
     </joint>
   </transmission>
+  <!-- <transmission name="caster_joint_fr_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="caster_joint_fr_act">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="caster_joint_fr">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+  </transmission> -->
   <transmission name="wheel_joint_bl_trans">
     <type>transmission_interface/SimpleTransmission</type>
     <actuator name="wheel_joint_bl_act">
@@ -568,6 +588,16 @@
       <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
     </joint>
   </transmission>
+  <!-- <transmission name="caster_joint_bl_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="caster_joint_bl_act">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="caster_joint_bl">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+  </transmission> -->
   <transmission name="wheel_joint_br_trans">
     <type>transmission_interface/SimpleTransmission</type>
     <actuator name="wheel_joint_br_act">
@@ -578,6 +608,16 @@
       <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
     </joint>
   </transmission>
+  <!-- <transmission name="caster_joint_br_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="caster_joint_br_act">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="caster_joint_br">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+  </transmission> -->
 
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
