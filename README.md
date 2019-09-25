@@ -2,7 +2,7 @@
 
 ## Setup
 1. Run the `catkin_ws/setup.sh` script.
-  * This ensures that the `catkin_ws/src/bricklayer_gazebo/models` directory is part of the `$GAZEBO_MODEL_PATH` by adding the appropriate export command to your `.bashrc`.
+  * This ensures that the `catkin_ws/src/paintbot_gazebo/models` directory is part of the `$GAZEBO_MODEL_PATH` by adding the appropriate export command to your `.bashrc`.
   * Remember to `source ~/.bashrc` after you run this command the first time.
 
 ## Building
@@ -10,7 +10,7 @@
 2. Run `source devel/setup.sh`.
 
 ## Running
-1. Run `roslaunch bricklayer_gazebo bricklayer.launch`.
+1. Run `roslaunch paintbot_gazebo paintbot.launch`.
 
 ## Robot
 The robot used is based directly on the Kuka Youbot model available from the default model database in Gazebo.

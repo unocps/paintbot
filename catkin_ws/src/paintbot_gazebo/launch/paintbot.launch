@@ -26,8 +26,16 @@
         ns="/paintbot"
         args="joint_state_controller arm_joint_1_controller arm_joint_2_controller arm_joint_3_controller arm_joint_4_controller arm_joint_5_controller diff_drive_controller" />
 
+    <!-- Spawn state publisher -->
     <node name="robot_state_publisher"
         pkg="robot_state_publisher"
         type="state_publisher"
         ns="/paintbot" />
+
+    <!-- Spawn control nodes -->
+    <node name="navigation"
+        pkg="paintbot_description"
+        type="navigation.py"
+        ns="/paintbot"
+        output="screen" />
 </launch>
