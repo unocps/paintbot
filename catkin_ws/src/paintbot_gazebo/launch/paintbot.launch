@@ -2,7 +2,7 @@
     <arg name="paused" default="true" />
 
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
-        <!-- <arg name="world_name" value="$(find paintbot_gazebo)/worlds/paintbot.world"/> -->
+        <arg name="world_name" value="$(find paintbot_gazebo)/worlds/paintbot.world"/>
         <arg name="paused" value="$(arg paused)" />
     </include>
 
@@ -33,6 +33,11 @@
         ns="/paintbot" />
 
     <!-- Spawn control nodes -->
+    <node name="planning"
+        pkg="paintbot_description"
+        type="planning.py"
+        ns="/paintbot"
+        output="screen" />
     <node name="navigation"
         pkg="paintbot_description"
         type="navigation.py"

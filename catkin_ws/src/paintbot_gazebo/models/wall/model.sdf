@@ -1,16 +1,16 @@
 <?xml version='1.0'?>
 <sdf version='1.6'>
-  <model name='standard_brick'>
+  <model name='wall'>
     <link name='link'>
       <inertial>
-        <mass>2.04117</mass>
+        <mass>1</mass>
         <inertia>
-          <ixx>0.00250575</ixx>
+          <ixx>0.166667</ixx>
           <ixy>0</ixy>
           <ixz>0</ixz>
-          <iyy>0.00858142</iyy>
+          <iyy>0.166667</iyy>
           <iyz>0</iyz>
-          <izz>0.00964984</izz>
+          <izz>0.166667</izz>
         </inertia>
         <pose frame=''>0 0 0 0 -0 0</pose>
       </inertial>
@@ -22,20 +22,20 @@
       <visual name='visual'>
         <geometry>
           <box>
-            <size>0.215 0.1025 0.065</size>
+            <size>0.1 1 1</size>
           </box>
         </geometry>
         <material>
           <script>
-            <name>Gazebo/Red</name>
+            <name>Gazebo/White</name>
             <uri>file://media/materials/scripts/gazebo.material</uri>
           </script>
           <shader type='vertex'>
             <normal_map>__default__</normal_map>
           </shader>
-          <ambient>0.5 0.1 0.1 1</ambient>
-          <diffuse>0.7 0.3 0.3 1</diffuse>
-          <specular>0.01 0.01 0.01 1</specular>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 1</specular>
           <emissive>0 0 0 1</emissive>
         </material>
         <pose frame=''>0 0 0 0 -0 0</pose>
@@ -48,7 +48,7 @@
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <box>
-            <size>0.215 0.1025 0.065</size>
+            <size>0.1 1 1</size>
           </box>
         </geometry>
         <surface>
@@ -98,7 +98,7 @@
         </surface>
       </collision>
     </link>
-    <static>0</static>
+    <static>1</static>
     <allow_auto_disable>1</allow_auto_disable>
   </model>
 </sdf>
