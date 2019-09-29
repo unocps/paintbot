@@ -35,12 +35,10 @@
     <!-- Spawn control nodes -->
     <node name="planning"
         pkg="paintbot_description"
-        type="planning.py"
-        ns="/paintbot"
+        type="planning"
         output="screen" />
     <node name="navigation"
         pkg="paintbot_description"
-        type="navigation.py"
-        ns="/paintbot"
+        type="navigation"
         output="screen" />
 </launch>

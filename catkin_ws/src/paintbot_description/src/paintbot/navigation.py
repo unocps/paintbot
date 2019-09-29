@@ -1,12 +1,16 @@
 #!/usr/bin/env python
 
 from gazebo_msgs.msg import ModelStates
+from lib import constants
 from tf.transformations import euler_from_quaternion
 import geometry_msgs
 import math
 import rospy
+import std_msgs
 
+DIST_EPSILON = 0.75
 ORIENT_EPSILON = 0.1
+MAX_SPEED = 0.2
 
 pose = None
 orient = None
@@ -26,33 +30,40 @@ def update_dest(msg):
 def at_dest():
     if pose:
         dist = math.sqrt(((pose.x - dest.x) ** 2) + ((pose.y - dest.y) ** 2))
-        return dist < 0.1
+        return dist < DIST_EPSILON
     return false
 
 def adjust_orientation(pub):
-    theta = math.atan2(dest.y, dest.x) - orient
+    theta = math.atan2(dest.y - pose.y, dest.x - pose.x) - orient
     while abs(theta) > ORIENT_EPSILON:
         twist = geometry_msgs.msg.Twist()
         twist.angular.z = -1 if theta < 0 else 1
         pub.publish(twist)
-        theta = math.atan2(dest.y, dest.x) - orient
+        theta = math.atan2(dest.y - pose.y, dest.x - pose.x) - orient
+
+def move(pub):
+    twist = geometry_msgs.msg.Twist()
+    twist.linear.x = MAX_SPEED
+    pub.publish(twist)
 
 def navigate():
     rospy.init_node('navigation')
 
-    rate = rospy.Rate(2)
     model_states_sub = rospy.Subscriber('/gazebo/model_states', ModelStates, update_state)
     nav_sub = rospy.Subscriber('/paintbot/nav', geometry_msgs.msg.Point, update_dest)
-    pub = rospy.Publisher('/paintbot/diff_drive_controller/cmd_vel', geometry_msgs.msg.Twist, queue_size=10)
+    dd_pub = rospy.Publisher('/paintbot/diff_drive_controller/cmd_vel', geometry_msgs.msg.Twist, queue_size=10)
+    notify_pub = rospy.Publisher('/paintbot/notify', std_msgs.msg.String, queue_size=10)
+
+    global pose, orient, dest
 
     while not rospy.is_shutdown():
-        if pose and dest and orient and not at_dest():
-            adjust_orientation(pub)
-            # TODO: Move
-        rate.sleep()
-
-if __name__ == '__main__':
-    try:
-        navigate()
-    except rospy.ROSInterruptException:
-        pass
+        if pose and orient and dest:
+            if at_dest():
+                notify_pub.publish(constants.NOTIFY_AT_DEST)
+                dest = None
+            else:
+                adjust_orientation(dd_pub)
+                move(dd_pub)
+        else:
+            # Stop
+            dd_pub.publish(geometry_msgs.msg.Twist())

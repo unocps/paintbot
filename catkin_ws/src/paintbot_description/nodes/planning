@@ -1,0 +1,12 @@
+#!/usr/bin/env python
+
+from paintbot import planning
+import rospy
+
+rospy.loginfo('========== planning node')
+
+if __name__ == '__main__':
+    try:
+        planning.plan()
+    except rospy.ROSInterruptException:
+        pass
