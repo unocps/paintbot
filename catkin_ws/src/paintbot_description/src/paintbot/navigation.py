@@ -46,13 +46,13 @@ def move(pub):
     twist.linear.x = MAX_SPEED
     pub.publish(twist)
 
-def navigate():
+def main():
     rospy.init_node('navigation')
 
-    model_states_sub = rospy.Subscriber('/gazebo/model_states', ModelStates, update_state)
-    nav_sub = rospy.Subscriber('/paintbot/nav', geometry_msgs.msg.Point, update_dest)
-    dd_pub = rospy.Publisher('/paintbot/diff_drive_controller/cmd_vel', geometry_msgs.msg.Twist, queue_size=10)
-    notify_pub = rospy.Publisher('/paintbot/notify', std_msgs.msg.String, queue_size=10)
+    model_states_sub = rospy.Subscriber(constants.TOPIC_MODEL_STATES, ModelStates, update_state)
+    nav_sub = rospy.Subscriber(constants.TOPIC_NAV, geometry_msgs.msg.Point, update_dest)
+    dd_pub = rospy.Publisher(constants.TOPIC_DIFF_DRIVE, geometry_msgs.msg.Twist, queue_size=10)
+    notify_pub = rospy.Publisher(constants.TOPIC_NOTIFY, std_msgs.msg.String, queue_size=10)
 
     global pose, orient, dest
 
@@ -67,3 +67,4 @@ def navigate():
         else:
             # Stop
             dd_pub.publish(geometry_msgs.msg.Twist())
+    rospy.spin() # TODO: Debug

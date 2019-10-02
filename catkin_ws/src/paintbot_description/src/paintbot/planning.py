@@ -29,12 +29,12 @@ def handle_notification(msg):
         task_i = (task_i + 1) % len(tasks)
         # st = State.ACTION
 
-def plan():
+def main():
     rospy.init_node('planning')
 
     rate = rospy.Rate(constants.ITERATION_RATE_HZ)
-    notify_sub = rospy.Subscriber('/paintbot/notify', std_msgs.msg.String, handle_notification)
-    nav_pub = rospy.Publisher('/paintbot/nav', geometry_msgs.msg.Point, queue_size=10)
+    notify_sub = rospy.Subscriber(constants.TOPIC_NOTIFY, std_msgs.msg.String, handle_notification)
+    nav_pub = rospy.Publisher(constants.TOPIC_NAV, geometry_msgs.msg.Point, queue_size=10)
 
     while not rospy.is_shutdown():
         if st == State.NAVIGATE:

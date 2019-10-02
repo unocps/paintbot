@@ -7,6 +7,6 @@ rospy.loginfo('========== planning node')
 
 if __name__ == '__main__':
     try:
-        planning.plan()
+        planning.main()
     except rospy.ROSInterruptException:
         pass

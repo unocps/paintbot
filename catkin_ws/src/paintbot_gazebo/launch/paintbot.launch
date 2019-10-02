@@ -1,5 +1,5 @@
 <launch>
-    <arg name="paused" default="true" />
+    <arg name="paused" default="false" />
 
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
         <arg name="world_name" value="$(find paintbot_gazebo)/worlds/paintbot.world"/>
@@ -24,7 +24,7 @@
         respawn="false"
         output="screen"
         ns="/paintbot"
-        args="joint_state_controller arm_joint_1_controller arm_joint_2_controller arm_joint_3_controller arm_joint_4_controller arm_joint_5_controller diff_drive_controller" />
+        args="joint_state_controller arm_controller diff_drive_controller" />
 
     <!-- Spawn state publisher -->
     <node name="robot_state_publisher"
@@ -40,5 +40,9 @@
     <node name="navigation"
         pkg="paintbot_description"
         type="navigation"
+        output="screen" />
+    <node name="painting"
+        pkg="paintbot_description"
+        type="painting"
         output="screen" />
 </launch>
