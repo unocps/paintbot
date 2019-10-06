@@ -17,11 +17,12 @@ orient = None
 dest = None
 
 def update_state(msg):
-    global pose, orient
-    i = msg.name.index('paintbot')
-    pose = msg.pose[i].position
-    o = msg.pose[i].orientation
-    orient = euler_from_quaternion([o.x, o.y, o.z, o.w])[2]
+    if 'paintbot' in msg.name:
+        global pose, orient
+        i = msg.name.index('paintbot')
+        pose = msg.pose[i].position
+        o = msg.pose[i].orientation
+        orient = euler_from_quaternion([o.x, o.y, o.z, o.w])[2]
 
 def update_dest(msg):
     global dest
@@ -49,6 +50,7 @@ def move(pub):
 def main():
     rospy.init_node('navigation')
 
+    rate = rospy.Rate(constants.ITERATION_RATE_HZ)
     model_states_sub = rospy.Subscriber(constants.TOPIC_MODEL_STATES, ModelStates, update_state)
     nav_sub = rospy.Subscriber(constants.TOPIC_NAV, geometry_msgs.msg.Point, update_dest)
     dd_pub = rospy.Publisher(constants.TOPIC_DIFF_DRIVE, geometry_msgs.msg.Twist, queue_size=10)
@@ -67,4 +69,5 @@ def main():
         else:
             # Stop
             dd_pub.publish(geometry_msgs.msg.Twist())
-    rospy.spin() # TODO: Debug
+        
+        rate.sleep()

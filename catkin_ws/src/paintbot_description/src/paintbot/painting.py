@@ -4,40 +4,66 @@ from control_msgs.msg import FollowJointTrajectoryAction, FollowJointTrajectoryG
 from lib import constants
 from trajectory_msgs.msg import JointTrajectoryPoint
 import actionlib
+import math
 import rospy
 import std_msgs
 import trajectory_msgs
 
+# TODO: Positions may need to be turned around so that arm_joint_1 rests at 0
+REST_POS = [math.pi, 0, -1, 0, 0]
+LOAD_POS_1 = [math.pi, 0, -math.pi * (7 / 6), .1, 0]
+LOAD_POS_2 = [math.pi, 0, -math.pi * (7 / 6), .75, 0]
+
+arm_act_client = None
+
+def move_arm(points):
+    goal = FollowJointTrajectoryGoal()
+    goal.trajectory.joint_names = ['arm_joint_1', 'arm_joint_2', 'arm_joint_3', 'arm_joint_4', 'arm_joint_5']
+    goal.trajectory.points = points
+    arm_act_client.send_goal(goal)
+    arm_act_client.wait_for_result(rospy.Duration(20))
+
 def handle_message(msg):
-    pass
+    if msg.data == constants.ACT_PAINT_LOAD:
+        points = [
+            JointTrajectoryPoint(positions=LOAD_POS_1, time_from_start=rospy.Duration(2)),
+            JointTrajectoryPoint(positions=LOAD_POS_2, time_from_start=rospy.Duration(3)),
+            JointTrajectoryPoint(positions=LOAD_POS_1, time_from_start=rospy.Duration(4)),
+            JointTrajectoryPoint(positions=LOAD_POS_2, time_from_start=rospy.Duration(5)),
+            JointTrajectoryPoint(positions=LOAD_POS_1, time_from_start=rospy.Duration(6)),
+            JointTrajectoryPoint(positions=REST_POS, time_from_start=rospy.Duration(8)),
+        ]
+        move_arm(points)
+    elif msg.data == constants.ACT_PAINT_APPLY:
+        pass
 
 def main():
     rospy.init_node('painting')
 
-    rospy.sleep(1)
+    # TODO: Is this necessary to give the controller time to start?
+    rospy.sleep(0.5)
 
     paint_sub = rospy.Subscriber(constants.TOPIC_PAINT, std_msgs.msg.String, handle_message)
-    arm_action_client = actionlib.SimpleActionClient(constants.TOPIC_ARM_SERVICE, FollowJointTrajectoryAction)
-    arm_action_client.wait_for_server()
 
-    goal = FollowJointTrajectoryGoal()
-    goal.trajectory.joint_names = ['arm_joint_1', 'arm_joint_2', 'arm_joint_3', 'arm_joint_4', 'arm_joint_5']
-    point = JointTrajectoryPoint()
-    point.positions = [.5, .5, .5, .5, .5]
-    point.time_from_start = rospy.Duration(5)
-    goal.trajectory.points = [point]
+    global arm_act_client
+    arm_act_client = actionlib.SimpleActionClient(constants.TOPIC_ARM_SERVICE, FollowJointTrajectoryAction)
+    arm_act_client.wait_for_server()
 
-    arm_action_client.send_goal(goal)
-    arm_action_client.wait_for_result(rospy.Duration(10))
+    # Move arm to rest position
+    rest = JointTrajectoryPoint(positions=REST_POS, time_from_start=rospy.Duration(1))
+    move_arm([rest])
 
-    rospy.sleep(5)
+    rospy.spin()
 
-    goal = FollowJointTrajectoryGoal()
-    goal.trajectory.joint_names = ['arm_joint_1', 'arm_joint_2', 'arm_joint_3', 'arm_joint_4', 'arm_joint_5']
-    point = JointTrajectoryPoint()
-    point.positions = [3, 3, 3, 3, 3]
-    point.time_from_start = rospy.Duration(5)
-    goal.trajectory.points = [point]
 
-    arm_action_client.send_goal(goal)
-    arm_action_client.wait_for_result(rospy.Duration(10))
+    # rospy.sleep(5)
+    #
+    # goal = FollowJointTrajectoryGoal()
+    # goal.trajectory.joint_names = ['arm_joint_1', 'arm_joint_2', 'arm_joint_3', 'arm_joint_4', 'arm_joint_5']
+    # point = JointTrajectoryPoint()
+    # point.positions = [3, 3, 3, 3, 3]
+    # point.time_from_start = rospy.Duration(5)
+    # goal.trajectory.points = [point]
+    #
+    # arm_action_client.send_goal(goal)
+    # arm_action_client.wait_for_result(rospy.Duration(10))
