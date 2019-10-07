@@ -9,10 +9,11 @@ import rospy
 import std_msgs
 import trajectory_msgs
 
-# TODO: Positions may need to be turned around so that arm_joint_1 rests at 0
-REST_POS = [math.pi, 0, -1, 0, 0]
-LOAD_POS_1 = [math.pi, 0, -math.pi * (7 / 6), .1, 0]
-LOAD_POS_2 = [math.pi, 0, -math.pi * (7 / 6), .75, 0]
+REST_POS = [0, 0, -math.pi / 2, math.pi, 0]
+LOAD_POS_1 = [0, math.pi, -math.pi * 6 / 8, math.pi * 5 / 6, 0]
+LOAD_POS_2 = [0, math.pi, -math.pi * 6 / 8, math.pi * 7 / 6, 0]
+APPLY_HIGH_POS_1 = [0, math.pi / 2, -math.pi, math.pi, 0]
+APPLY_HIGH_POS_2 = [0, math.pi / 2, -math.pi, 3.577925, 0]
 
 arm_act_client = None
 notify_pub = None
@@ -26,15 +27,14 @@ def move_arm(points):
 
 def handle_message(msg):
     if msg.data == constants.ACT_PAINT_LOAD:
-        points = [
+        move_arm([
             JointTrajectoryPoint(positions=LOAD_POS_1, time_from_start=rospy.Duration(2)),
             JointTrajectoryPoint(positions=LOAD_POS_2, time_from_start=rospy.Duration(3)),
             JointTrajectoryPoint(positions=LOAD_POS_1, time_from_start=rospy.Duration(4)),
             JointTrajectoryPoint(positions=LOAD_POS_2, time_from_start=rospy.Duration(5)),
             JointTrajectoryPoint(positions=LOAD_POS_1, time_from_start=rospy.Duration(6)),
-            JointTrajectoryPoint(positions=REST_POS, time_from_start=rospy.Duration(8)),
-        ]
-        move_arm(points)
+            JointTrajectoryPoint(positions=REST_POS, time_from_start=rospy.Duration(8))
+        ])
         notify_pub.publish(constants.NOTIFY_ACT_COMPLETE)
     elif msg.data == constants.ACT_PAINT_APPLY:
         # TODO
@@ -45,9 +45,6 @@ def main():
 
     global arm_act_client, notify_pub
 
-    # TODO: Is this necessary to give the controller time to start?
-    rospy.sleep(0.5)
-
     paint_sub = rospy.Subscriber(constants.TOPIC_PAINT, std_msgs.msg.String, handle_message)
     notify_pub = rospy.Publisher(constants.TOPIC_NOTIFY, std_msgs.msg.String, queue_size=10)
 
@@ -57,5 +54,13 @@ def main():
     # Move arm to rest position
     rest = JointTrajectoryPoint(positions=REST_POS, time_from_start=rospy.Duration(1))
     move_arm([rest])
+
+    # TODO: Debug
+    # move_arm([
+    #     JointTrajectoryPoint(positions=APPLY_HIGH_POS_1, time_from_start=rospy.Duration(3)),
+    #     JointTrajectoryPoint(positions=APPLY_HIGH_POS_2, time_from_start=rospy.Duration(4)),
+    #     JointTrajectoryPoint(positions=APPLY_HIGH_POS_1, time_from_start=rospy.Duration(5)),
+    #     JointTrajectoryPoint(positions=APPLY_HIGH_POS_2, time_from_start=rospy.Duration(6))
+    # ])
 
     rospy.spin()
