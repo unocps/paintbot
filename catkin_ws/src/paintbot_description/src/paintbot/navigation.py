@@ -69,5 +69,5 @@ def main():
         else:
             # Stop
             dd_pub.publish(geometry_msgs.msg.Twist())
-        
+
         rate.sleep()

@@ -21,32 +21,39 @@ tasks = [
 ]
 t_i = 0
 st = State.NAVIGATE
+paint_pub = None
+nav_pub = None
 
 def handle_notification(msg):
-    global t_i
+    global t_i, st
 
     if msg.data == constants.NOTIFY_AT_DEST and st == State.NAVIGATE:
-        t_i = (t_i + 1) % len(tasks)
         st = State.ACTION
+        paint_pub.publish(tasks[t_i].action)
     elif msg.data == constants.NOTIFY_ACT_COMPLETE and st == State.ACTION:
         t_i = (t_i + 1) % len(tasks)
         st = State.NAVIGATE
+        dest = geometry_msgs.msg.Point()
+        dest.x = tasks[t_i].dest[0]
+        dest.y = tasks[t_i].dest[1]
+        nav_pub.publish(dest)
 
 def main():
     rospy.init_node('planning')
+
+    global nav_pub, paint_pub
 
     rate = rospy.Rate(constants.ITERATION_RATE_HZ)
     notify_sub = rospy.Subscriber(constants.TOPIC_NOTIFY, std_msgs.msg.String, handle_notification)
     nav_pub = rospy.Publisher(constants.TOPIC_NAV, geometry_msgs.msg.Point, queue_size=10)
     paint_pub = rospy.Publisher(constants.TOPIC_PAINT, std_msgs.msg.String, queue_size=10)
 
-    while not rospy.is_shutdown():
-        if st == State.NAVIGATE:
-            dest = geometry_msgs.msg.Point()
-            dest.x = tasks[t_i].dest[0]
-            dest.y = tasks[t_i].dest[1]
-            nav_pub.publish(dest)
-        elif st == State.ACTION:
-            paint_pub.publish(tasks[t_i].action)
+    rospy.sleep(1) # TODO: Is there a better way to wait for everything to load?
 
-        rate.sleep()
+    # Send initial navigation command
+    dest = geometry_msgs.msg.Point()
+    dest.x = tasks[t_i].dest[0]
+    dest.y = tasks[t_i].dest[1]
+    nav_pub.publish(dest)
+
+    rospy.spin()
