@@ -136,6 +136,11 @@
     <axis xyz="0  0  1"/>
     <limit effort="0.0" lower="0.0" upper="0.0" velocity="0.0"/>
   </joint>
+  <joint name="virtual_joint" type="fixed">
+      <parent link="virtual_base" />
+      <child link="base_footprint" />
+  </joint>
+  <link name="virtual_base" />
   <link name="base_footprint">
     <inertial>
       <mass value="0.100000"/>
