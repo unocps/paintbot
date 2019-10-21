@@ -16,13 +16,20 @@ pose = None
 orient = None
 dest = None
 
+def normalize_angle(theta):
+    if theta < -math.pi:
+        theta += 2 * math.pi
+    if theta > math.pi:
+        theta -= 2 * math.pi
+    return theta
+
 def update_state(msg):
     if 'paintbot' in msg.name:
         global pose, orient
         i = msg.name.index('paintbot')
         pose = msg.pose[i].position
         o = msg.pose[i].orientation
-        orient = euler_from_quaternion([o.x, o.y, o.z, o.w])[2]
+        orient = normalize_angle(euler_from_quaternion([o.x, o.y, o.z, o.w])[2])
 
 def update_dest(msg):
     global dest
@@ -35,12 +42,13 @@ def at_dest():
     return false
 
 def adjust_orientation(pub):
-    theta = math.atan2(dest.y - pose.y, dest.x - pose.x) - orient
+    theta = normalize_angle(math.atan2(dest.y - pose.y, dest.x - pose.x) - orient)
     while abs(theta) > ORIENT_EPSILON:
+        print('adjust_orientation: {}'.format(theta))
         twist = geometry_msgs.msg.Twist()
         twist.angular.z = -1 if theta < 0 else 1
         pub.publish(twist)
-        theta = math.atan2(dest.y - pose.y, dest.x - pose.x) - orient
+        theta = normalize_angle(math.atan2(dest.y - pose.y, dest.x - pose.x) - orient)
 
 def move(pub):
     twist = geometry_msgs.msg.Twist()
