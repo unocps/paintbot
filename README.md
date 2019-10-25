@@ -1,13 +1,13 @@
 # research-project
 
-## Building
-1. Run `catkin_make` in the `catkin_ws` directory.
-2. Run `source catkin_ws/devel/setup.sh`.
-3. Run `source catkin_ws/setup.sh` script.
-  * This ensures that the `catkin_ws/src/paintbot_gazebo/models` directory is part of the `$GAZEBO_MODEL_PATH`.
+## Installation and Building
+1. Run `rosdep install paintbot_description` and `rosdep install paintbot_gazebo`. This should install all dependencies.
+2. Run `catkin build` from within the `catkin_ws` directory.
 
 ## Running
-1. Run `roslaunch paintbot_gazebo paintbot.launch`.
+1. Source the development `setup.sh` file (e.g. `source catkin_ws/devel/setup.sh`).
+    * Note that this only needs to be done once at the beginning of a working session. Each separate terminal session requires this, however.
+2. Run `roslaunch paintbot_gazebo paintbot.launch`.
 
 ## Robot
 The robot used is based directly on the Kuka Youbot model available from the default model database in Gazebo.

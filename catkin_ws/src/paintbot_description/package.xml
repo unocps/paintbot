@@ -39,8 +39,16 @@
   <!-- Use doc_depend for packages you need only for building documentation: -->
   <!--   <doc_depend>doxygen</doc_depend> -->
   <buildtool_depend>catkin</buildtool_depend>
+  <depend>actionlib</depend>
+  <depend>control_msgs</depend>
+  <depend>gazebo_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>joint_state_publisher</depend>
+  <depend>robot_state_publisher</depend>
   <depend>rospy</depend>
   <depend>std_msgs</depend>
+  <depend>tf</depend>
+  <depend>trajectory_msgs</depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>

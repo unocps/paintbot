@@ -44,7 +44,6 @@ def at_dest():
 def adjust_orientation(pub):
     theta = normalize_angle(math.atan2(dest.y - pose.y, dest.x - pose.x) - orient)
     while abs(theta) > ORIENT_EPSILON:
-        print('adjust_orientation: {}'.format(theta))
         twist = geometry_msgs.msg.Twist()
         twist.angular.z = -1 if theta < 0 else 1
         pub.publish(twist)
