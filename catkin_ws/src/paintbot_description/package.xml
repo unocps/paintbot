@@ -43,6 +43,8 @@
   <depend>control_msgs</depend>
   <depend>gazebo_msgs</depend>
   <depend>geometry_msgs</depend>
+  <depend>joint_state_publisher</depend>
+  <depend>robot_state_publisher</depend>
   <depend>rospy</depend>
   <depend>std_msgs</depend>
   <depend>tf</depend>
