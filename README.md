@@ -1,10 +1,8 @@
 # research-project
 
-## Building
-1. Run `catkin_make` in the `catkin_ws` directory.
-2. Run `source catkin_ws/devel/setup.sh`.
-3. Run `source catkin_ws/setup.sh` script.
-  * This ensures that the `catkin_ws/src/paintbot_gazebo/models` directory is part of the `$GAZEBO_MODEL_PATH`.
+## Building and Setup
+1. Run `catkin_make` from within the `catkin_ws` directory.
+2. Source the development `setup.sh` file (e.g. `source catkin_ws/devel/setup.sh`).
 
 ## Running
 1. Run `roslaunch paintbot_gazebo paintbot.launch`.
