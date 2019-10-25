@@ -1,7 +1,7 @@
 <launch>
     <arg name="model" default="$(find paintbot_description)/urdf/paintbot.urdf"/>
     <arg name="gui" default="true" />
-    <arg name="rvizconfig" default="$(find paintbot_description)/rviz/paintbot.rviz" />
+    <arg name="rvizconfig" default="$(find paintbot_description)/config/paintbot.rviz" />
 
     <param name="robot_description" textfile="$(arg model)" />
     <param name="use_gui" value="$(arg gui)"/>
