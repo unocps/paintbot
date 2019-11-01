@@ -16,6 +16,7 @@ pose = None
 orient = None
 dest = None
 
+# TODO: Move to lib
 def normalize_angle(theta):
     if theta < -math.pi:
         theta += 2 * math.pi
