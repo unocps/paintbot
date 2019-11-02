@@ -169,13 +169,13 @@
     <collision name="base_link_geom">
       <origin rpy="0  0  0" xyz="0  0  0"/>
       <geometry>
-        <mesh filename="package://paintbot_description/meshes/base/base_convex.stl" scale="1.0 1.0 1.0"/>
+        <mesh filename="package://paintbot_description/urdf/meshes/base/base_convex.stl" scale="1.0 1.0 1.0"/>
       </geometry>
     </collision>
     <visual name="base_link_geom_visual">
       <origin rpy="0  0  0" xyz="0  0  0"/>
       <geometry>
-        <mesh filename="package://paintbot_description/meshes/base/base.dae" scale="1.0 1.0 1.0"/>
+        <mesh filename="package://paintbot_description/urdf/meshes/base/base.dae" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
   </link>
@@ -188,13 +188,13 @@
     <collision name="arm_link_0_geom">
       <origin rpy="0  0  0" xyz="0  0  0"/>
       <geometry>
-        <mesh filename="package://paintbot_description/meshes/arm/arm0_convex.stl" scale="1.0 1.0 1.0"/>
+        <mesh filename="package://paintbot_description/urdf/meshes/arm/arm0_convex.stl" scale="1.0 1.0 1.0"/>
       </geometry>
     </collision>
     <visual name="arm_link_0_geom_visual">
       <origin rpy="0  0  0" xyz="0  0  0"/>
       <geometry>
-        <mesh filename="package://paintbot_description/meshes/arm/arm0.dae" scale="1.0 1.0 1.0"/>
+        <mesh filename="package://paintbot_description/urdf/meshes/arm/arm0.dae" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
   </link>
@@ -207,13 +207,13 @@
     <collision name="arm_link_1_geom">
       <origin rpy="0  0  0" xyz="0  0  0"/>
       <geometry>
-        <mesh filename="package://paintbot_description/meshes/arm/arm1_convex.stl" scale="1.0 1.0 1.0"/>
+        <mesh filename="package://paintbot_description/urdf/meshes/arm/arm1_convex.stl" scale="1.0 1.0 1.0"/>
       </geometry>
     </collision>
     <visual name="arm_link_1_geom_visual">
       <origin rpy="0  0  0" xyz="0  0  0"/>
       <geometry>
-        <mesh filename="package://paintbot_description/meshes/arm/arm1.dae" scale="1.0 1.0 1.0"/>
+        <mesh filename="package://paintbot_description/urdf/meshes/arm/arm1.dae" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
   </link>
@@ -226,13 +226,13 @@
     <collision name="arm_link_2_geom">
       <origin rpy="0  0  0" xyz="0    -0.032  0.078"/>
       <geometry>
-        <mesh filename="package://paintbot_description/meshes/arm/arm2_convex.stl" scale="1.0 1.0 1.0"/>
+        <mesh filename="package://paintbot_description/urdf/meshes/arm/arm2_convex.stl" scale="1.0 1.0 1.0"/>
       </geometry>
     </collision>
     <visual name="arm_link_2_geom_visual">
       <origin rpy="0  0  0" xyz="0    -0.032  0.078"/>
       <geometry>
-        <mesh filename="package://paintbot_description/meshes/arm/arm2.dae" scale="1.0 1.0 1.0"/>
+        <mesh filename="package://paintbot_description/urdf/meshes/arm/arm2.dae" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
   </link>
@@ -245,13 +245,13 @@
     <collision name="arm_link_3_geom">
       <origin rpy="0  0  0" xyz="0     0.028  0.079"/>
       <geometry>
-        <mesh filename="package://paintbot_description/meshes/arm/arm3_convex.stl" scale="1.0 1.0 1.0"/>
+        <mesh filename="package://paintbot_description/urdf/meshes/arm/arm3_convex.stl" scale="1.0 1.0 1.0"/>
       </geometry>
     </collision>
     <visual name="arm_link_3_geom_visual">
       <origin rpy="0  0  0" xyz="0     0.028  0.079"/>
       <geometry>
-        <mesh filename="package://paintbot_description/meshes/arm/arm3.dae" scale="1.0 1.0 1.0"/>
+        <mesh filename="package://paintbot_description/urdf/meshes/arm/arm3.dae" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
   </link>
@@ -264,13 +264,13 @@
     <collision name="arm_link_4_geom">
       <origin rpy="0  0  0" xyz="0    -0.01   0.029"/>
       <geometry>
-        <mesh filename="package://paintbot_description/meshes/arm/arm4_convex.stl" scale="1.0 1.0 1.0"/>
+        <mesh filename="package://paintbot_description/urdf/meshes/arm/arm4_convex.stl" scale="1.0 1.0 1.0"/>
       </geometry>
     </collision>
     <visual name="arm_link_4_geom_visual">
       <origin rpy="0  0  0" xyz="0    -0.01   0.029"/>
       <geometry>
-        <mesh filename="package://paintbot_description/meshes/arm/arm4.dae" scale="1.0 1.0 1.0"/>
+        <mesh filename="package://paintbot_description/urdf/meshes/arm/arm4.dae" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
   </link>
@@ -283,13 +283,13 @@
     <collision name="arm_link_5_geom">
       <origin rpy="0  0  0" xyz="0.003  0    -0.034"/>
       <geometry>
-        <mesh filename="package://paintbot_description/meshes/arm/arm5_convex.stl" scale="1.0 1.0 1.0"/>
+        <mesh filename="package://paintbot_description/urdf/meshes/arm/arm5_convex.stl" scale="1.0 1.0 1.0"/>
       </geometry>
     </collision>
     <visual name="arm_link_5_geom_visual">
       <origin rpy="0  0  0" xyz="0.003  0    -0.034"/>
       <geometry>
-        <mesh filename="package://paintbot_description/meshes/arm/arm5.dae" scale="1.0 1.0 1.0"/>
+        <mesh filename="package://paintbot_description/urdf/meshes/arm/arm5.dae" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
   </link>
@@ -302,13 +302,13 @@
     <collision name="gripper_palm_link_geom">
       <origin rpy="0  0  0" xyz="0  0  0"/>
       <geometry>
-        <mesh filename="package://paintbot_description/meshes/gripper/palm_convex.stl" scale="1.0 1.0 1.0"/>
+        <mesh filename="package://paintbot_description/urdf/meshes/gripper/palm_convex.stl" scale="1.0 1.0 1.0"/>
       </geometry>
     </collision>
     <visual name="gripper_palm_link_geom_visual">
       <origin rpy="0  0  0" xyz="0  0  0"/>
       <geometry>
-        <mesh filename="package://paintbot_description/meshes/gripper/palm.stl" scale="1.0 1.0 1.0"/>
+        <mesh filename="package://paintbot_description/urdf/meshes/gripper/palm.stl" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
   </link>
@@ -321,13 +321,13 @@
     <collision name="gripper_finger_link_l_geom">
       <origin rpy="0  0  0" xyz="0  0  0"/>
       <geometry>
-        <mesh filename="package://paintbot_description/meshes/gripper/finger_convex.stl" scale="1.0 1.0 1.0"/>
+        <mesh filename="package://paintbot_description/urdf/meshes/gripper/finger_convex.stl" scale="1.0 1.0 1.0"/>
       </geometry>
     </collision>
     <visual name="gripper_finger_link_l_geom_visual">
       <origin rpy="0  0  0" xyz="0  0  0"/>
       <geometry>
-        <mesh filename="package://paintbot_description/meshes/gripper/finger.stl" scale="1.0 1.0 1.0"/>
+        <mesh filename="package://paintbot_description/urdf/meshes/gripper/finger.stl" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
   </link>
@@ -340,13 +340,13 @@
     <collision name="gripper_finger_link_r_geom">
       <origin rpy="0  0  0" xyz="0  0  0"/>
       <geometry>
-        <mesh filename="package://paintbot_description/meshes/gripper/finger_convex.stl" scale="1.0 1.0 1.0"/>
+        <mesh filename="package://paintbot_description/urdf/meshes/gripper/finger_convex.stl" scale="1.0 1.0 1.0"/>
       </geometry>
     </collision>
     <visual name="gripper_finger_link_r_geom_visual">
       <origin rpy="0  0  0" xyz="0  0  0"/>
       <geometry>
-        <mesh filename="package://paintbot_description/meshes/gripper/finger.stl" scale="1.0 1.0 1.0"/>
+        <mesh filename="package://paintbot_description/urdf/meshes/gripper/finger.stl" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
   </link>
@@ -359,13 +359,13 @@
     <collision name="base_laser_front_link_geom">
       <origin rpy="0  0  0" xyz="0  0  0"/>
       <geometry>
-        <mesh filename="package://paintbot_description/meshes/laser/hokuyo_convex.stl" scale="1.0 1.0 1.0"/>
+        <mesh filename="package://paintbot_description/urdf/meshes/laser/hokuyo_convex.stl" scale="1.0 1.0 1.0"/>
       </geometry>
     </collision>
     <visual name="base_laser_front_link_geom_visual">
       <origin rpy="0  0  0" xyz="0  0  0"/>
       <geometry>
-        <mesh filename="package://paintbot_description/meshes/laser/hokuyo.dae" scale="1.0 1.0 1.0"/>
+        <mesh filename="package://paintbot_description/urdf/meshes/laser/hokuyo.dae" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
   </link>
@@ -391,7 +391,7 @@
     <visual name="wheel_link_bl_geom_visual">
       <origin rpy="0  0  0" xyz="0  0  0"/>
       <geometry>
-        <mesh filename="package://paintbot_description/meshes/base/back-left_wheel.dae" scale="1.0 1.0 1.0"/>
+        <mesh filename="package://paintbot_description/urdf/meshes/base/back-left_wheel.dae" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
   </link>
@@ -417,7 +417,7 @@
     <visual name="wheel_link_br_geom_visual">
       <origin rpy="0  0  0" xyz="0  0  0"/>
       <geometry>
-        <mesh filename="package://paintbot_description/meshes/base/back-right_wheel.dae" scale="1.0 1.0 1.0"/>
+        <mesh filename="package://paintbot_description/urdf/meshes/base/back-right_wheel.dae" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
   </link>
@@ -443,7 +443,7 @@
     <visual name="wheel_link_fl_geom_visual">
       <origin rpy="0  0  0" xyz="0  0  0"/>
       <geometry>
-        <mesh filename="package://paintbot_description/meshes/base/front-left_wheel.dae" scale="1.0 1.0 1.0"/>
+        <mesh filename="package://paintbot_description/urdf/meshes/base/front-left_wheel.dae" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
   </link>
@@ -469,7 +469,7 @@
     <visual name="wheel_link_fr_geom_visual">
       <origin rpy="0  0  0" xyz="0  0  0"/>
       <geometry>
-        <mesh filename="package://paintbot_description/meshes/base/front-right_wheel.dae" scale="1.0 1.0 1.0"/>
+        <mesh filename="package://paintbot_description/urdf/meshes/base/front-right_wheel.dae" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
   </link>
@@ -482,13 +482,13 @@
     <collision name="plate_link_geom">
       <origin rpy="0  0  0" xyz="0  0  0"/>
       <geometry>
-        <mesh filename="package://paintbot_description/meshes/plate/plate_convex.stl" scale="1.0 1.0 1.0"/>
+        <mesh filename="package://paintbot_description/urdf/meshes/plate/plate_convex.stl" scale="1.0 1.0 1.0"/>
       </geometry>
     </collision>
     <visual name="plate_link_geom_visual">
       <origin rpy="0  0  0" xyz="0  0  0"/>
       <geometry>
-        <mesh filename="package://paintbot_description/meshes/plate/plate.dae" scale="1.0 1.0 1.0"/>
+        <mesh filename="package://paintbot_description/urdf/meshes/plate/plate.dae" scale="1.0 1.0 1.0"/>
       </geometry>
     </visual>
   </link>
