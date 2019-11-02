@@ -32,6 +32,7 @@ def handle_notification(msg):
         paint_pub.publish(tasks[t_i].action)
     elif msg.data == constants.NOTIFY_ACT_COMPLETE and st == State.ACTION:
         t_i = (t_i + 1) % len(tasks)
+        rospy.loginfo('Beginning task {}'.format(tasks[t_i].action))
         st = State.NAVIGATE
         dest = geometry_msgs.msg.Point()
         dest.x = tasks[t_i].dest[0]
@@ -40,6 +41,7 @@ def handle_notification(msg):
 
 def main():
     rospy.init_node('planning')
+    rospy.loginfo('planning node starting...')
 
     global nav_pub, paint_pub
 
@@ -55,5 +57,7 @@ def main():
     dest.x = tasks[t_i].dest[0]
     dest.y = tasks[t_i].dest[1]
     nav_pub.publish(dest)
+
+    rospy.loginfo('planning node started')
 
     rospy.spin()

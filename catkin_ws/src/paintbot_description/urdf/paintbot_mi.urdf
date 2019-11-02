@@ -136,14 +136,16 @@
         <axis xyz="0  0  1" />
         <limit effort="0.0" lower="0.0" upper="0.0" velocity="0.0" />
     </joint>
-    <joint name="virtual_joint" type="fixed">
+
+    <!-- Dummy link for MoveIt! -->
+    <link name="virtual_base" />
+    <joint name="virtual_base_joint" type="fixed">
         <parent link="virtual_base" />
         <child link="base_footprint" />
     </joint>
-    <link name="virtual_base" />
-    <link name="base_footprint">
 
-<inertial>
+    <link name="base_footprint">
+        <inertial>
             <mass value="0.100000" />
             <origin rpy="0  0  0" xyz="0    0   -0.05" />
             <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
@@ -163,13 +165,11 @@
         </visual>
     </link>
     <link name="base_link">
-
-<inertial>
+        <inertial>
             <mass value="22.000000" />
             <origin rpy="0  0  0" xyz="0  0  0" />
             <inertia ixx="5.652230" ixy="-0.009720" ixz="1.293990" iyy="5.669470" iyz="-0.007380" izz="3.683200" />
         </inertial>
-
         <collision name="base_link_geom">
             <origin rpy="0  0  0" xyz="0  0  0" />
             <geometry>
@@ -184,13 +184,11 @@
         </visual>
     </link>
     <link name="arm_link_0">
-
-<inertial>
+        <inertial>
             <mass value="0.845000" />
             <origin rpy="0  0  0" xyz="0  0  0" />
             <inertia ixx="0.010000" ixy="0" ixz="0" iyy="0.010000" iyz="0" izz="0.010000" />
         </inertial>
-
         <collision name="arm_link_0_geom">
             <origin rpy="0  0  0" xyz="0  0  0" />
             <geometry>
@@ -205,13 +203,11 @@
         </visual>
     </link>
     <link name="arm_link_1">
-
-<inertial>
+        <inertial>
             <mass value="2.412000" />
             <origin rpy="0  0  0" xyz="0.01489  0.00213  0.00213" />
             <inertia ixx="0.003863" ixy="-0.000979" ixz="0" iyy="0.006196" iyz="0" izz="0.006369" />
         </inertial>
-
         <collision name="arm_link_1_geom">
             <origin rpy="0  0  0" xyz="0  0  0" />
             <geometry>
@@ -226,13 +222,11 @@
         </visual>
     </link>
     <link name="arm_link_2">
-
-<inertial>
+        <inertial>
             <mass value="1.155000" />
             <origin rpy="0  0  0" xyz="0.10453  0.0017  -0.00297" />
             <inertia ixx="0.000823" ixy="0" ixz="-0.000000" iyy="0.004447" iyz="0" izz="0.004439" />
         </inertial>
-
         <collision name="arm_link_2_geom">
             <origin rpy="0  0  0" xyz="0    -0.032  0.078" />
             <geometry>
@@ -247,13 +241,11 @@
         </visual>
     </link>
     <link name="arm_link_3">
-
-<inertial>
+        <inertial>
             <mass value="0.934000" />
             <origin rpy="0  0  0" xyz="0.0001   0.0967   0.02107" />
             <inertia ixx="0.002459" ixy="0" ixz="0" iyy="0.002571" iyz="-0.000000" izz="0.000535" />
         </inertial>
-
         <collision name="arm_link_3_geom">
             <origin rpy="0  0  0" xyz="0     0.028  0.079" />
             <geometry>
@@ -268,13 +260,11 @@
         </visual>
     </link>
     <link name="arm_link_4">
-
-<inertial>
+        <inertial>
             <mass value="0.877000" />
             <origin rpy="0  0  0" xyz="0.00011  0.05103 -0.02319" />
             <inertia ixx="0.000869" ixy="0" ixz="-0.000000" iyy="0.001173" iyz="-0.000231" izz="0.001091" />
         </inertial>
-
         <collision name="arm_link_4_geom">
             <origin rpy="0  0  0" xyz="0    -0.01   0.029" />
             <geometry>
@@ -289,13 +279,11 @@
         </visual>
     </link>
     <link name="arm_link_5">
-
-<inertial>
+        <inertial>
             <mass value="0.251000" />
             <origin rpy="0  0  0" xyz="0       0.00115 -0.01683" />
             <inertia ixx="0.000280" ixy="0" ixz="0" iyy="0.000339" iyz="0" izz="0.000119" />
         </inertial>
-
         <collision name="arm_link_5_geom">
             <origin rpy="0  0  0" xyz="0.003  0    -0.034" />
             <geometry>
@@ -310,13 +298,11 @@
         </visual>
     </link>
     <link name="gripper_palm_link">
-
-<inertial>
+        <inertial>
             <mass value="0.100000" />
             <origin rpy="0  0  0" xyz="0  0  0" />
             <inertia ixx="0.010000" ixy="0" ixz="0" iyy="0.010000" iyz="0" izz="0.010000" />
         </inertial>
-
         <collision name="gripper_palm_link_geom">
             <origin rpy="0  0  0" xyz="0  0  0" />
             <geometry>
@@ -331,13 +317,11 @@
         </visual>
     </link>
     <link name="gripper_finger_link_l">
-
-<inertial>
+        <inertial>
             <mass value="0.010000" />
             <origin rpy="0  0  0" xyz="0    -0.001  0" />
             <inertia ixx="0.010000" ixy="0" ixz="0" iyy="0.010000" iyz="0" izz="0.010000" />
         </inertial>
-
         <collision name="gripper_finger_link_l_geom">
             <origin rpy="0  0  0" xyz="0  0  0" />
             <geometry>
@@ -352,13 +336,11 @@
         </visual>
     </link>
     <link name="gripper_finger_link_r">
-
-<inertial>
+        <inertial>
             <mass value="0.010000" />
             <origin rpy="0  0  0" xyz="0    -0.001  0" />
             <inertia ixx="0.010000" ixy="0" ixz="0" iyy="0.010000" iyz="0" izz="0.010000" />
         </inertial>
-
         <collision name="gripper_finger_link_r_geom">
             <origin rpy="0  0  0" xyz="0  0  0" />
             <geometry>
@@ -373,13 +355,11 @@
         </visual>
     </link>
     <link name="base_laser_front_link">
-
-<inertial>
+        <inertial>
             <mass value="0.160000" />
             <origin rpy="0  0  0" xyz="0  0  0" />
             <inertia ixx="0.100000" ixy="0" ixz="0" iyy="0.100000" iyz="0" izz="0.100000" />
         </inertial>
-
         <collision name="base_laser_front_link_geom">
             <origin rpy="0  0  0" xyz="0  0  0" />
             <geometry>
@@ -394,22 +374,18 @@
         </visual>
     </link>
     <link name="caster_link_bl">
-
-<inertial>
+        <inertial>
             <mass value="0.100000" />
             <origin rpy="0  0  0" xyz="0  0  0" />
             <inertia ixx="0.012412" ixy="-0.000712" ixz="0.000503" iyy="0.015218" iyz="-0.000004" izz="0.011764" />
         </inertial>
-
     </link>
     <link name="wheel_link_bl">
-
-<inertial>
+        <inertial>
             <mass value="1.000000" />
             <origin rpy="0  0  0" xyz="0  0  0" />
             <inertia ixx="0.002240" ixy="0.0" ixz="0.0" iyy="0.002240" iyz="0.0" izz="0.002813" />
         </inertial>
-
         <collision name="wheel_link_bl_geom">
             <origin rpy="1.5708  0      0" xyz="0  0  0" />
             <geometry>
@@ -424,22 +400,18 @@
         </visual>
     </link>
     <link name="caster_link_br">
-
-<inertial>
+        <inertial>
             <mass value="0.100000" />
             <origin rpy="0  0  0" xyz="0  0  0" />
             <inertia ixx="0.012412" ixy="-0.000712" ixz="0.000503" iyy="0.015218" iyz="-0.000004" izz="0.011764" />
         </inertial>
-
     </link>
     <link name="wheel_link_br">
-
-<inertial>
+        <inertial>
             <mass value="1.000000" />
             <origin rpy="0  0  0" xyz="0  0  0" />
             <inertia ixx="0.002240" ixy="0.0" ixz="0.0" iyy="0.002240" iyz="0.0" izz="0.002813" />
         </inertial>
-
         <collision name="wheel_link_br_geom">
             <origin rpy="1.5708  0      0" xyz="0  0  0" />
             <geometry>
@@ -454,22 +426,18 @@
         </visual>
     </link>
     <link name="caster_link_fl">
-
-<inertial>
+        <inertial>
             <mass value="0.100000" />
             <origin rpy="0  0  0" xyz="0  0  0" />
             <inertia ixx="0.012412" ixy="-0.000712" ixz="0.000503" iyy="0.015218" iyz="-0.000004" izz="0.011764" />
         </inertial>
-
     </link>
     <link name="wheel_link_fl">
-
-<inertial>
+        <inertial>
             <mass value="1.000000" />
             <origin rpy="0  0  0" xyz="0  0  0" />
             <inertia ixx="0.002240" ixy="0.0" ixz="0.0" iyy="0.002240" iyz="0.0" izz="0.002813" />
         </inertial>
-
         <collision name="wheel_link_fl_geom">
             <origin rpy="1.5708  0      0" xyz="0  0  0" />
             <geometry>
@@ -484,22 +452,18 @@
         </visual>
     </link>
     <link name="caster_link_fr">
-
-<inertial>
+        <inertial>
             <mass value="0.100000" />
             <origin rpy="0  0  0" xyz="0  0  0" />
             <inertia ixx="0.012412" ixy="-0.000712" ixz="0.000503" iyy="0.015218" iyz="-0.000004" izz="0.011764" />
         </inertial>
-
     </link>
     <link name="wheel_link_fr">
-
-<inertial>
+        <inertial>
             <mass value="1.000000" />
             <origin rpy="0  0  0" xyz="0  0  0" />
             <inertia ixx="0.002240" ixy="0.0" ixz="0.0" iyy="0.002240" iyz="0.0" izz="0.002813" />
         </inertial>
-
         <collision name="wheel_link_fr_geom">
             <origin rpy="1.5708  0      0" xyz="0  0  0" />
             <geometry>
@@ -514,13 +478,11 @@
         </visual>
     </link>
     <link name="plate_link">
-
-<inertial>
+        <inertial>
             <mass value="1" />
             <origin rpy="0  0  0" xyz="0  0  0" />
             <inertia ixx="0.010000" ixy="0" ixz="0" iyy="0.010000" iyz="0" izz="0.010000" />
         </inertial>
-
         <collision name="plate_link_geom">
             <origin rpy="0  0  0" xyz="0  0  0" />
             <geometry>
@@ -534,137 +496,6 @@
             </geometry>
         </visual>
     </link>
-
-<transmission name="arm_joint_1_trans">
-        <type>transmission_interface/SimpleTransmission</type>
-        <actuator name="arm_joint_1_act">
-            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-            <mechanicalReduction>1</mechanicalReduction>
-        </actuator>
-        <joint name="arm_joint_1">
-            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-        </joint>
-    </transmission>
-    <transmission name="arm_joint_2_trans">
-        <type>transmission_interface/SimpleTransmission</type>
-        <actuator name="arm_joint_2_act">
-            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-            <mechanicalReduction>1</mechanicalReduction>
-        </actuator>
-        <joint name="arm_joint_2">
-            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-        </joint>
-    </transmission>
-    <transmission name="arm_joint_3_trans">
-        <type>transmission_interface/SimpleTransmission</type>
-        <actuator name="arm_joint_3_act">
-            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-            <mechanicalReduction>1</mechanicalReduction>
-        </actuator>
-        <joint name="arm_joint_3">
-            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-        </joint>
-    </transmission>
-    <transmission name="arm_joint_4_trans">
-        <type>transmission_interface/SimpleTransmission</type>
-        <actuator name="arm_joint_4_act">
-            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-            <mechanicalReduction>1</mechanicalReduction>
-        </actuator>
-        <joint name="arm_joint_4">
-            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-        </joint>
-    </transmission>
-    <transmission name="arm_joint_5_trans">
-        <type>transmission_interface/SimpleTransmission</type>
-        <actuator name="arm_joint_5_act">
-            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-            <mechanicalReduction>1</mechanicalReduction>
-        </actuator>
-        <joint name="arm_joint_5">
-            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-        </joint>
-    </transmission>
-    <transmission name="wheel_joint_fl_trans">
-        <type>transmission_interface/SimpleTransmission</type>
-        <actuator name="wheel_joint_fl_act">
-            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-            <mechanicalReduction>1</mechanicalReduction>
-        </actuator>
-        <joint name="wheel_joint_fl">
-            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-        </joint>
-    </transmission>
-    <!-- <transmission name="caster_joint_fl_trans">
-    <type>transmission_interface/SimpleTransmission</type>
-    <actuator name="caster_joint_fl_act">
-      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-    <joint name="caster_joint_fl">
-      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-    </joint>
-  </transmission> -->
-    <transmission name="wheel_joint_fr_trans">
-        <type>transmission_interface/SimpleTransmission</type>
-        <actuator name="wheel_joint_fr_act">
-            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-            <mechanicalReduction>1</mechanicalReduction>
-        </actuator>
-        <joint name="wheel_joint_fr">
-            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-        </joint>
-    </transmission>
-    <!-- <transmission name="caster_joint_fr_trans">
-    <type>transmission_interface/SimpleTransmission</type>
-    <actuator name="caster_joint_fr_act">
-      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-    <joint name="caster_joint_fr">
-      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-    </joint>
-  </transmission> -->
-    <transmission name="wheel_joint_bl_trans">
-        <type>transmission_interface/SimpleTransmission</type>
-        <actuator name="wheel_joint_bl_act">
-            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-            <mechanicalReduction>1</mechanicalReduction>
-        </actuator>
-        <joint name="wheel_joint_bl">
-            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-        </joint>
-    </transmission>
-    <!-- <transmission name="caster_joint_bl_trans">
-    <type>transmission_interface/SimpleTransmission</type>
-    <actuator name="caster_joint_bl_act">
-      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-    <joint name="caster_joint_bl">
-      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-    </joint>
-  </transmission> -->
-    <transmission name="wheel_joint_br_trans">
-        <type>transmission_interface/SimpleTransmission</type>
-        <actuator name="wheel_joint_br_act">
-            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-            <mechanicalReduction>1</mechanicalReduction>
-        </actuator>
-        <joint name="wheel_joint_br">
-            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-        </joint>
-    </transmission>
-    <!-- <transmission name="caster_joint_br_trans">
-    <type>transmission_interface/SimpleTransmission</type>
-    <actuator name="caster_joint_br_act">
-      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-    <joint name="caster_joint_br">
-      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-    </joint>
-  </transmission> -->
     <transmission name="trans_arm_joint_1">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="arm_joint_1">
@@ -738,40 +569,40 @@
     <transmission name="trans_wheel_joint_bl">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="wheel_joint_bl">
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
         </joint>
         <actuator name="wheel_joint_bl_motor">
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
     </transmission>
     <transmission name="trans_wheel_joint_br">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="wheel_joint_br">
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
         </joint>
         <actuator name="wheel_joint_br_motor">
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
     </transmission>
     <transmission name="trans_wheel_joint_fl">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="wheel_joint_fl">
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
         </joint>
         <actuator name="wheel_joint_fl_motor">
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
     </transmission>
     <transmission name="trans_wheel_joint_fr">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="wheel_joint_fr">
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
         </joint>
         <actuator name="wheel_joint_fr_motor">
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
     </transmission>

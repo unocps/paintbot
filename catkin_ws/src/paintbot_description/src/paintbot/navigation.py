@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from gazebo_msgs.msg import ModelStates
-from lib import constants
+from lib import constants, util
 from tf.transformations import euler_from_quaternion
 import geometry_msgs
 import math
@@ -16,25 +16,18 @@ pose = None
 orient = None
 dest = None
 
-# TODO: Move to lib
-def normalize_angle(theta):
-    if theta < -math.pi:
-        theta += 2 * math.pi
-    if theta > math.pi:
-        theta -= 2 * math.pi
-    return theta
-
 def update_state(msg):
-    if 'paintbot' in msg.name:
+    if constants.ROBOT_NAME in msg.name:
         global pose, orient
-        i = msg.name.index('paintbot')
+        i = msg.name.index(constants.ROBOT_NAME)
         pose = msg.pose[i].position
         o = msg.pose[i].orientation
-        orient = normalize_angle(euler_from_quaternion([o.x, o.y, o.z, o.w])[2])
+        orient = util.normalize_angle(euler_from_quaternion([o.x, o.y, o.z, o.w])[2])
 
 def update_dest(msg):
     global dest
     dest = msg
+    rospy.loginfo('Destination updated: ({}, {})'.format(msg.x, msg.y))
 
 def at_dest():
     if pose:
@@ -43,12 +36,12 @@ def at_dest():
     return false
 
 def adjust_orientation(pub):
-    theta = normalize_angle(math.atan2(dest.y - pose.y, dest.x - pose.x) - orient)
+    theta = util.normalize_angle(math.atan2(dest.y - pose.y, dest.x - pose.x) - orient)
     while abs(theta) > ORIENT_EPSILON:
         twist = geometry_msgs.msg.Twist()
         twist.angular.z = -1 if theta < 0 else 1
         pub.publish(twist)
-        theta = normalize_angle(math.atan2(dest.y - pose.y, dest.x - pose.x) - orient)
+        theta = util.normalize_angle(math.atan2(dest.y - pose.y, dest.x - pose.x) - orient)
 
 def move(pub):
     twist = geometry_msgs.msg.Twist()
@@ -58,6 +51,8 @@ def move(pub):
 def main():
     rospy.init_node('navigation')
 
+    rospy.loginfo('navigation node starting...')
+
     rate = rospy.Rate(constants.ITERATION_RATE_HZ)
     model_states_sub = rospy.Subscriber(constants.TOPIC_MODEL_STATES, ModelStates, update_state)
     nav_sub = rospy.Subscriber(constants.TOPIC_NAV, geometry_msgs.msg.Point, update_dest)
@@ -66,9 +61,12 @@ def main():
 
     global pose, orient, dest
 
+    rospy.loginfo('navigation node started')
+
     while not rospy.is_shutdown():
         if pose and orient and dest:
             if at_dest():
+                rospy.loginfo('Destination reached')
                 notify_pub.publish(constants.NOTIFY_AT_DEST)
                 dest = None
             else:
