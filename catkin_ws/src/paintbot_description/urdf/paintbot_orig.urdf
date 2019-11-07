@@ -1,0 +1,632 @@
+<?xml version="1.0" ?>
+<robot name="paintbot">
+  <joint name="base_footprint_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <origin rpy="0  0  0" xyz="0    0    0"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="0.0" lower="0.0" upper="0.0" velocity="0.0"/>
+  </joint>
+  <joint name="arm_joint_0" type="fixed">
+    <parent link="base_link"/>
+    <child link="arm_link_0"/>
+    <origin rpy="0  0  0" xyz="0.14299  0       0.046"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="0.0" lower="0.0" upper="0.0" velocity="0.0"/>
+  </joint>
+  <joint name="arm_joint_1" type="revolute">
+    <parent link="arm_link_0"/>
+    <child link="arm_link_1"/>
+    <origin rpy="0       0       0" xyz="0.024  0     0.096"/>
+    <axis xyz="0  0 -1"/>
+    <limit effort="9.5" lower="0.0" upper="5.899213" velocity="1.0"/>
+  </joint>
+  <joint name="arm_joint_2" type="revolute">
+    <parent link="arm_link_1"/>
+    <child link="arm_link_2"/>
+    <origin rpy="0      -1.13446  0" xyz="0.033  0     0.019"/>
+    <axis xyz="0  1  0"/>
+    <limit effort="9.5" lower="0.0" upper="2.70526" velocity="1.0"/>
+  </joint>
+  <joint name="arm_joint_3" type="revolute">
+    <parent link="arm_link_2"/>
+    <child link="arm_link_3"/>
+    <origin rpy="3.14159  0.59341 -3.14159" xyz="0     0     0.155"/>
+    <axis xyz="0  1  0"/>
+    <limit effort="6.0" lower="-5.183628" upper="0.0" velocity="1.0"/>
+  </joint>
+  <joint name="arm_joint_4" type="revolute">
+    <parent link="arm_link_3"/>
+    <child link="arm_link_4"/>
+    <origin rpy="-3.14159 -1.35262  3.14159" xyz="0     0     0.135"/>
+    <axis xyz="0  1  0"/>
+    <limit effort="2.0" lower="0.0" upper="3.577925" velocity="1.0"/>
+  </joint>
+  <joint name="arm_joint_5" type="revolute">
+    <parent link="arm_link_4"/>
+    <child link="arm_link_5"/>
+    <origin rpy="0       0       2.92342" xyz="-0.002  0     0.13"/>
+    <axis xyz="0  0 -1"/>
+    <limit effort="1.0" lower="0.0" upper="5.846853" velocity="1.0"/>
+  </joint>
+  <joint name="gripper_palm_joint" type="fixed">
+    <parent link="arm_link_5"/>
+    <child link="gripper_palm_link"/>
+    <origin rpy="0  0  0" xyz="0  0  0"/>
+    <axis xyz="-0.35781 -0.07932  0.93041"/>
+    <limit effort="0.0" lower="0.0" upper="0.0" velocity="0.0"/>
+  </joint>
+  <joint name="gripper_finger_joint_l" type="prismatic">
+    <parent link="gripper_palm_link"/>
+    <child link="gripper_finger_link_l"/>
+    <origin rpy="0       0      -3.14159" xyz="0.00399  0.008    0.04599"/>
+    <axis xyz="0 -1  0"/>
+    <limit effort="1.0" lower="0.0" upper="0.0115" velocity="-1.0"/>
+  </joint>
+  <joint name="gripper_finger_joint_r" type="prismatic">
+    <parent link="gripper_palm_link"/>
+    <child link="gripper_finger_link_r"/>
+    <origin rpy="0  0  0" xyz="0.004   -0.008    0.04599"/>
+    <axis xyz="0 -1  0"/>
+    <limit effort="1.0" lower="0.0" upper="0.0115" velocity="-1.0"/>
+  </joint>
+  <joint name="base_laser_front_hokuyo_urg04_laser_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="base_laser_front_link"/>
+    <origin rpy="0  0  0" xyz="0.3   0   -0.03"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="0.0" lower="0.0" upper="0.0" velocity="0.0"/>
+  </joint>
+  <joint name="caster_joint_bl" type="fixed">
+    <parent link="base_link"/>
+    <child link="caster_link_bl"/>
+    <origin rpy="0  0  0" xyz="-0.228  0.158 -0.034"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="1.0" lower="0.0" upper="0.0" velocity="0.0"/>
+  </joint>
+  <joint name="wheel_joint_bl" type="continuous">
+    <parent link="caster_link_bl"/>
+    <child link="wheel_link_bl"/>
+    <origin rpy="0  0  0" xyz="0  0  0"/>
+    <axis xyz="0  1  0"/>
+  </joint>
+  <joint name="caster_joint_br" type="fixed">
+    <parent link="base_link"/>
+    <child link="caster_link_br"/>
+    <origin rpy="0  0  0" xyz="-0.228 -0.158 -0.034"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="1.0" lower="0.0" upper="0.0" velocity="0.0"/>
+  </joint>
+  <joint name="wheel_joint_br" type="continuous">
+    <parent link="caster_link_br"/>
+    <child link="wheel_link_br"/>
+    <origin rpy="0  0  0" xyz="0  0  0"/>
+    <axis xyz="0  1  0"/>
+  </joint>
+  <joint name="caster_joint_fl" type="fixed">
+    <parent link="base_link"/>
+    <child link="caster_link_fl"/>
+    <origin rpy="0  0  0" xyz="0.228  0.158 -0.034"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="1.0" lower="0.0" upper="0.0" velocity="0.0"/>
+  </joint>
+  <joint name="wheel_joint_fl" type="continuous">
+    <parent link="caster_link_fl"/>
+    <child link="wheel_link_fl"/>
+    <origin rpy="0  0  0" xyz="0  0  0"/>
+    <axis xyz="0  1  0"/>
+  </joint>
+  <joint name="caster_joint_fr" type="fixed">
+    <parent link="base_link"/>
+    <child link="caster_link_fr"/>
+    <origin rpy="0  0  0" xyz="0.228 -0.158 -0.034"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="1.0" lower="0.0" upper="0.0" velocity="0.0"/>
+  </joint>
+  <joint name="wheel_joint_fr" type="continuous">
+    <parent link="caster_link_fr"/>
+    <child link="wheel_link_fr"/>
+    <origin rpy="0  0  0" xyz="0  0  0"/>
+    <axis xyz="0  1  0"/>
+  </joint>
+  <joint name="plate_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="plate_link"/>
+    <origin rpy="0  0  0" xyz="-0.159  0     0.046"/>
+    <axis xyz="0  0  1"/>
+    <limit effort="0.0" lower="0.0" upper="0.0" velocity="0.0"/>
+  </joint>
+  <joint name="virtual_joint" type="fixed">
+      <parent link="virtual_base" />
+      <child link="base_footprint" />
+  </joint>
+  <link name="virtual_base" />
+  <link name="base_footprint">
+    <inertial>
+      <mass value="0.100000"/>
+      <origin rpy="0  0  0" xyz="0    0   -0.05"/>
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1"/>
+    </inertial>
+    <collision name="base_footprint_geom">
+      <origin rpy="0  0  0" xyz="0    0    0.04"/>
+      <geometry>
+        <box size="0.001000 0.001000 0.001000"/>
+      </geometry>
+    </collision>
+    <visual name="base_footprint_geom_visual">
+      <origin rpy="0  0  0" xyz="0    0    0.09"/>
+      <geometry>
+        <box size="0.001000 0.001000 0.001000"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="base_link">
+    <inertial>
+      <mass value="22.000000"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="5.652230" ixy="-0.009720" ixz="1.293990" iyy="5.669470" iyz="-0.007380" izz="3.683200"/>
+    </inertial>
+    <collision name="base_link_geom">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://paintbot_description/urdf/meshes/base/base_convex.stl" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </collision>
+    <visual name="base_link_geom_visual">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://paintbot_description/urdf/meshes/base/base.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="arm_link_0">
+    <inertial>
+      <mass value="0.845000"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="0.010000" ixy="0" ixz="0" iyy="0.010000" iyz="0" izz="0.010000"/>
+    </inertial>
+    <collision name="arm_link_0_geom">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://paintbot_description/urdf/meshes/arm/arm0_convex.stl" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </collision>
+    <visual name="arm_link_0_geom_visual">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://paintbot_description/urdf/meshes/arm/arm0.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="arm_link_1">
+    <inertial>
+      <mass value="2.412000"/>
+      <origin rpy="0  0  0" xyz="0.01489  0.00213  0.00213"/>
+      <inertia ixx="0.003863" ixy="-0.000979" ixz="0" iyy="0.006196" iyz="0" izz="0.006369"/>
+    </inertial>
+    <collision name="arm_link_1_geom">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://paintbot_description/urdf/meshes/arm/arm1_convex.stl" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </collision>
+    <visual name="arm_link_1_geom_visual">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://paintbot_description/urdf/meshes/arm/arm1.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="arm_link_2">
+    <inertial>
+      <mass value="1.155000"/>
+      <origin rpy="0  0  0" xyz="0.10453  0.0017  -0.00297"/>
+      <inertia ixx="0.000823" ixy="0" ixz="-0.000000" iyy="0.004447" iyz="0" izz="0.004439"/>
+    </inertial>
+    <collision name="arm_link_2_geom">
+      <origin rpy="0  0  0" xyz="0    -0.032  0.078"/>
+      <geometry>
+        <mesh filename="package://paintbot_description/urdf/meshes/arm/arm2_convex.stl" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </collision>
+    <visual name="arm_link_2_geom_visual">
+      <origin rpy="0  0  0" xyz="0    -0.032  0.078"/>
+      <geometry>
+        <mesh filename="package://paintbot_description/urdf/meshes/arm/arm2.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="arm_link_3">
+    <inertial>
+      <mass value="0.934000"/>
+      <origin rpy="0  0  0" xyz="0.0001   0.0967   0.02107"/>
+      <inertia ixx="0.002459" ixy="0" ixz="0" iyy="0.002571" iyz="-0.000000" izz="0.000535"/>
+    </inertial>
+    <collision name="arm_link_3_geom">
+      <origin rpy="0  0  0" xyz="0     0.028  0.079"/>
+      <geometry>
+        <mesh filename="package://paintbot_description/urdf/meshes/arm/arm3_convex.stl" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </collision>
+    <visual name="arm_link_3_geom_visual">
+      <origin rpy="0  0  0" xyz="0     0.028  0.079"/>
+      <geometry>
+        <mesh filename="package://paintbot_description/urdf/meshes/arm/arm3.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="arm_link_4">
+    <inertial>
+      <mass value="0.877000"/>
+      <origin rpy="0  0  0" xyz="0.00011  0.05103 -0.02319"/>
+      <inertia ixx="0.000869" ixy="0" ixz="-0.000000" iyy="0.001173" iyz="-0.000231" izz="0.001091"/>
+    </inertial>
+    <collision name="arm_link_4_geom">
+      <origin rpy="0  0  0" xyz="0    -0.01   0.029"/>
+      <geometry>
+        <mesh filename="package://paintbot_description/urdf/meshes/arm/arm4_convex.stl" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </collision>
+    <visual name="arm_link_4_geom_visual">
+      <origin rpy="0  0  0" xyz="0    -0.01   0.029"/>
+      <geometry>
+        <mesh filename="package://paintbot_description/urdf/meshes/arm/arm4.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="arm_link_5">
+    <inertial>
+      <mass value="0.251000"/>
+      <origin rpy="0  0  0" xyz="0       0.00115 -0.01683"/>
+      <inertia ixx="0.000280" ixy="0" ixz="0" iyy="0.000339" iyz="0" izz="0.000119"/>
+    </inertial>
+    <collision name="arm_link_5_geom">
+      <origin rpy="0  0  0" xyz="0.003  0    -0.034"/>
+      <geometry>
+        <mesh filename="package://paintbot_description/urdf/meshes/arm/arm5_convex.stl" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </collision>
+    <visual name="arm_link_5_geom_visual">
+      <origin rpy="0  0  0" xyz="0.003  0    -0.034"/>
+      <geometry>
+        <mesh filename="package://paintbot_description/urdf/meshes/arm/arm5.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="gripper_palm_link">
+    <inertial>
+      <mass value="0.100000"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="0.010000" ixy="0" ixz="0" iyy="0.010000" iyz="0" izz="0.010000"/>
+    </inertial>
+    <collision name="gripper_palm_link_geom">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://paintbot_description/urdf/meshes/gripper/palm_convex.stl" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </collision>
+    <visual name="gripper_palm_link_geom_visual">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://paintbot_description/urdf/meshes/gripper/palm.stl" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="gripper_finger_link_l">
+    <inertial>
+      <mass value="0.010000"/>
+      <origin rpy="0  0  0" xyz="0    -0.001  0"/>
+      <inertia ixx="0.010000" ixy="0" ixz="0" iyy="0.010000" iyz="0" izz="0.010000"/>
+    </inertial>
+    <collision name="gripper_finger_link_l_geom">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://paintbot_description/urdf/meshes/gripper/finger_convex.stl" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </collision>
+    <visual name="gripper_finger_link_l_geom_visual">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://paintbot_description/urdf/meshes/gripper/finger.stl" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="gripper_finger_link_r">
+    <inertial>
+      <mass value="0.010000"/>
+      <origin rpy="0  0  0" xyz="0    -0.001  0"/>
+      <inertia ixx="0.010000" ixy="0" ixz="0" iyy="0.010000" iyz="0" izz="0.010000"/>
+    </inertial>
+    <collision name="gripper_finger_link_r_geom">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://paintbot_description/urdf/meshes/gripper/finger_convex.stl" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </collision>
+    <visual name="gripper_finger_link_r_geom_visual">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://paintbot_description/urdf/meshes/gripper/finger.stl" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="base_laser_front_link">
+    <inertial>
+      <mass value="0.160000"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="0.100000" ixy="0" ixz="0" iyy="0.100000" iyz="0" izz="0.100000"/>
+    </inertial>
+    <collision name="base_laser_front_link_geom">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://paintbot_description/urdf/meshes/laser/hokuyo_convex.stl" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </collision>
+    <visual name="base_laser_front_link_geom_visual">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://paintbot_description/urdf/meshes/laser/hokuyo.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="caster_link_bl">
+    <inertial>
+      <mass value="0.100000"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="0.012412" ixy="-0.000712" ixz="0.000503" iyy="0.015218" iyz="-0.000004" izz="0.011764"/>
+    </inertial>
+  </link>
+  <link name="wheel_link_bl">
+    <inertial>
+      <mass value="1.000000"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="0.002240" ixy="0.0" ixz="0.0" iyy="0.002240" iyz="0.0" izz="0.002813"/>
+    </inertial>
+    <collision name="wheel_link_bl_geom">
+      <origin rpy="1.5708  0      0" xyz="0  0  0"/>
+      <geometry>
+        <cylinder length="0.100000" radius="0.075000"/>
+      </geometry>
+    </collision>
+    <visual name="wheel_link_bl_geom_visual">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://paintbot_description/urdf/meshes/base/back-left_wheel.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="caster_link_br">
+    <inertial>
+      <mass value="0.100000"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="0.012412" ixy="-0.000712" ixz="0.000503" iyy="0.015218" iyz="-0.000004" izz="0.011764"/>
+    </inertial>
+  </link>
+  <link name="wheel_link_br">
+    <inertial>
+      <mass value="1.000000"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="0.002240" ixy="0.0" ixz="0.0" iyy="0.002240" iyz="0.0" izz="0.002813"/>
+    </inertial>
+    <collision name="wheel_link_br_geom">
+      <origin rpy="1.5708  0      0" xyz="0  0  0"/>
+      <geometry>
+        <cylinder length="0.100000" radius="0.075000"/>
+      </geometry>
+    </collision>
+    <visual name="wheel_link_br_geom_visual">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://paintbot_description/urdf/meshes/base/back-right_wheel.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="caster_link_fl">
+    <inertial>
+      <mass value="0.100000"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="0.012412" ixy="-0.000712" ixz="0.000503" iyy="0.015218" iyz="-0.000004" izz="0.011764"/>
+    </inertial>
+  </link>
+  <link name="wheel_link_fl">
+    <inertial>
+      <mass value="1.000000"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="0.002240" ixy="0.0" ixz="0.0" iyy="0.002240" iyz="0.0" izz="0.002813"/>
+    </inertial>
+    <collision name="wheel_link_fl_geom">
+      <origin rpy="1.5708  0      0" xyz="0  0  0"/>
+      <geometry>
+        <cylinder length="0.100000" radius="0.075000"/>
+      </geometry>
+    </collision>
+    <visual name="wheel_link_fl_geom_visual">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://paintbot_description/urdf/meshes/base/front-left_wheel.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="caster_link_fr">
+    <inertial>
+      <mass value="0.100000"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="0.012412" ixy="-0.000712" ixz="0.000503" iyy="0.015218" iyz="-0.000004" izz="0.011764"/>
+    </inertial>
+  </link>
+  <link name="wheel_link_fr">
+    <inertial>
+      <mass value="1.000000"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="0.002240" ixy="0.0" ixz="0.0" iyy="0.002240" iyz="0.0" izz="0.002813"/>
+    </inertial>
+    <collision name="wheel_link_fr_geom">
+      <origin rpy="1.5708  0      0" xyz="0  0  0"/>
+      <geometry>
+        <cylinder length="0.100000" radius="0.075000"/>
+      </geometry>
+    </collision>
+    <visual name="wheel_link_fr_geom_visual">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://paintbot_description/urdf/meshes/base/front-right_wheel.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="plate_link">
+    <inertial>
+      <mass value="1"/>
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <inertia ixx="0.010000" ixy="0" ixz="0" iyy="0.010000" iyz="0" izz="0.010000"/>
+    </inertial>
+    <collision name="plate_link_geom">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://paintbot_description/urdf/meshes/plate/plate_convex.stl" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </collision>
+    <visual name="plate_link_geom_visual">
+      <origin rpy="0  0  0" xyz="0  0  0"/>
+      <geometry>
+        <mesh filename="package://paintbot_description/urdf/meshes/plate/plate.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <transmission name="arm_joint_1_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="arm_joint_1_act">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="arm_joint_1">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+  <transmission name="arm_joint_2_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="arm_joint_2_act">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="arm_joint_2">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+  <transmission name="arm_joint_3_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="arm_joint_3_act">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="arm_joint_3">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+  <transmission name="arm_joint_4_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="arm_joint_4_act">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="arm_joint_4">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+  <transmission name="arm_joint_5_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="arm_joint_5_act">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="arm_joint_5">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+  <transmission name="wheel_joint_fl_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="wheel_joint_fl_act">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="wheel_joint_fl">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+  <!-- <transmission name="caster_joint_fl_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="caster_joint_fl_act">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="caster_joint_fl">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+  </transmission> -->
+  <transmission name="wheel_joint_fr_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="wheel_joint_fr_act">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="wheel_joint_fr">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+  <!-- <transmission name="caster_joint_fr_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="caster_joint_fr_act">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="caster_joint_fr">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+  </transmission> -->
+  <transmission name="wheel_joint_bl_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="wheel_joint_bl_act">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="wheel_joint_bl">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+  <!-- <transmission name="caster_joint_bl_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="caster_joint_bl_act">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="caster_joint_bl">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+  </transmission> -->
+  <transmission name="wheel_joint_br_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="wheel_joint_br_act">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="wheel_joint_br">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+  </transmission>
+  <!-- <transmission name="caster_joint_br_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <actuator name="caster_joint_br_act">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+    <joint name="caster_joint_br">
+      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+  </transmission> -->
+
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/paintbot</robotNamespace>
+    </plugin>
+  </gazebo>
+</robot>
