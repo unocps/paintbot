@@ -2,6 +2,7 @@
 
 from gazebo_msgs.msg import ModelStates
 from lib import constants, util
+from paintbot_description.msg import PaintTarget
 from tf.transformations import euler_from_quaternion
 import math
 import moveit_commander
@@ -56,11 +57,11 @@ def update_robot_state(msg):
         _arm_origin = (pose.x + (_ARM_OFFSET[0] * math.cos(orient)), pose.y + (_ARM_OFFSET[0] * math.sin(orient)), _ARM_OFFSET[2])
 
 def handle_message(msg):
-    if msg.data == constants.ACT_PAINT_LOAD:
+    if msg.action == constants.ACT_PAINT_LOAD:
         # TODO
         _notify_pub.publish(constants.NOTIFY_ACT_COMPLETE)
-    elif msg.data == constants.ACT_PAINT_APPLY:
-        paint() # TODO: Coordinates? Send in message? Calculate from robot pose?
+    elif msg.action == constants.ACT_PAINT_APPLY:
+        paint((msg.x, msg.y))
         _notify_pub.publish(constants.NOTIFY_ACT_COMPLETE)
 
 def main():
@@ -70,7 +71,7 @@ def main():
 
     rospy.init_node('painting')
 
-    paint_sub = rospy.Subscriber(constants.TOPIC_PAINT, std_msgs.msg.String, handle_message)
+    paint_sub = rospy.Subscriber(constants.TOPIC_PAINT, PaintTarget, handle_message)
     model_states_sub = rospy.Subscriber(constants.TOPIC_MODEL_STATES, ModelStates, update_robot_state)
     _notify_pub = rospy.Publisher(constants.TOPIC_NOTIFY, std_msgs.msg.String, queue_size=10)
 
