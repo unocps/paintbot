@@ -8,40 +8,40 @@ import math
 import rospy
 import std_msgs
 
-DIST_EPSILON = 0.75
+DIST_EPSILON = 0.1
 ORIENT_EPSILON = 0.1
 MAX_SPEED = 0.2
 
 pose = None
-orient = None
 dest = None
 
 def update_state(msg):
     if constants.ROBOT_NAME in msg.name:
-        global pose, orient
+        global pose
         i = msg.name.index(constants.ROBOT_NAME)
-        pose = msg.pose[i].position
         o = msg.pose[i].orientation
-        orient = util.normalize_angle(euler_from_quaternion([o.x, o.y, o.z, o.w])[2])
+        pose = (msg.pose[i].position.x, msg.pose[i].position.y, util.normalize_angle(euler_from_quaternion((o.x, o.y, o.z, o.w))[2]))
 
 def update_dest(msg):
     global dest
-    dest = msg
-    rospy.loginfo('Destination updated: ({}, {})'.format(msg.x, msg.y))
+    dest = (msg.position.x, msg.position.y, euler_from_quaternion((msg.orientation.x, msg.orientation.y, msg.orientation.z, msg.orientation.w))[2])
+    rospy.loginfo('Destination updated: ({}, {}) @ {}'.format(dest[0], dest[1], dest[2]))
 
 def at_dest():
-    if pose:
-        dist = math.sqrt(((pose.x - dest.x) ** 2) + ((pose.y - dest.y) ** 2))
-        return dist < DIST_EPSILON
-    return false
+    dist = math.sqrt(((pose[0] - dest[0]) ** 2) + ((pose[1] - dest[1]) ** 2))
+    return dist <= DIST_EPSILON
+
+def facing_dest():
+    target = math.atan2(dest[1] - pose[1], dest[0] - pose[0]) if not at_dest() else dest[2]
+    theta = util.normalize_angle(target - pose[2])
+    return abs(theta) <= ORIENT_EPSILON
 
 def adjust_orientation(pub):
-    theta = util.normalize_angle(math.atan2(dest.y - pose.y, dest.x - pose.x) - orient)
-    while abs(theta) > ORIENT_EPSILON:
-        twist = geometry_msgs.msg.Twist()
-        twist.angular.z = -1 if theta < 0 else 1
-        pub.publish(twist)
-        theta = util.normalize_angle(math.atan2(dest.y - pose.y, dest.x - pose.x) - orient)
+    target = math.atan2(dest[1] - pose[1], dest[0] - pose[0]) if not at_dest() else dest[2]
+    theta = util.normalize_angle(target - pose[2])
+    twist = geometry_msgs.msg.Twist()
+    twist.angular.z = -1 if theta < 0 else 1
+    pub.publish(twist)
 
 def move(pub):
     twist = geometry_msgs.msg.Twist()
@@ -55,23 +55,24 @@ def main():
 
     rate = rospy.Rate(constants.ITERATION_RATE_HZ)
     model_states_sub = rospy.Subscriber(constants.TOPIC_MODEL_STATES, ModelStates, update_state)
-    nav_sub = rospy.Subscriber(constants.TOPIC_NAV, geometry_msgs.msg.Point, update_dest)
+    nav_sub = rospy.Subscriber(constants.TOPIC_NAV, geometry_msgs.msg.Pose, update_dest)
     dd_pub = rospy.Publisher(constants.TOPIC_DIFF_DRIVE, geometry_msgs.msg.Twist, queue_size=10)
     notify_pub = rospy.Publisher(constants.TOPIC_NOTIFY, std_msgs.msg.String, queue_size=10)
 
-    global pose, orient, dest
+    global dest
 
     rospy.loginfo('navigation node started')
 
     while not rospy.is_shutdown():
-        if pose and orient and dest:
-            if at_dest():
+        if pose and dest:
+            if not facing_dest():
+                adjust_orientation(dd_pub)
+            elif not at_dest():
+                move(dd_pub)
+            else:
                 rospy.loginfo('Destination reached')
                 notify_pub.publish(constants.NOTIFY_AT_DEST)
                 dest = None
-            else:
-                adjust_orientation(dd_pub)
-                move(dd_pub)
         else:
             # Stop
             dd_pub.publish(geometry_msgs.msg.Twist())
