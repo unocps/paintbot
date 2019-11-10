@@ -8,8 +8,9 @@ import math
 import rospy
 import std_msgs
 
+# TODO: These tolerances are too high and should be fixed, possibly by better wheel controller
 DIST_EPSILON = 0.1
-ORIENT_EPSILON = 0.1
+ORIENT_EPSILON = 0.05
 MAX_SPEED = 0.2
 
 pose = None
@@ -70,7 +71,7 @@ def main():
             elif not at_dest():
                 move(dd_pub)
             else:
-                rospy.loginfo('Destination reached')
+                rospy.loginfo('Destination reached: ({}, {}) @ {}'.format(pose[0], pose[1], pose[2]))
                 notify_pub.publish(constants.NOTIFY_AT_DEST)
                 dest = None
         else:

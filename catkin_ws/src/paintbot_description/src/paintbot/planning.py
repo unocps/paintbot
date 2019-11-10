@@ -10,6 +10,9 @@ import math
 import rospy
 import std_msgs
 
+ACTION_DIST = 0.5
+WALL_THICKNESS = 0.05
+
 class Task:
     def __init__(self, action, dest, orient):
         self.action = action
@@ -34,9 +37,12 @@ def handle_notification(msg):
         task = tasks[t_i]
         st = State.ACTION
         msg = PaintTarget()
-        msg.x = task.dest[0] + (0.05 * math.cos(task.orient))
-        msg.y = task.dest[1] + (0.05 * math.sin(task.orient))
+        msg.x = task.dest[0] + (WALL_THICKNESS * math.cos(task.orient))
+        msg.y = task.dest[1] + (WALL_THICKNESS * math.sin(task.orient))
         msg.action = task.action
+
+        rospy.sleep(1) # TODO: Debug
+
         paint_pub.publish(msg)
     elif msg.data == constants.NOTIFY_ACT_COMPLETE and st == State.ACTION:
         t_i = (t_i + 1) % len(tasks)
@@ -44,8 +50,8 @@ def handle_notification(msg):
         rospy.loginfo('Beginning task {}'.format(task.action))
         st = State.NAVIGATE
         dest = geometry_msgs.msg.Pose()
-        dest.position.x = task.dest[0] + (0.45 * math.cos(task.orient))
-        dest.position.y = task.dest[1] + (0.45 * math.sin(task.orient))
+        dest.position.x = task.dest[0] + ((ACTION_DIST + WALL_THICKNESS) * math.cos(task.orient))
+        dest.position.y = task.dest[1] + ((ACTION_DIST + WALL_THICKNESS) * math.sin(task.orient))
         dest.orientation = geometry_msgs.msg.Quaternion(*quaternion_from_euler(0, 0, util.normalize_angle(task.orient - math.pi)))
         nav_pub.publish(dest)
 
@@ -65,8 +71,8 @@ def main():
     # Send initial navigation command
     task = tasks[t_i]
     dest = geometry_msgs.msg.Pose()
-    dest.position.x = task.dest[0] + (0.45 * math.cos(task.orient))
-    dest.position.y = task.dest[1] + (0.45 * math.sin(task.orient))
+    dest.position.x = task.dest[0] + ((ACTION_DIST + WALL_THICKNESS) * math.cos(task.orient))
+    dest.position.y = task.dest[1] + ((ACTION_DIST + WALL_THICKNESS) * math.sin(task.orient))
     dest.orientation = geometry_msgs.msg.Quaternion(*quaternion_from_euler(0, 0, util.normalize_angle(task.orient - math.pi)))
     nav_pub.publish(dest)
 
