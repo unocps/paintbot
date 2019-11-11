@@ -1,66 +1,87 @@
 #!/usr/bin/env python
 
-from control_msgs.msg import FollowJointTrajectoryAction, FollowJointTrajectoryGoal
-from lib import constants
-from trajectory_msgs.msg import JointTrajectoryPoint
-import actionlib
+from gazebo_msgs.msg import ModelStates
+from lib import constants, util
+from paintbot_description.msg import PaintTarget
+from tf.transformations import euler_from_quaternion
 import math
+import moveit_commander
 import rospy
 import std_msgs
-import trajectory_msgs
+import sys
 
-REST_POS = [0, 0, -math.pi / 2, math.pi, 0]
-LOAD_POS_1 = [0, math.pi, -math.pi * 6 / 8, math.pi * 5 / 6, 0]
-LOAD_POS_2 = [0, math.pi, -math.pi * 6 / 8, math.pi * 7 / 6, 0]
-APPLY_HIGH_POS_1 = [0, math.pi / 2, -math.pi, math.pi, 0]
-APPLY_HIGH_POS_2 = [0, math.pi / 2, -math.pi, 3.577925, 0]
+_ARM_OFFSET = (0.166990, 0, 0.142000)
+_NUM_PASSES = 3
+_PAINT_Z = (0.4, 0.25)
 
-arm_act_client = None
-notify_pub = None
+_arm_origin = None
+_move_group = None
+_notify_pub = None
 
-def move_arm(points):
-    goal = FollowJointTrajectoryGoal()
-    goal.trajectory.joint_names = ['arm_joint_1', 'arm_joint_2', 'arm_joint_3', 'arm_joint_4', 'arm_joint_5']
-    goal.trajectory.points = points
-    arm_act_client.send_goal(goal)
-    arm_act_client.wait_for_result(rospy.Duration(20))
+def move_arm_to_zero():
+    rospy.loginfo('Moving arm to zero position')
+    _move_group.set_joint_value_target(_move_group.get_named_target_values('zero'))
+    _move_group.go(wait=True)
+    _move_group.stop()
+    _move_group.clear_pose_targets()
+    rospy.loginfo('Arm at zero position')
+
+# TODO: Look into move_group.compute_cartesian_path()
+def paint(target):
+    rospy.loginfo('Applying paint...')
+
+    arm_orient = math.atan2(target[1] - _arm_origin[1], target[0] - _arm_origin[0])
+
+    for i in range(_NUM_PASSES * 2 + 1):
+        _move_group.set_pose_target([
+            _arm_origin[0] + (target[0] * math.cos(arm_orient)),
+            _arm_origin[1] + (target[0] * math.sin(arm_orient)),
+            _PAINT_Z[i % 2],
+            0,
+            -math.pi / 2,
+            math.pi + arm_orient])
+        _move_group.go(wait=True)
+        _move_group.stop()
+        _move_group.clear_pose_targets()
+
+    rospy.loginfo('Finished applying paint')
+
+def update_robot_state(msg):
+    if constants.ROBOT_NAME in msg.name:
+        i = msg.name.index(constants.ROBOT_NAME)
+        pose = msg.pose[i].position
+        o = msg.pose[i].orientation
+        orient = util.normalize_angle(euler_from_quaternion([o.x, o.y, o.z, o.w])[2])
+
+        global _arm_origin
+        _arm_origin = (pose.x + (_ARM_OFFSET[0] * math.cos(orient)), pose.y + (_ARM_OFFSET[0] * math.sin(orient)), _ARM_OFFSET[2])
 
 def handle_message(msg):
-    if msg.data == constants.ACT_PAINT_LOAD:
-        move_arm([
-            JointTrajectoryPoint(positions=LOAD_POS_1, time_from_start=rospy.Duration(2)),
-            JointTrajectoryPoint(positions=LOAD_POS_2, time_from_start=rospy.Duration(3)),
-            JointTrajectoryPoint(positions=LOAD_POS_1, time_from_start=rospy.Duration(4)),
-            JointTrajectoryPoint(positions=LOAD_POS_2, time_from_start=rospy.Duration(5)),
-            JointTrajectoryPoint(positions=LOAD_POS_1, time_from_start=rospy.Duration(6)),
-            JointTrajectoryPoint(positions=REST_POS, time_from_start=rospy.Duration(8))
-        ])
-        notify_pub.publish(constants.NOTIFY_ACT_COMPLETE)
-    elif msg.data == constants.ACT_PAINT_APPLY:
+    if msg.action == constants.ACT_PAINT_LOAD:
         # TODO
-        notify_pub.publish(constants.NOTIFY_ACT_COMPLETE)
+        _notify_pub.publish(constants.NOTIFY_ACT_COMPLETE)
+    elif msg.action == constants.ACT_PAINT_APPLY:
+        paint((msg.x, msg.y))
+        _notify_pub.publish(constants.NOTIFY_ACT_COMPLETE)
 
 def main():
+    global _move_group, _notify_pub
+
+    rospy.loginfo('painting node starting...')
+
     rospy.init_node('painting')
 
-    global arm_act_client, notify_pub
+    paint_sub = rospy.Subscriber(constants.TOPIC_PAINT, PaintTarget, handle_message)
+    model_states_sub = rospy.Subscriber(constants.TOPIC_MODEL_STATES, ModelStates, update_robot_state)
+    _notify_pub = rospy.Publisher(constants.TOPIC_NOTIFY, std_msgs.msg.String, queue_size=10)
 
-    paint_sub = rospy.Subscriber(constants.TOPIC_PAINT, std_msgs.msg.String, handle_message)
-    notify_pub = rospy.Publisher(constants.TOPIC_NOTIFY, std_msgs.msg.String, queue_size=10)
+    moveit_commander.roscpp_initialize(sys.argv)
+    robot = moveit_commander.RobotCommander()
+    scene = moveit_commander.PlanningSceneInterface()
+    _move_group = moveit_commander.MoveGroupCommander('arm')
 
-    arm_act_client = actionlib.SimpleActionClient(constants.TOPIC_ARM_SERVICE, FollowJointTrajectoryAction)
-    arm_act_client.wait_for_server()
+    move_arm_to_zero()
 
-    # Move arm to rest position
-    rest = JointTrajectoryPoint(positions=REST_POS, time_from_start=rospy.Duration(1))
-    move_arm([rest])
-
-    # TODO: Debug
-    # move_arm([
-    #     JointTrajectoryPoint(positions=APPLY_HIGH_POS_1, time_from_start=rospy.Duration(3)),
-    #     JointTrajectoryPoint(positions=APPLY_HIGH_POS_2, time_from_start=rospy.Duration(4)),
-    #     JointTrajectoryPoint(positions=APPLY_HIGH_POS_1, time_from_start=rospy.Duration(5)),
-    #     JointTrajectoryPoint(positions=APPLY_HIGH_POS_2, time_from_start=rospy.Duration(6))
-    # ])
+    rospy.loginfo('painting node started')
 
     rospy.spin()

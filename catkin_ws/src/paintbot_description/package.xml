@@ -44,11 +44,13 @@
   <depend>gazebo_msgs</depend>
   <depend>geometry_msgs</depend>
   <depend>joint_state_publisher</depend>
+  <depend>message_generation</depend>
   <depend>robot_state_publisher</depend>
   <depend>rospy</depend>
   <depend>std_msgs</depend>
   <depend>tf</depend>
   <depend>trajectory_msgs</depend>
+  <exec_depend>message_runtime</exec_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>

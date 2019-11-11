@@ -1,21 +1,50 @@
 <launch>
     <arg name="paused" default="false" />
 
+    <env name="ROSCONSOLE_FORMAT"
+        value="${time} [${severity}] [${node}]: ${message}" />
+
+    <!-- Load all robot information -->
+    <include file="$(find paintbot_moveit)/launch/planning_context.launch">
+        <arg name="load_robot_description" value="true"/>
+    </include>
+
+    <!-- Spawn state publishers -->
+    <node name="virtual_joint_broadcaster_0"
+        pkg="tf2_ros"
+        type="static_transform_publisher"
+        args="0 0 0 0 0 0 odom virtual_base" />
+    <node name="joint_state_publisher"
+        pkg="joint_state_publisher"
+        type="joint_state_publisher">
+        <rosparam param="source_list">[/joint_states]</rosparam>
+    </node>
+    <node name="robot_state_publisher"
+        pkg="robot_state_publisher"
+        type="robot_state_publisher" />
+
+    <!-- Run the main MoveIt! executable -->
+    <include file="$(find paintbot_moveit)/launch/move_group.launch">
+        <arg name="info" value="true"/>
+    </include>
+
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
-        <arg name="world_name" value="$(find paintbot_gazebo)/worlds/paintbot.world"/>
+        <arg name="world_name" value="$(find paintbot_gazebo)/worlds/paintbot.world" />
         <arg name="paused" value="$(arg paused)" />
     </include>
 
     <!-- Spawn robot -->
-    <param name="/paintbot/robot_description" textfile="$(find paintbot_description)/urdf/paintbot.urdf" />
-    <node name="paintbot_spawner"
+    <node name="spawn_gazebo_model"
         pkg="gazebo_ros"
         type="spawn_model"
-        output="screen"
-        ns="/paintbot"
-        args="-urdf -param robot_description -model paintbot -z 0.09" />
+        args="-urdf -param robot_description -model paintbot -x 0 -y 0 -z 0.09"
+        respawn="false"
+        output="screen" />
 
-    <!-- Spawn controllers -->
+    <!-- Load controllers -->
+    <include file="$(find paintbot_moveit)/launch/ros_controllers.launch"/>
+
+    <!-- Spawn differential drive controller -->
     <rosparam command="load"
         file="$(find paintbot_description)/config/control.yaml" />
     <node name="paintbot_controller_spawner"
@@ -23,14 +52,7 @@
         type="spawner"
         respawn="false"
         output="screen"
-        ns="/paintbot"
-        args="joint_state_controller arm_controller diff_drive_controller" />
-
-    <!-- Spawn state publisher -->
-    <node name="robot_state_publisher"
-        pkg="robot_state_publisher"
-        type="state_publisher"
-        ns="/paintbot" />
+        args="diff_drive_controller" />
 
     <!-- Spawn control nodes -->
     <node name="planning"
