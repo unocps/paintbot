@@ -13,6 +13,7 @@ import sys
 _ARM_OFFSET = (0.166990, 0, 0.142000)
 _NUM_PASSES = 3
 _PAINT_Z = (0.4, 0.25)
+_LOAD_X = (0.375, 0.475)
 
 _arm_origin = None
 _move_group = None
@@ -27,24 +28,31 @@ def move_arm_to_zero():
     rospy.loginfo('Arm at zero position')
 
 # TODO: Look into move_group.compute_cartesian_path()
-def paint(target):
+def paint():
     rospy.loginfo('Applying paint...')
 
-    arm_orient = math.atan2(target[1] - _arm_origin[1], target[0] - _arm_origin[0])
-
     for i in range(_NUM_PASSES * 2 + 1):
-        _move_group.set_pose_target([
-            _arm_origin[0] + (target[0] * math.cos(arm_orient)),
-            _arm_origin[1] + (target[0] * math.sin(arm_orient)),
-            _PAINT_Z[i % 2],
-            0,
-            -math.pi / 2,
-            math.pi + arm_orient])
+        _move_group.set_pose_target([0.4, 0, _PAINT_Z[i % 2], 0, -math.pi / 2, math.pi])
         _move_group.go(wait=True)
         _move_group.stop()
         _move_group.clear_pose_targets()
 
+    move_arm_to_zero()
+
     rospy.loginfo('Finished applying paint')
+
+def load_roller():
+    rospy.loginfo('Loading paint roller...')
+
+    for i in range(_NUM_PASSES * 2 + 1):
+        _move_group.set_pose_target([_LOAD_X[i % 2], 0, 0.05, -math.pi, 0, -math.pi])
+        _move_group.go(wait=True)
+        _move_group.stop()
+        _move_group.clear_pose_targets()
+
+    move_arm_to_zero()
+
+    rospy.loginfo('Finished loading paint roller')
 
 def update_robot_state(msg):
     if constants.ROBOT_NAME in msg.name:
@@ -58,10 +66,11 @@ def update_robot_state(msg):
 
 def handle_message(msg):
     if msg.action == constants.ACT_PAINT_LOAD:
-        # TODO
+        load_roller()
         _notify_pub.publish(constants.NOTIFY_ACT_COMPLETE)
     elif msg.action == constants.ACT_PAINT_APPLY:
-        paint((msg.x, msg.y))
+        # TODO: (msg.x, msg.y) could be passed in to paint to calculate x extension
+        paint()
         _notify_pub.publish(constants.NOTIFY_ACT_COMPLETE)
 
 def main():
