@@ -57,7 +57,7 @@ def main():
     rate = rospy.Rate(constants.ITERATION_RATE_HZ)
     model_states_sub = rospy.Subscriber(constants.TOPIC_MODEL_STATES, ModelStates, update_state)
     nav_sub = rospy.Subscriber(constants.TOPIC_NAV, geometry_msgs.msg.Pose, update_dest)
-    dd_pub = rospy.Publisher(constants.TOPIC_DIFF_DRIVE, geometry_msgs.msg.Twist, queue_size=10)
+    dd_pub = rospy.Publisher(constants.TOPIC_CMD_VEL, geometry_msgs.msg.Twist, queue_size=10)
     notify_pub = rospy.Publisher(constants.TOPIC_NOTIFY, std_msgs.msg.String, queue_size=10)
 
     global dest

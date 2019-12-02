@@ -41,18 +41,8 @@
         respawn="false"
         output="screen" />
 
-    <!-- Load controllers -->
+    <!-- Load MoveIt! controllers -->
     <include file="$(find paintbot_moveit)/launch/ros_controllers.launch"/>
-
-    <!-- Spawn differential drive controller -->
-    <rosparam command="load"
-        file="$(find paintbot_description)/config/control.yaml" />
-    <node name="paintbot_controller_spawner"
-        pkg="controller_manager"
-        type="spawner"
-        respawn="false"
-        output="screen"
-        args="diff_drive_controller" />
 
     <!-- Spawn control nodes -->
     <node name="planning"

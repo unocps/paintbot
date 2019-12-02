@@ -77,56 +77,29 @@
         <axis xyz="0  0  1" />
         <limit effort="0.0" lower="0.0" upper="0.0" velocity="0.0" />
     </joint>
-    <joint name="caster_joint_bl" type="fixed">
-        <parent link="base_link" />
-        <child link="caster_link_bl" />
-        <origin rpy="0  0  0" xyz="-0.228  0.158 -0.034" />
-        <axis xyz="0  0  1" />
-        <limit effort="1.0" lower="0.0" upper="0.0" velocity="0.0" />
-    </joint>
     <joint name="wheel_joint_bl" type="continuous">
-        <parent link="caster_link_bl" />
-        <child link="wheel_link_bl" />
-        <origin rpy="0  0  0" xyz="0  0  0" />
-        <axis xyz="0  1  0" />
-    </joint>
-    <joint name="caster_joint_br" type="fixed">
         <parent link="base_link" />
-        <child link="caster_link_br" />
-        <origin rpy="0  0  0" xyz="-0.228 -0.158 -0.034" />
-        <axis xyz="0  0  1" />
-        <limit effort="1.0" lower="0.0" upper="0.0" velocity="0.0" />
+        <child link="wheel_link_bl" />
+        <origin rpy="0  0  0" xyz="-0.228  0.158 -0.034" />
+        <axis xyz="0  1  0" />
+        <!-- <limit effort="100" velocity="100" /> -->
     </joint>
     <joint name="wheel_joint_br" type="continuous">
-        <parent link="caster_link_br" />
-        <child link="wheel_link_br" />
-        <origin rpy="0  0  0" xyz="0  0  0" />
-        <axis xyz="0  1  0" />
-    </joint>
-    <joint name="caster_joint_fl" type="fixed">
         <parent link="base_link" />
-        <child link="caster_link_fl" />
-        <origin rpy="0  0  0" xyz="0.228  0.158 -0.034" />
-        <axis xyz="0  0  1" />
-        <limit effort="1.0" lower="0.0" upper="0.0" velocity="0.0" />
+        <child link="wheel_link_br" />
+        <origin rpy="0  0  0" xyz="-0.228 -0.158 -0.034" />
+        <axis xyz="0  1  0" />
     </joint>
     <joint name="wheel_joint_fl" type="continuous">
-        <parent link="caster_link_fl" />
+        <parent link="base_link" />
         <child link="wheel_link_fl" />
-        <origin rpy="0  0  0" xyz="0  0  0" />
+        <origin rpy="0  0  0" xyz="0.228  0.158 -0.034" />
         <axis xyz="0  1  0" />
     </joint>
-    <joint name="caster_joint_fr" type="fixed">
-        <parent link="base_link" />
-        <child link="caster_link_fr" />
-        <origin rpy="0  0  0" xyz="0.228 -0.158 -0.034" />
-        <axis xyz="0  0  1" />
-        <limit effort="1.0" lower="0.0" upper="0.0" velocity="0.0" />
-    </joint>
     <joint name="wheel_joint_fr" type="continuous">
-        <parent link="caster_link_fr" />
+        <parent link="base_link" />
         <child link="wheel_link_fr" />
-        <origin rpy="0  0  0" xyz="0  0  0" />
+        <origin rpy="0  0  0" xyz="0.228 -0.158 -0.034" />
         <axis xyz="0  1  0" />
     </joint>
     <joint name="plate_joint" type="fixed">
@@ -373,13 +346,6 @@
             </geometry>
         </visual>
     </link>
-    <link name="caster_link_bl">
-        <inertial>
-            <mass value="0.100000" />
-            <origin rpy="0  0  0" xyz="0  0  0" />
-            <inertia ixx="0.012412" ixy="-0.000712" ixz="0.000503" iyy="0.015218" iyz="-0.000004" izz="0.011764" />
-        </inertial>
-    </link>
     <link name="wheel_link_bl">
         <inertial>
             <mass value="1.000000" />
@@ -398,13 +364,6 @@
                 <mesh filename="package://paintbot_description/urdf/meshes/base/back-left_wheel.dae" scale="1.0 1.0 1.0" />
             </geometry>
         </visual>
-    </link>
-    <link name="caster_link_br">
-        <inertial>
-            <mass value="0.100000" />
-            <origin rpy="0  0  0" xyz="0  0  0" />
-            <inertia ixx="0.012412" ixy="-0.000712" ixz="0.000503" iyy="0.015218" iyz="-0.000004" izz="0.011764" />
-        </inertial>
     </link>
     <link name="wheel_link_br">
         <inertial>
@@ -425,13 +384,6 @@
             </geometry>
         </visual>
     </link>
-    <link name="caster_link_fl">
-        <inertial>
-            <mass value="0.100000" />
-            <origin rpy="0  0  0" xyz="0  0  0" />
-            <inertia ixx="0.012412" ixy="-0.000712" ixz="0.000503" iyy="0.015218" iyz="-0.000004" izz="0.011764" />
-        </inertial>
-    </link>
     <link name="wheel_link_fl">
         <inertial>
             <mass value="1.000000" />
@@ -450,13 +402,6 @@
                 <mesh filename="package://paintbot_description/urdf/meshes/base/front-left_wheel.dae" scale="1.0 1.0 1.0" />
             </geometry>
         </visual>
-    </link>
-    <link name="caster_link_fr">
-        <inertial>
-            <mass value="0.100000" />
-            <origin rpy="0  0  0" xyz="0  0  0" />
-            <inertia ixx="0.012412" ixy="-0.000712" ixz="0.000503" iyy="0.015218" iyz="-0.000004" izz="0.011764" />
-        </inertial>
     </link>
     <link name="wheel_link_fr">
         <inertial>
@@ -609,6 +554,15 @@
     <gazebo>
         <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
             <robotNamespace>/</robotNamespace>
+        </plugin>
+
+        <plugin name="omni_steering" filename="libgazebo_ros_planar_move.so">
+            <commandTopic>cmd_vel</commandTopic>
+            <odometryTopic>odom</odometryTopic>
+            <odometryFrame>odom</odometryFrame>
+            <odometryRate>50.0</odometryRate>
+            <robotBaseFrame>base_footprint</robotBaseFrame>
+            <publishTF>false</publishTF>
         </plugin>
     </gazebo>
 </robot>
