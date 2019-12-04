@@ -41,7 +41,7 @@ def adjust_orientation(pub):
     target = math.atan2(dest[1] - pose[1], dest[0] - pose[0]) if not at_dest() else dest[2]
     theta = util.normalize_angle(target - pose[2])
     twist = geometry_msgs.msg.Twist()
-    twist.angular.z = -1 if theta < 0 else 1
+    twist.angular.z = -MAX_SPEED if theta < 0 else MAX_SPEED
     pub.publish(twist)
 
 def move(pub):
