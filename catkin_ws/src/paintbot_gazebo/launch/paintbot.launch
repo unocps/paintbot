@@ -44,6 +44,13 @@
     <!-- Load MoveIt! controllers -->
     <include file="$(find paintbot_moveit)/launch/ros_controllers.launch"/>
 
+    <node name="gmapping" pkg="gmapping" type="slam_gmapping" output="screen" >
+        <remap from="scan" to="/laserscan" />
+    </node>
+
+    <!-- <arg name="rvizconfig" default="$(find paintbot_description)/config/paintbot.rviz" />
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" /> -->
+
     <!-- Spawn control nodes -->
     <node name="planning"
         pkg="paintbot_description"
