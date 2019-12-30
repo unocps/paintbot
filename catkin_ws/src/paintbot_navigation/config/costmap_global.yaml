@@ -1,0 +1,11 @@
+global_frame: map
+rolling_window: false
+track_unknown_space: true
+width: 10.0
+height: 10.0
+# origin_x: 0.0
+# origin_y: 0.0
+
+plugins:
+    - {name: static, type: "costmap_2d::StaticLayer"}
+    - {name: inflation, type: "costmap_2d::InflationLayer"}

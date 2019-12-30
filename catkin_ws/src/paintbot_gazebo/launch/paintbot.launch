@@ -1,67 +1,70 @@
 <launch>
     <arg name="paused" default="false" />
+    <arg name="run_rviz" default="true" />
+    <arg name="rvizconfig" default="$(find paintbot_description)/config/paintbot.rviz" />
 
     <env name="ROSCONSOLE_FORMAT"
         value="${time} [${severity}] [${node}]: ${message}" />
 
-    <!-- Load all robot information -->
-    <include file="$(find paintbot_moveit)/launch/planning_context.launch">
-        <arg name="load_robot_description" value="true"/>
+    <param name="use_sim_time" value="true" />
+
+    <!-- Launch Gazebo -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find paintbot_gazebo)/worlds/paintbot.world" />
+        <arg name="use_sim_time" value="true" />
+        <arg name="paused" value="$(arg paused)" />
     </include>
 
+    <!-- Load robot information -->
+    <include file="$(find paintbot_moveit)/launch/planning_context.launch">
+        <arg name="load_robot_description" value="true" />
+    </include>
+    <include file="$(find paintbot_moveit)/launch/ros_controllers.launch" />
+
     <!-- Spawn state publishers -->
-    <node name="virtual_joint_broadcaster_0"
-        pkg="tf2_ros"
-        type="static_transform_publisher"
-        args="0 0 0 0 0 0 odom virtual_base" />
+    <node name="robot_state_publisher"
+        pkg="robot_state_publisher"
+        type="robot_state_publisher" />
     <node name="joint_state_publisher"
         pkg="joint_state_publisher"
         type="joint_state_publisher">
         <rosparam param="source_list">[/joint_states]</rosparam>
     </node>
-    <node name="robot_state_publisher"
-        pkg="robot_state_publisher"
-        type="robot_state_publisher" />
+    <node name="odom_virtual_base_transform_publisher"
+        pkg="tf2_ros"
+        type="static_transform_publisher"
+        args="0 0 0 0 0 0 odom virtual_base" />
 
     <!-- Run the main MoveIt! executable -->
     <include file="$(find paintbot_moveit)/launch/move_group.launch">
         <arg name="info" value="true"/>
     </include>
 
-    <include file="$(find gazebo_ros)/launch/empty_world.launch">
-        <arg name="world_name" value="$(find paintbot_gazebo)/worlds/paintbot.world" />
-        <arg name="paused" value="$(arg paused)" />
-    </include>
-
     <!-- Spawn robot -->
-    <node name="spawn_gazebo_model"
+    <node name="spawn_paintbot_model"
         pkg="gazebo_ros"
         type="spawn_model"
         args="-urdf -param robot_description -model paintbot -x 0 -y 0 -z 0.09"
         respawn="false"
         output="screen" />
 
-    <!-- Load MoveIt! controllers -->
-    <include file="$(find paintbot_moveit)/launch/ros_controllers.launch"/>
+    <!-- RViz -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" if="$(arg run_rviz)" />
 
-    <node name="gmapping" pkg="gmapping" type="slam_gmapping" output="screen" >
-        <remap from="scan" to="/laserscan" />
-    </node>
-
-    <!-- <arg name="rvizconfig" default="$(find paintbot_description)/config/paintbot.rviz" />
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" /> -->
+    <!-- Load navigation stack -->
+    <include file="$(find paintbot_navigation)/launch/navigation.launch" />
 
     <!-- Spawn control nodes -->
-    <node name="planning"
+    <!-- <node name="planning"
         pkg="paintbot_description"
         type="planning"
-        output="screen" />
-    <node name="navigation"
+        output="screen" /> -->
+    <!-- <node name="navigation"
         pkg="paintbot_description"
         type="navigation"
-        output="screen" />
-    <node name="painting"
+        output="screen" /> -->
+    <!-- <node name="painting"
         pkg="paintbot_description"
         type="painting"
-        output="screen" />
+        output="screen" /> -->
 </launch>

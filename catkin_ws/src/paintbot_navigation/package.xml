@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>paintbot_description</name>
-  <version>0.1.0</version>
-  <description>The paintbot_description package</description>
+  <name>paintbot_navigation</name>
+  <version>0.0.0</version>
+  <description>The paintbot_navigation package</description>
 
   <author email="rlankin@unomaha.edu">Ryan Lankin</author>
 
@@ -12,11 +12,6 @@
   <!-- Commonly used license strings: -->
   <!--   BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
   <license>TODO</license>
-
-  <!-- Url tags are optional, but multiple are allowed, one per tag -->
-  <!-- Optional attribute type can be: website, bugtracker, or repository -->
-  <!-- Example: -->
-  <!-- <url type="website">http://wiki.ros.org/paintbot_description</url> -->
 
   <!-- The *depend tags are used to specify dependencies -->
   <!-- Dependencies can be catkin packages or system dependencies -->
@@ -39,20 +34,8 @@
   <!-- Use doc_depend for packages you need only for building documentation: -->
   <!--   <doc_depend>doxygen</doc_depend> -->
   <buildtool_depend>catkin</buildtool_depend>
-  <depend>actionlib</depend>
-  <depend>control_msgs</depend>
-  <depend>gazebo_msgs</depend>
-  <depend>geometry_msgs</depend>
-  <depend>gmapping</depend>
-  <depend>joint_state_publisher</depend>
-  <depend>message_generation</depend>
-  <depend>move_base_msgs</depend>
-  <depend>robot_state_publisher</depend>
-  <depend>rospy</depend>
-  <depend>std_msgs</depend>
-  <depend>tf</depend>
-  <depend>trajectory_msgs</depend>
-  <exec_depend>message_runtime</exec_depend>
+  <build_export_depend>move_base</build_export_depend>
+  <build_export_depend>tf</build_export_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>
