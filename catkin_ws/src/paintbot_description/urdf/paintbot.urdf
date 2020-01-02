@@ -553,17 +553,16 @@
     </transmission>
 
     <gazebo>
-        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+        <!-- <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
             <robotNamespace>/</robotNamespace>
-        </plugin>
+        </plugin> -->
 
         <plugin name="omni_steering" filename="libgazebo_ros_planar_move.so">
             <commandTopic>cmd_vel</commandTopic>
             <odometryTopic>odom</odometryTopic>
             <odometryFrame>odom</odometryFrame>
             <odometryRate>50.0</odometryRate>
-            <robotBaseFrame>base_footprint</robotBaseFrame>
-            <publishTF>false</publishTF>
+            <robotBaseFrame>virtual_base</robotBaseFrame>
         </plugin>
     </gazebo>
 
