@@ -437,7 +437,7 @@
         <visual name="plate_link_geom_visual">
             <origin rpy="0  0  0" xyz="0  0  0" />
             <geometry>
-                <mesh filename="package://paintbot_description/meshes/plate/plate.dae" scale="1.0 1.0 1.0" />
+                <mesh filename="package://paintbot_description/urdf/meshes/plate/plate.dae" scale="1.0 1.0 1.0" />
             </geometry>
         </visual>
     </link>
