@@ -114,7 +114,6 @@
     <joint name="virtual_base_joint" type="fixed">
         <parent link="virtual_base" />
         <child link="base_footprint" />
-        <origin rpy="0 0 0" xyz="0 0 0" />
     </joint>
 
     <link name="base_footprint">
@@ -123,7 +122,6 @@
             <origin rpy="0  0  0" xyz="0    0   -0.05" />
             <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
         </inertial>
-
         <collision name="base_footprint_geom">
             <origin rpy="0  0  0" xyz="0    0    0.04" />
             <geometry>
@@ -355,7 +353,7 @@
         <collision name="wheel_link_bl_geom">
             <origin rpy="1.5708  0      0" xyz="0  0  0" />
             <geometry>
-                <cylinder length="0.100000" radius="0.075000" />
+                <cylinder length="0.072500" radius="0.050000" />
             </geometry>
         </collision>
         <visual name="wheel_link_bl_geom_visual">
@@ -374,7 +372,7 @@
         <collision name="wheel_link_br_geom">
             <origin rpy="1.5708  0      0" xyz="0  0  0" />
             <geometry>
-                <cylinder length="0.100000" radius="0.075000" />
+                <cylinder length="0.072500" radius="0.050000" />
             </geometry>
         </collision>
         <visual name="wheel_link_br_geom_visual">
@@ -393,7 +391,7 @@
         <collision name="wheel_link_fl_geom">
             <origin rpy="1.5708  0      0" xyz="0  0  0" />
             <geometry>
-                <cylinder length="0.100000" radius="0.075000" />
+                <cylinder length="0.072500" radius="0.050000" />
             </geometry>
         </collision>
         <visual name="wheel_link_fl_geom_visual">
@@ -412,7 +410,7 @@
         <collision name="wheel_link_fr_geom">
             <origin rpy="1.5708  0      0" xyz="0  0  0" />
             <geometry>
-                <cylinder length="0.100000" radius="0.075000" />
+                <cylinder length="0.072500" radius="0.050000" />
             </geometry>
         </collision>
         <visual name="wheel_link_fr_geom_visual">
@@ -564,6 +562,25 @@
             <odometryRate>50.0</odometryRate>
             <robotBaseFrame>virtual_base</robotBaseFrame>
         </plugin>
+
+        <!-- <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
+            <robotBaseFrame>virtual_base</robotBaseFrame>
+            <leftFrontJoint>wheel_joint_fl</leftFrontJoint>
+            <rightFrontJoint>wheel_joint_fr</rightFrontJoint>
+            <leftRearJoint>wheel_joint_bl</leftRearJoint>
+            <rightRearJoint>wheel_joint_br</rightRearJoint>
+            <wheelSeparation>0.31</wheelSeparation>
+            <wheelDiameter>0.1</wheelDiameter>
+            <torque>5</torque>
+            <commandTopic>diff_drive/cmd_vel</commandTopic>
+            <broadcastTF>true</broadcastTF>
+            <odometryTopic>odom</odometryTopic>
+            <odometryFrame>odom</odometryFrame>
+            <updateRate>50</updateRate>
+            <covariance_x>0.0001</covariance_x>
+            <covariance_y>0.0001</covariance_y>
+            <covariance_yaw>0.01</covariance_yaw>
+        </plugin> -->
     </gazebo>
 
     <gazebo reference="base_laser_front_link">
