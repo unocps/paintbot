@@ -6,8 +6,6 @@
     <env name="ROSCONSOLE_FORMAT"
         value="${time} [${severity}] [${node}]: ${message}" />
 
-    <param name="use_sim_time" value="true" />
-
     <!-- Launch Gazebo -->
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
         <arg name="world_name" value="$(find paintbot_gazebo)/worlds/paintbot.world" />
@@ -16,10 +14,17 @@
     </include>
 
     <!-- Load robot information -->
-    <include file="$(find paintbot_moveit)/launch/planning_context.launch">
-        <arg name="load_robot_description" value="true" />
-    </include>
-    <include file="$(find paintbot_moveit)/launch/ros_controllers.launch" />
+    <param name="robot_description" textfile="$(find paintbot_description)/urdf/paintbot.urdf"/>
+    <!-- <rosparam file="$(find paintbot_description)/config/controllers.yaml" command="load" /> -->
+
+    <!-- Spawn differential drive controller -->
+    <!-- <rosparam command="load" file="$(find paintbot_description)/config/diff_drive.yaml" />
+    <node name="diff_drive_controller_spawner"
+        pkg="controller_manager"
+        type="spawner"
+        respawn="false"
+        output="screen"
+        args="diff_drive" /> -->
 
     <!-- Spawn state publishers -->
     <node name="robot_state_publisher"
@@ -31,7 +36,12 @@
         <rosparam param="source_list">[/joint_states]</rosparam>
     </node>
 
-    <!-- Run the main MoveIt! executable -->
+    <!-- TODO: Can only move_group.launch be included? -->
+    <!-- Load MoveIt! -->
+    <include file="$(find paintbot_moveit)/launch/planning_context.launch">
+        <arg name="load_robot_description" value="false" />
+    </include>
+    <include file="$(find paintbot_moveit)/launch/ros_controllers.launch" />
     <include file="$(find paintbot_moveit)/launch/move_group.launch">
         <arg name="info" value="true"/>
     </include>

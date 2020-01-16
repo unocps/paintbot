@@ -489,6 +489,56 @@
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
     </transmission>
+    <!-- <transmission name="trans_arm_joint_1">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="arm_joint_1">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="arm_joint_1_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_arm_joint_2">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="arm_joint_2">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="arm_joint_2_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_arm_joint_3">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="arm_joint_3">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="arm_joint_3_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_arm_joint_4">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="arm_joint_4">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="arm_joint_4_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_arm_joint_5">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="arm_joint_5">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="arm_joint_5_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission> -->
     <transmission name="trans_gripper_finger_joint_l">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="gripper_finger_joint_l">
@@ -509,7 +559,7 @@
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
     </transmission>
-    <transmission name="trans_wheel_joint_bl">
+    <!-- <transmission name="trans_wheel_joint_bl">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="wheel_joint_bl">
             <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
@@ -548,19 +598,79 @@
             <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
+    </transmission> -->
+    <transmission name="trans_wheel_joint_bl">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="wheel_joint_bl">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="wheel_joint_bl_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_wheel_joint_br">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="wheel_joint_br">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="wheel_joint_br_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_wheel_joint_fl">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="wheel_joint_fl">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="wheel_joint_fl_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_wheel_joint_fr">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="wheel_joint_fr">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="wheel_joint_fr_motor">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
     </transmission>
 
     <gazebo>
-        <!-- <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
             <robotNamespace>/</robotNamespace>
-        </plugin> -->
+        </plugin>
 
-        <plugin name="omni_steering" filename="libgazebo_ros_planar_move.so">
-            <commandTopic>cmd_vel</commandTopic>
+        <!-- <plugin name="omni_steering" filename="libgazebo_ros_planar_move.so">
+            <commandTopic>diff_drive/cmd_vel</commandTopic>
             <odometryTopic>odom</odometryTopic>
             <odometryFrame>odom</odometryFrame>
             <odometryRate>50.0</odometryRate>
             <robotBaseFrame>virtual_base</robotBaseFrame>
+        </plugin> -->
+
+        <!-- <plugin name="omni_steering" filename="libpaintbot_ros_planar_move.so">
+            <commandTopic>diff_drive/cmd_vel</commandTopic>
+            <odometryTopic>odom</odometryTopic>
+            <odometryFrame>odom</odometryFrame>
+            <odometryRate>50.0</odometryRate>
+            <robotBaseFrame>virtual_base</robotBaseFrame>
+        </plugin> -->
+
+        <plugin name="omni_steering" filename="libgazebo_ros_force_based_move.so">
+            <commandTopic>diff_drive/cmd_vel</commandTopic>
+            <odometryTopic>odom</odometryTopic>
+            <odometryFrame>odom</odometryFrame>
+            <odometryRate>50.0</odometryRate>
+            <robotBaseFrame>virtual_base</robotBaseFrame>
+            <publishOdometryTf>true</publishOdometryTf>
+            <yaw_velocity_p_gain>200</yaw_velocity_p_gain>
+            <!-- <x_velocity_p_gain>20</x_velocity_p_gain>
+            <y_velocity_p_gain>20</y_velocity_p_gain> -->
         </plugin>
 
         <!-- <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
@@ -569,9 +679,10 @@
             <rightFrontJoint>wheel_joint_fr</rightFrontJoint>
             <leftRearJoint>wheel_joint_bl</leftRearJoint>
             <rightRearJoint>wheel_joint_br</rightRearJoint>
-            <wheelSeparation>0.31</wheelSeparation>
+            <wheelSeparation>0.316</wheelSeparation>
+            <wheelSeparation>1</wheelSeparation>
             <wheelDiameter>0.1</wheelDiameter>
-            <torque>5</torque>
+            <torque>82.7</torque>
             <commandTopic>diff_drive/cmd_vel</commandTopic>
             <broadcastTF>true</broadcastTF>
             <odometryTopic>odom</odometryTopic>
@@ -591,8 +702,11 @@
                     <horizontal>
                         <samples>640</samples>
                         <resolution>1</resolution>
-                        <min_angle>-2.26889</min_angle>
-                        <max_angle>2.268899</max_angle>
+                        <!-- Note: The angle has been modified from the physical Hokuyo for ease of use with the navigation stack -->
+                        <!-- <min_angle>-2.26889</min_angle>
+                        <max_angle>2.268899</max_angle> -->
+                        <min_angle>-1.570796</min_angle>
+                        <max_angle>1.570796</max_angle>
                     </horizontal>
                 </scan>
                 <range>
@@ -616,7 +730,7 @@
                 <frameName>base_laser_front_link</frameName>
             </plugin>
             <update_rate>30</update_rate>
-            <!-- <visualize>true</visualize> -->
+            <visualize>false</visualize>
         </sensor>
     </gazebo>
 </robot>
