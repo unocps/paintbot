@@ -15,16 +15,6 @@
 
     <!-- Load robot information -->
     <param name="robot_description" textfile="$(find paintbot_description)/urdf/paintbot.urdf"/>
-    <!-- <rosparam file="$(find paintbot_description)/config/controllers.yaml" command="load" /> -->
-
-    <!-- Spawn differential drive controller -->
-    <!-- <rosparam command="load" file="$(find paintbot_description)/config/diff_drive.yaml" />
-    <node name="diff_drive_controller_spawner"
-        pkg="controller_manager"
-        type="spawner"
-        respawn="false"
-        output="screen"
-        args="diff_drive" /> -->
 
     <!-- Spawn state publishers -->
     <node name="robot_state_publisher"
