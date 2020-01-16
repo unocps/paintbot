@@ -1,28 +1,25 @@
 <launch>
     <arg name="scan_topic" default="/laserscan" />
 
-    <node name="ekf_localization" pkg="robot_localization" type="ekf_localization_node">
-        <rosparam command="load" file="$(find paintbot_navigation)/config/localization.yaml" />
-    </node>
     <node name="twist_marker_server"
         pkg="interactive_marker_twist_server"
         type="marker_server"
         output="screen" />
     <node name="twist_mux" pkg="twist_mux" type="twist_mux">
         <rosparam command="load" file="$(find paintbot_navigation)/config/twist_mux.yaml" />
-        <remap from="cmd_vel_out" to="/cmd_vel"/>
+        <remap from="cmd_vel_out" to="diff_drive/cmd_vel" />
     </node>
 
-    <node name="slam_gmapping" pkg="gmapping" type="slam_gmapping" output="screen">
+    <node name="slam_gmapping" pkg="gmapping" type="slam_gmapping">
         <rosparam>
             map_frame: map
-            odom_fram: odom
+            odom_frame: odom
             base_frame: virtual_base
 
             map_update_interval: 0.5 # Publish new map
 
-            maxUrange: 5.5 # Should be just less than sensor range
-            maxRange: 6.1 # Should be just greater than sensor range
+            maxUrange: 9.9 # Should be just less than sensor range
+            maxRange: 10.1 # Should be just greater than sensor range
             particles: 100 # Increased from 80
 
             # Update frequencies
@@ -55,14 +52,24 @@
         <remap from="scan" to="$(arg scan_topic)" />
     </node>
 
+    <node name="amcl" pkg="amcl" type="amcl">
+        <param name="use_map_topic" value="true" />
+        <param name="base_frame_id" value="virtual_base" />
+        <param name="tf_broadcast" value="false" />
+        <remap from="scan" to="$(arg scan_topic)"/>
+    </node>
+
     <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen">
         <param name="base_global_planner" value="navfn/NavfnROS" />
+        <!-- <param name="base_global_planner" value="global_planner/GlobalPlanner" /> -->
         <!-- <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" /> -->
-        <param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS" />
+        <!-- <param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS" /> -->
+        <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
         <rosparam file="$(find paintbot_navigation)/config/planner.yaml" command="load" />
         <rosparam file="$(find paintbot_navigation)/config/costmap_common.yaml" command="load" ns="global_costmap" />
         <rosparam file="$(find paintbot_navigation)/config/costmap_global.yaml" command="load" ns="global_costmap" />
         <rosparam file="$(find paintbot_navigation)/config/costmap_common.yaml" command="load" ns="local_costmap" />
         <rosparam file="$(find paintbot_navigation)/config/costmap_local.yaml" command="load" ns="local_costmap" />
+        <remap from="cmd_vel" to="diff_drive/cmd_vel" />
     </node>
 </launch>
