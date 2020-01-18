@@ -19,7 +19,7 @@
         <rosparam file="$(find paintbot_navigation)/config/costmap_global.yaml" command="load" ns="global_costmap" />
         <rosparam file="$(find paintbot_navigation)/config/costmap_common.yaml" command="load" ns="local_costmap" />
         <rosparam file="$(find paintbot_navigation)/config/costmap_local.yaml" command="load" ns="local_costmap" />
-        <remap from="cmd_vel" to="omni_drive/cmd_vel" />
+        <remap from="cmd_vel" to="omni_drive/nav_vel" />
     </node>
 
     <node name="twist_marker_server"
