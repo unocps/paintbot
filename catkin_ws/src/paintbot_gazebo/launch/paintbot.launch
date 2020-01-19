@@ -51,14 +51,10 @@
     <include file="$(find paintbot_navigation)/launch/navigation.launch" />
 
     <!-- Spawn control nodes -->
-    <!-- <node name="planning"
+    <node name="planning"
         pkg="paintbot_description"
         type="planning"
-        output="screen" /> -->
-    <!-- <node name="navigation"
-        pkg="paintbot_description"
-        type="navigation"
-        output="screen" /> -->
+        output="screen" />
     <!-- <node name="painting"
         pkg="paintbot_description"
         type="painting"
