@@ -50,13 +50,9 @@
     <!-- Load navigation stack -->
     <include file="$(find paintbot_navigation)/launch/navigation.launch" />
 
-    <!-- Spawn control nodes -->
-    <node name="planning"
+    <!-- Spawn control node -->
+    <node name="paintbot"
         pkg="paintbot_description"
-        type="planning"
+        type="paintbot"
         output="screen" />
-    <!-- <node name="painting"
-        pkg="paintbot_description"
-        type="painting"
-        output="screen" /> -->
 </launch>
