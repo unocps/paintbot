@@ -28,12 +28,12 @@ TebLocalPlannerROS:
         vertices: [[0.35, 0.2], [0.35, -0.2], [-0.25, -0.2], [-0.25, 0.2]]
 
     # GoalTolerance
-    xy_goal_tolerance: 0.2
-    yaw_goal_tolerance: 0.1
+    xy_goal_tolerance: 0.1
+    yaw_goal_tolerance: 0.05
     free_goal_vel: False
 
     # Obstacles
-    min_obstacle_dist: 0.4
+    min_obstacle_dist: 0.1
     include_costmap_obstacles: True
     costmap_obstacles_behind_robot_dist: 1.0
     obstacle_poses_affected: 30
@@ -60,7 +60,7 @@ TebLocalPlannerROS:
     # alternative_time_cost: False # not in use yet
 
     # Homotopy Class Planner
-    enable_homotopy_class_planning: True
+    enable_homotopy_class_planning: False
     enable_multithreading: True
     simple_exploration: False
     max_number_classes: 4

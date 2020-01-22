@@ -12,7 +12,8 @@
     </node>
 
     <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen">
-        <param name="base_global_planner" value="navfn/NavfnROS" />
+        <!-- <param name="controller_frequency" value="10" /> -->
+        <!-- <param name="base_global_planner" value="navfn/NavfnROS" /> -->
         <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
         <rosparam file="$(find paintbot_navigation)/config/planner.yaml" command="load" />
         <rosparam file="$(find paintbot_navigation)/config/costmap_common.yaml" command="load" ns="global_costmap" />

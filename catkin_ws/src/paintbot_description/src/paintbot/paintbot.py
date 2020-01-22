@@ -25,7 +25,7 @@ State = enum.Enum('State', 'NAVIGATE ACTION')
 
 tasks = [
     Task(constants.ACT_PAINT_LOAD, (1, 1), -math.pi / 2),
-    Task(constants.ACT_PAINT_APPLY, (-1, 2), 0)
+    Task(constants.ACT_PAINT_APPLY, (-2, 0.5), 0)
 ]
 t_i = 0
 st = State.NAVIGATE
