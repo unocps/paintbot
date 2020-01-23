@@ -4,7 +4,7 @@ ROBOT_NAME = 'paintbot'
 
 ITERATION_RATE_HZ = 10
 
-TOPIC_DIFF_DRIVE = '/diff_drive_controller/cmd_vel'
+# TOPIC_NAV_VEL = '/omni_drive/nav_vel'
 TOPIC_MODEL_STATES = '/gazebo/model_states'
 TOPIC_NAV = '/paintbot/nav'
 TOPIC_NOTIFY = '/paintbot/notify'

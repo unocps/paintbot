@@ -1,0 +1,34 @@
+<launch>
+    <arg name="scan_topic" default="/laserscan" />
+
+    <node name="slam_gmapping" pkg="gmapping" type="slam_gmapping">
+        <rosparam file="$(find paintbot_navigation)/config/gmapping.yaml" command="load" />
+        <remap from="scan" to="$(arg scan_topic)" />
+    </node>
+
+    <node name="amcl" pkg="amcl" type="amcl">
+        <rosparam file="$(find paintbot_navigation)/config/amcl.yaml" command="load" />
+        <remap from="scan" to="$(arg scan_topic)" />
+    </node>
+
+    <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen">
+        <!-- <param name="controller_frequency" value="10" /> -->
+        <!-- <param name="base_global_planner" value="navfn/NavfnROS" /> -->
+        <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
+        <rosparam file="$(find paintbot_navigation)/config/planner.yaml" command="load" />
+        <rosparam file="$(find paintbot_navigation)/config/costmap_common.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find paintbot_navigation)/config/costmap_global.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find paintbot_navigation)/config/costmap_common.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find paintbot_navigation)/config/costmap_local.yaml" command="load" ns="local_costmap" />
+        <remap from="cmd_vel" to="omni_drive/nav_vel" />
+    </node>
+
+    <node name="twist_marker_server"
+        pkg="interactive_marker_twist_server"
+        type="marker_server"
+        output="screen" />
+    <node name="twist_mux" pkg="twist_mux" type="twist_mux">
+        <rosparam command="load" file="$(find paintbot_navigation)/config/twist_mux.yaml" />
+        <remap from="cmd_vel_out" to="omni_drive/cmd_vel" />
+    </node>
+</launch>

@@ -77,56 +77,28 @@
         <axis xyz="0  0  1" />
         <limit effort="0.0" lower="0.0" upper="0.0" velocity="0.0" />
     </joint>
-    <joint name="caster_joint_bl" type="fixed">
-        <parent link="base_link" />
-        <child link="caster_link_bl" />
-        <origin rpy="0  0  0" xyz="-0.228  0.158 -0.034" />
-        <axis xyz="0  0  1" />
-        <limit effort="1.0" lower="0.0" upper="0.0" velocity="0.0" />
-    </joint>
     <joint name="wheel_joint_bl" type="continuous">
-        <parent link="caster_link_bl" />
-        <child link="wheel_link_bl" />
-        <origin rpy="0  0  0" xyz="0  0  0" />
-        <axis xyz="0  1  0" />
-    </joint>
-    <joint name="caster_joint_br" type="fixed">
         <parent link="base_link" />
-        <child link="caster_link_br" />
-        <origin rpy="0  0  0" xyz="-0.228 -0.158 -0.034" />
-        <axis xyz="0  0  1" />
-        <limit effort="1.0" lower="0.0" upper="0.0" velocity="0.0" />
+        <child link="wheel_link_bl" />
+        <origin rpy="0  0  0" xyz="-0.228  0.158 -0.034" />
+        <axis xyz="0  1  0" />
     </joint>
     <joint name="wheel_joint_br" type="continuous">
-        <parent link="caster_link_br" />
-        <child link="wheel_link_br" />
-        <origin rpy="0  0  0" xyz="0  0  0" />
-        <axis xyz="0  1  0" />
-    </joint>
-    <joint name="caster_joint_fl" type="fixed">
         <parent link="base_link" />
-        <child link="caster_link_fl" />
-        <origin rpy="0  0  0" xyz="0.228  0.158 -0.034" />
-        <axis xyz="0  0  1" />
-        <limit effort="1.0" lower="0.0" upper="0.0" velocity="0.0" />
+        <child link="wheel_link_br" />
+        <origin rpy="0  0  0" xyz="-0.228 -0.158 -0.034" />
+        <axis xyz="0  1  0" />
     </joint>
     <joint name="wheel_joint_fl" type="continuous">
-        <parent link="caster_link_fl" />
+        <parent link="base_link" />
         <child link="wheel_link_fl" />
-        <origin rpy="0  0  0" xyz="0  0  0" />
+        <origin rpy="0  0  0" xyz="0.228  0.158 -0.034" />
         <axis xyz="0  1  0" />
     </joint>
-    <joint name="caster_joint_fr" type="fixed">
-        <parent link="base_link" />
-        <child link="caster_link_fr" />
-        <origin rpy="0  0  0" xyz="0.228 -0.158 -0.034" />
-        <axis xyz="0  0  1" />
-        <limit effort="1.0" lower="0.0" upper="0.0" velocity="0.0" />
-    </joint>
     <joint name="wheel_joint_fr" type="continuous">
-        <parent link="caster_link_fr" />
+        <parent link="base_link" />
         <child link="wheel_link_fr" />
-        <origin rpy="0  0  0" xyz="0  0  0" />
+        <origin rpy="0  0  0" xyz="0.228 -0.158 -0.034" />
         <axis xyz="0  1  0" />
     </joint>
     <joint name="plate_joint" type="fixed">
@@ -150,7 +122,6 @@
             <origin rpy="0  0  0" xyz="0    0   -0.05" />
             <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
         </inertial>
-
         <collision name="base_footprint_geom">
             <origin rpy="0  0  0" xyz="0    0    0.04" />
             <geometry>
@@ -373,13 +344,6 @@
             </geometry>
         </visual>
     </link>
-    <link name="caster_link_bl">
-        <inertial>
-            <mass value="0.100000" />
-            <origin rpy="0  0  0" xyz="0  0  0" />
-            <inertia ixx="0.012412" ixy="-0.000712" ixz="0.000503" iyy="0.015218" iyz="-0.000004" izz="0.011764" />
-        </inertial>
-    </link>
     <link name="wheel_link_bl">
         <inertial>
             <mass value="1.000000" />
@@ -389,7 +353,7 @@
         <collision name="wheel_link_bl_geom">
             <origin rpy="1.5708  0      0" xyz="0  0  0" />
             <geometry>
-                <cylinder length="0.100000" radius="0.075000" />
+                <cylinder length="0.072500" radius="0.050000" />
             </geometry>
         </collision>
         <visual name="wheel_link_bl_geom_visual">
@@ -398,13 +362,6 @@
                 <mesh filename="package://paintbot_description/urdf/meshes/base/back-left_wheel.dae" scale="1.0 1.0 1.0" />
             </geometry>
         </visual>
-    </link>
-    <link name="caster_link_br">
-        <inertial>
-            <mass value="0.100000" />
-            <origin rpy="0  0  0" xyz="0  0  0" />
-            <inertia ixx="0.012412" ixy="-0.000712" ixz="0.000503" iyy="0.015218" iyz="-0.000004" izz="0.011764" />
-        </inertial>
     </link>
     <link name="wheel_link_br">
         <inertial>
@@ -415,7 +372,7 @@
         <collision name="wheel_link_br_geom">
             <origin rpy="1.5708  0      0" xyz="0  0  0" />
             <geometry>
-                <cylinder length="0.100000" radius="0.075000" />
+                <cylinder length="0.072500" radius="0.050000" />
             </geometry>
         </collision>
         <visual name="wheel_link_br_geom_visual">
@@ -424,13 +381,6 @@
                 <mesh filename="package://paintbot_description/urdf/meshes/base/back-right_wheel.dae" scale="1.0 1.0 1.0" />
             </geometry>
         </visual>
-    </link>
-    <link name="caster_link_fl">
-        <inertial>
-            <mass value="0.100000" />
-            <origin rpy="0  0  0" xyz="0  0  0" />
-            <inertia ixx="0.012412" ixy="-0.000712" ixz="0.000503" iyy="0.015218" iyz="-0.000004" izz="0.011764" />
-        </inertial>
     </link>
     <link name="wheel_link_fl">
         <inertial>
@@ -441,7 +391,7 @@
         <collision name="wheel_link_fl_geom">
             <origin rpy="1.5708  0      0" xyz="0  0  0" />
             <geometry>
-                <cylinder length="0.100000" radius="0.075000" />
+                <cylinder length="0.072500" radius="0.050000" />
             </geometry>
         </collision>
         <visual name="wheel_link_fl_geom_visual">
@@ -450,13 +400,6 @@
                 <mesh filename="package://paintbot_description/urdf/meshes/base/front-left_wheel.dae" scale="1.0 1.0 1.0" />
             </geometry>
         </visual>
-    </link>
-    <link name="caster_link_fr">
-        <inertial>
-            <mass value="0.100000" />
-            <origin rpy="0  0  0" xyz="0  0  0" />
-            <inertia ixx="0.012412" ixy="-0.000712" ixz="0.000503" iyy="0.015218" iyz="-0.000004" izz="0.011764" />
-        </inertial>
     </link>
     <link name="wheel_link_fr">
         <inertial>
@@ -467,7 +410,7 @@
         <collision name="wheel_link_fr_geom">
             <origin rpy="1.5708  0      0" xyz="0  0  0" />
             <geometry>
-                <cylinder length="0.100000" radius="0.075000" />
+                <cylinder length="0.072500" radius="0.050000" />
             </geometry>
         </collision>
         <visual name="wheel_link_fr_geom_visual">
@@ -492,7 +435,7 @@
         <visual name="plate_link_geom_visual">
             <origin rpy="0  0  0" xyz="0  0  0" />
             <geometry>
-                <mesh filename="package://paintbot_description/meshes/plate/plate.dae" scale="1.0 1.0 1.0" />
+                <mesh filename="package://paintbot_description/urdf/meshes/plate/plate.dae" scale="1.0 1.0 1.0" />
             </geometry>
         </visual>
     </link>
@@ -569,46 +512,124 @@
     <transmission name="trans_wheel_joint_bl">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="wheel_joint_bl">
-            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
         <actuator name="wheel_joint_bl_motor">
-            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
     </transmission>
     <transmission name="trans_wheel_joint_br">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="wheel_joint_br">
-            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
         <actuator name="wheel_joint_br_motor">
-            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
     </transmission>
     <transmission name="trans_wheel_joint_fl">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="wheel_joint_fl">
-            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
         <actuator name="wheel_joint_fl_motor">
-            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
     </transmission>
     <transmission name="trans_wheel_joint_fr">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="wheel_joint_fr">
-            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
         <actuator name="wheel_joint_fr_motor">
-            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
     </transmission>
+
     <gazebo>
         <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
             <robotNamespace>/</robotNamespace>
         </plugin>
+
+        <!-- <plugin name="omni_steering" filename="libgazebo_ros_planar_move.so">
+            <commandTopic>omni_drive/cmd_vel</commandTopic>
+            <odometryTopic>odom</odometryTopic>
+            <odometryFrame>odom</odometryFrame>
+            <odometryRate>50.0</odometryRate>
+            <robotBaseFrame>virtual_base</robotBaseFrame>
+        </plugin> -->
+
+        <plugin name="omni_steering" filename="libgazebo_ros_force_based_move.so">
+            <commandTopic>omni_drive/cmd_vel</commandTopic>
+            <odometryTopic>odom</odometryTopic>
+            <odometryFrame>odom</odometryFrame>
+            <odometryRate>50.0</odometryRate>
+            <robotBaseFrame>virtual_base</robotBaseFrame>
+            <publishOdometryTf>true</publishOdometryTf>
+            <yaw_velocity_p_gain>1000</yaw_velocity_p_gain>
+        </plugin>
+
+        <!-- <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
+            <robotBaseFrame>virtual_base</robotBaseFrame>
+            <leftFrontJoint>wheel_joint_fl</leftFrontJoint>
+            <rightFrontJoint>wheel_joint_fr</rightFrontJoint>
+            <leftRearJoint>wheel_joint_bl</leftRearJoint>
+            <rightRearJoint>wheel_joint_br</rightRearJoint>
+            <wheelSeparation>0.316</wheelSeparation>
+            <wheelDiameter>0.1</wheelDiameter>
+            <torque>82.7</torque>
+            <commandTopic>omni_drive/cmd_vel</commandTopic>
+            <broadcastTF>true</broadcastTF>
+            <odometryTopic>odom</odometryTopic>
+            <odometryFrame>odom</odometryFrame>
+            <updateRate>50</updateRate>
+            <covariance_x>0.0001</covariance_x>
+            <covariance_y>0.0001</covariance_y>
+            <covariance_yaw>0.01</covariance_yaw>
+        </plugin> -->
+    </gazebo>
+
+    <gazebo reference="base_laser_front_link">
+        <sensor name="laser" type="ray">
+            <pose>0 0 0 0 0 0</pose>
+            <ray>
+                <scan>
+                    <horizontal>
+                        <samples>640</samples>
+                        <resolution>1</resolution>
+                        <!-- Note: The angle has been modified from the physical Hokuyo for ease of use with the navigation stack -->
+                        <!-- <min_angle>-2.26889</min_angle>
+                        <max_angle>2.268899</max_angle> -->
+                        <min_angle>-1.570796</min_angle>
+                        <max_angle>1.570796</max_angle>
+                    </horizontal>
+                </scan>
+                <range>
+                    <min>0.08</min>
+                    <max>10</max>
+                    <resolution>0.01</resolution>
+                </range>
+                <noise>
+                    <type>gaussian</type>
+                    <!-- Noise parameters based on published spec for Hokuyo laser
+                    achieving "+-30mm" accuracy at range < 10m.  A mean of 0.0m and
+                    stddev of 0.01m will put 99.7% of samples within 0.03m of the true
+                    reading. -->
+                    <mean>0.0</mean>
+                    <stddev>0.01</stddev>
+                </noise>
+            </ray>
+
+            <plugin name="laser_controller" filename="libgazebo_ros_laser.so">
+                <topicName>laserscan</topicName>
+                <frameName>base_laser_front_link</frameName>
+            </plugin>
+            <update_rate>30</update_rate>
+            <visualize>false</visualize>
+        </sensor>
     </gazebo>
 </robot>

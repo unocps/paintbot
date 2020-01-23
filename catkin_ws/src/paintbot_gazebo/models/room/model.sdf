@@ -19,7 +19,7 @@
         <geometry>
           <mesh>
             <uri>model://room/room.dae</uri>
-            <scale>0.5 0.5 0.3</scale>
+            <scale>0.25 0.25 0.3</scale>
           </mesh>
         </geometry>
         <material>
@@ -40,7 +40,7 @@
         <geometry>
           <mesh>
             <uri>model://room/room.dae</uri>
-            <scale>1 1 1</scale>
+            <scale>0.25 0.25 0.3</scale>
           </mesh>
         </geometry>
         <surface>

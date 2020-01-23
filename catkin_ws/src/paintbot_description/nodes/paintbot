@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
-from paintbot import navigation
+from paintbot import paintbot
 import rospy
 
 if __name__ == '__main__':
     try:
-        navigation.main()
+        paintbot.main()
     except rospy.ROSInterruptException:
         pass
