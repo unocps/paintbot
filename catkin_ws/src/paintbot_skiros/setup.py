@@ -4,7 +4,7 @@ from distutils.core import setup
 from catkin_pkg.python_setup import generate_distutils_setup
 
 setup_args = generate_distutils_setup(
-    packages=['paintbot'],
-    package_dir={'': 'src'}
+    packages=['load_paint'],
+    package_dir={'': 'src'},
 )
 setup(**setup_args)

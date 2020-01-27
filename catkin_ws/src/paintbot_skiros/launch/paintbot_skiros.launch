@@ -1,0 +1,23 @@
+<launch>
+    <!-- TODO: Call launch files in skiros-demo package -->
+
+    <node name="world_model"
+        pkg="skiros2_world_model"
+        type="world_model_server_node"
+        respawn="true">
+        <param name="workspace_dir" value="$(find paintbot_skiros)/owl" />
+        <!-- <param name="init_scene" value="my_scene.turtle" /> -->
+        <!-- <rosparam name="reasoners_pkgs" value="[skiros2_std_reasoners]"/> -->
+    </node>
+
+    <node name="paintbot_skill_manager"
+        pkg="skiros2_skill"
+        type="skill_manager_node"
+        respawn="true"
+        output="screen">
+        <param name="prefix" value="paintbot" />
+        <rosparam param="libraries_list" subst_value="True">$(arg libraries_list)</rosparam>
+        <rosparam param="primitive_list" subst_value="True">$(arg primitive_list)</rosparam>
+        <rosparam param="skill_list" subst_value="True">$(arg skill_list)</rosparam>
+    </node>
+</launch>

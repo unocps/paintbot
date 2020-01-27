@@ -50,9 +50,20 @@
     <!-- Load navigation stack -->
     <include file="$(find paintbot_navigation)/launch/navigation.launch" />
 
+    <!-- Load SkiROS -->
+    <include file="$(find skiros2)/launch/skiros.launch">
+        <arg name="robot_ontology_prefix" value="paintbot" />
+        <arg name="robot_name" value="paintbot" />
+        <arg name="workspace_dir" value="$(find paintbot_skiros)/owl" />
+        <!-- <arg name="init_scene" value="my_scene.turtle" /> -->
+        <arg name="libraries_list" value="[load_paint]" />
+        <arg name="primitive_list" value="[LoadPaintPrimitive]" />
+        <!-- <arg name="skill_list" value="[my_skill1, my_skill2]" /> -->
+    </include>
+
     <!-- Spawn control node -->
-    <node name="paintbot"
+    <!-- <node name="paintbot"
         pkg="paintbot_description"
         type="paintbot"
-        output="screen" />
+        output="screen" /> -->
 </launch>
