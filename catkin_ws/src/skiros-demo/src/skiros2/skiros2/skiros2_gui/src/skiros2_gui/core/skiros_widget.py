@@ -909,7 +909,10 @@ class SkirosWidget(QWidget, SkirosInteractiveMarkers):
             parent_id = '{}_skills'.format(parent_rel['src'])
             item = self.wm_tree_widget.findItems(parent_id, Qt.MatchRecursive | Qt.MatchFixedString, 1)
             if not item:  # In case it is still not existing i create the "support" skill node
-                item = self.wm_tree_widget.findItems(parent_rel['src'], Qt.MatchRecursive | Qt.MatchFixedString, 1)[0]
+                items = self.wm_tree_widget.findItems(parent_rel['src'], Qt.MatchRecursive | Qt.MatchFixedString, 1)
+                if not items or len(items) == 0:
+                    return False
+                item = items[0]
                 item = QTreeWidgetItem(item, ['Skills', parent_id])
             else:
                 item = item[0]
