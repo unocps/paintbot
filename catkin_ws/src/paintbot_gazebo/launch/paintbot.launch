@@ -57,8 +57,8 @@
         <arg name="workspace_dir" value="$(find paintbot_skiros)/owl" />
         <!-- <arg name="init_scene" value="my_scene.turtle" /> -->
         <arg name="libraries_list" value="[painting]" />
-        <arg name="primitive_list" value="[ArmToZeroPrimitive, LoadPaintPrimitive]" />
-        <arg name="skill_list" value="[LoadPaintSkill]" />
+        <arg name="primitive_list" value="[ApplyPaintPrimitive, ArmToZeroPrimitive, LoadPaintPrimitive]" />
+        <arg name="skill_list" value="[ApplyPaintSkill, LoadPaintSkill]" />
     </include>
 
     <!-- Spawn control node -->

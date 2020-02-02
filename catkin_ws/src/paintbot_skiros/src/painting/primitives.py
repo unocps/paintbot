@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from skiros2_common.core.primitive import PrimitiveBase
-from descriptions import ArmToZeroDescription, LoadPaintDescription
+from descriptions import ApplyPaintDescription, ArmToZeroDescription, LoadPaintDescription
 from actionlib_msgs.msg import GoalStatusArray
 from moveit_msgs.msg import MoveGroupActionFeedback
 import math
@@ -10,6 +10,7 @@ import rospy
 import sys
 
 _LOAD_X = (0.375, 0.475)
+_PAINT_Z = (0.4, 0.25)
 
 class ArmToZeroPrimitive(PrimitiveBase):
     def createDescription(self):
@@ -56,14 +57,14 @@ class LoadPaintPrimitive(PrimitiveBase):
 
     def execute(self):
         if self.arm_fail:
-            return self.fail('Failed to load paint (unable to plan arm motion)')
+            return self.fail('Failed to load paint (unable to plan arm motion)', -1)
 
         if self.p < self.params['passes'].value:
             if self.move:
                 self.mi_cmdr.set_pose_target([_LOAD_X[self.p % 2], 0, 0.05, -math.pi, 0, -math.pi])
                 self.mi_cmdr.go(wait=False)
                 self.move = False
-            return self.step('Loading paint (pass {})'.format(self.p))
+            return self.step('Loading paint (pass {})'.format(self.p + 1))
 
         return self.success('Finished loading paint')
 
@@ -71,6 +72,46 @@ class LoadPaintPrimitive(PrimitiveBase):
         self.mi_cmdr.stop()
         self.mi_cmdr.clear_pose_targets()
         return self.success('Loading paint preempted')
+
+    def feedback(self, msg):
+        if msg.status.status == 3:
+            self.p += 1
+            self.move = True
+        elif msg.status.status == 4:
+            self.arm_fail = True
+
+class ApplyPaintPrimitive(PrimitiveBase):
+    def createDescription(self):
+        self.setDescription(ApplyPaintDescription(), self.__class__.__name__)
+
+    def onInit(self):
+        moveit_commander.roscpp_initialize(sys.argv)
+        self.mi_cmdr = moveit_commander.MoveGroupCommander('arm')
+        rospy.Subscriber('/move_group/feedback', MoveGroupActionFeedback, self.feedback)
+
+    def onStart(self):
+        self.p = -1
+        self.arm_fail = False
+        self.move = True
+        return True
+
+    def execute(self):
+        if self.arm_fail:
+            return self.fail('Failed to apply paint (unable to plan arm motion)', -1)
+
+        if self.p < self.params['passes'].value:
+            if self.move:
+                self.mi_cmdr.set_pose_target([0.4, 0, _PAINT_Z[self.p % 2], 0, -math.pi / 2, math.pi])
+                self.mi_cmdr.go(wait=False)
+                self.move = False
+            return self.step('Applying paint (pass {})'.format(self.p + 1))
+
+        return self.success('Finished applying paint')
+
+    def onPreempt(self):
+        self.mi_cmdr.stop()
+        self.mi_cmdr.clear_pose_targets()
+        return self.success('Applying paint preempted')
 
     def feedback(self, msg):
         if msg.status.status == 3:
