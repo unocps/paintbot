@@ -58,7 +58,7 @@
         <!-- <arg name="init_scene" value="my_scene.turtle" /> -->
         <arg name="libraries_list" value="[painting]" />
         <arg name="primitive_list" value="[ApplyPaintPrimitive, ArmToZeroPrimitive, LoadPaintPrimitive]" />
-        <arg name="skill_list" value="[ApplyPaintSkill, LoadPaintSkill]" />
+        <arg name="skill_list" value="[ApplyPaint, LoadPaint]" />
     </include>
 
     <!-- Spawn control node -->

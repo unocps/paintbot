@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from skiros2_common.core.primitive import PrimitiveBase
-from descriptions import ApplyPaintDescription, ArmToZeroDescription, LoadPaintDescription
+from descriptions import ApplyPaintPrimitiveDescription, ArmToZeroPrimitiveDescription, LoadPaintPrimitiveDescription
 from actionlib_msgs.msg import GoalStatusArray
 from moveit_msgs.msg import MoveGroupActionFeedback
 import math
@@ -14,7 +14,7 @@ _PAINT_Z = (0.4, 0.25)
 
 class ArmToZeroPrimitive(PrimitiveBase):
     def createDescription(self):
-        self.setDescription(ArmToZeroDescription(), self.__class__.__name__)
+        self.setDescription(ArmToZeroPrimitiveDescription(), self.__class__.__name__)
 
     def onInit(self):
         moveit_commander.roscpp_initialize(sys.argv)
@@ -42,7 +42,7 @@ class ArmToZeroPrimitive(PrimitiveBase):
 
 class LoadPaintPrimitive(PrimitiveBase):
     def createDescription(self):
-        self.setDescription(LoadPaintDescription(), self.__class__.__name__)
+        self.setDescription(LoadPaintPrimitiveDescription(), self.__class__.__name__)
 
     def onInit(self):
         moveit_commander.roscpp_initialize(sys.argv)
@@ -82,7 +82,7 @@ class LoadPaintPrimitive(PrimitiveBase):
 
 class ApplyPaintPrimitive(PrimitiveBase):
     def createDescription(self):
-        self.setDescription(ApplyPaintDescription(), self.__class__.__name__)
+        self.setDescription(ApplyPaintPrimitiveDescription(), self.__class__.__name__)
 
     def onInit(self):
         moveit_commander.roscpp_initialize(sys.argv)

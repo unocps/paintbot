@@ -1,26 +1,26 @@
 #!/usr/bin/env python
 
 from skiros2_skill.core.skill import SkillBase, Sequential, SerialStar
-from descriptions import ApplyPaintSkillDescription, LoadPaintSkillDescription
+from descriptions import ApplyPaintDescription, LoadPaintDescription
 
-class LoadPaintSkill(SkillBase):
+class LoadPaint(SkillBase):
     def createDescription(self):
-        self.setDescription(LoadPaintSkillDescription(), self.__class__.__name__)
+        self.setDescription(LoadPaintDescription(), self.__class__.__name__)
 
     def expand(self, skill):
         self.setProcessor(Sequential())
         skill(
-            self.skill('LoadPaintDescription', 'LoadPaintPrimitive'),
-            self.skill('ArmToZeroDescription', 'ArmToZeroPrimitive')
+            self.skill('LoadPaintPrimitiveDescription', 'LoadPaintPrimitive'),
+            self.skill('ArmToZeroPrimitiveDescription', 'ArmToZeroPrimitive')
         )
 
-class ApplyPaintSkill(SkillBase):
+class ApplyPaint(SkillBase):
     def createDescription(self):
-        self.setDescription(ApplyPaintSkillDescription(), self.__class__.__name__)
+        self.setDescription(ApplyPaintDescription(), self.__class__.__name__)
 
     def expand(self, skill):
         self.setProcessor(Sequential())
         skill(
-            self.skill('ApplyPaintDescription', 'ApplyPaintPrimitive'),
-            self.skill('ArmToZeroDescription', 'ArmToZeroPrimitive')
+            self.skill('ApplyPaintPrimitiveDescription', 'ApplyPaintPrimitive'),
+            self.skill('ArmToZeroPrimitiveDescription', 'ArmToZeroPrimitive')
         )
