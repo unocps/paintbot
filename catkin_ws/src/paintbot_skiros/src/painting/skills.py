@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-from skiros2_skill.core.skill import SkillBase, Sequential, SerialStar
 from descriptions import ApplyPaintDescription, LoadPaintDescription
+from skiros2_skill.core.skill import SkillBase, Sequential
 
 class LoadPaint(SkillBase):
     def createDescription(self):

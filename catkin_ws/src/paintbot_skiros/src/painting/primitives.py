@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-from skiros2_common.core.primitive import PrimitiveBase
-from descriptions import ApplyPaintPrimitiveDescription, ArmToZeroPrimitiveDescription, LoadPaintPrimitiveDescription
 from actionlib_msgs.msg import GoalStatusArray
+from descriptions import ApplyPaintPrimitiveDescription, ArmToZeroPrimitiveDescription, LoadPaintPrimitiveDescription
 from moveit_msgs.msg import MoveGroupActionFeedback
+from skiros2_common.core.primitive import PrimitiveBase
 import math
 import moveit_commander
 import rospy
