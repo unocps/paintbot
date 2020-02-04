@@ -32,6 +32,7 @@ class NavigateToWallPrimitive(PrimitiveBase):
         self.x = self.params['wall_x'].value + ((_ACTION_DIST + _WALL_THICKNESS) * math.cos(wall_facing))
         self.y = self.params['wall_y'].value + ((_ACTION_DIST + _WALL_THICKNESS) * math.sin(wall_facing))
         self.yaw = _normalize_angle(wall_facing - math.pi)
+        self.status = 1
 
         goal = MoveBaseGoal()
         goal.target_pose.header.frame_id = 'map'
@@ -39,17 +40,20 @@ class NavigateToWallPrimitive(PrimitiveBase):
         goal.target_pose.pose.position.x = self.x
         goal.target_pose.pose.position.y = self.y
         goal.target_pose.pose.orientation = Quaternion(*quaternion_from_euler(0, 0, self.yaw))
+        self.mb_client.send_goal(goal, self.done_callback)
 
-        # TODO: Figure out how to set up callbacks
-        self.mb_client.send_goal(goal)
-        # wait = mb_client.wait_for_result()
-        # result = mb_client.get_result()
+        return True
 
     def execute(self):
-        # if self.moving:
-        #     return self.step('Moving arm to zero position')
-        return self.success('Navigating to ({}, {}) @ {}'.format(self.x, self.y, self.yaw))
+        if self.status == 1:
+            return self.step('Navigating to ({}, {}) @ {}'.format(self.x, self.y, self.yaw))
+        elif self.status == 3:
+            return self.success('Reached ({}, {}) @ {}'.format(self.x, self.y, self.yaw))
+        return self.fail('Unable to navigate to ({}, {}) @ {}'.format(self.x, self.y, self.yaw))
 
     def onPreempt(self):
-        # TODO: Stop motion
+        self.mb_client.cancel_goal()
         return self.success('Navigation preempted')
+
+    def done_callback(self, status, result):
+        self.status = status
