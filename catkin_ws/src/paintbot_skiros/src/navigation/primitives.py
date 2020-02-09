@@ -4,7 +4,7 @@ from descriptions import NavigateToWallPrimitiveDescription
 from geometry_msgs.msg import Quaternion
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 from skiros2_common.core.primitive import PrimitiveBase
-from tf.transformations import quaternion_from_euler
+from tf.transformations import euler_from_quaternion, quaternion_from_euler
 import actionlib
 import math
 import rospy
@@ -28,9 +28,15 @@ class NavigateToWallPrimitive(PrimitiveBase):
         self.mb_client.wait_for_server()
 
     def onStart(self):
-        wall_facing = self.params['wall_facing'].value
-        self.x = self.params['wall_x'].value + ((_ACTION_DIST + _WALL_THICKNESS) * math.cos(wall_facing))
-        self.y = self.params['wall_y'].value + ((_ACTION_DIST + _WALL_THICKNESS) * math.sin(wall_facing))
+        wall_loc = self.params['Destination'].value
+        wall_facing = euler_from_quaternion([
+                0.0,
+                0.0,
+                wall_loc.getProperty('skiros:OrientationZ').value,
+                wall_loc.getProperty('skiros:OrientationW').value
+            ])[2]
+        self.x = wall_loc.getProperty('skiros:PositionX').value + ((_ACTION_DIST + _WALL_THICKNESS) * math.cos(wall_facing))
+        self.y = wall_loc.getProperty('skiros:PositionY').value + ((_ACTION_DIST + _WALL_THICKNESS) * math.sin(wall_facing))
         self.yaw = _normalize_angle(wall_facing - math.pi)
         self.status = 1
 
