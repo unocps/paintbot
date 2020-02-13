@@ -1,15 +1,13 @@
 <?xml version="1.0"?>
-<rdf:RDF xmlns="http://www.semanticweb.org/unomaha/ontologies/2020/0/paintbot#"
-     xml:base="http://www.semanticweb.org/unomaha/ontologies/2020/0/paintbot"
+<rdf:RDF xmlns="http://unomaha.edu/ontologies/paintbot#"
+     xml:base="http://unomaha.edu/ontologies/paintbot"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     xmlns:skiros="http://rvmi.aau.dk/ontologies/skiros.owl#">
-    <owl:Ontology rdf:about="http://www.semanticweb.org/unomaha/ontologies/2020/0/paintbot">
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://unomaha.edu/ontologies/paintbot">
         <owl:imports rdf:resource="http://rvmi.aau.dk/ontologies/skiros.owl"/>
-        <owl:imports rdf:resource="http://www.inf.ufrgs.br/phi-group/ontologies/RParts.owl"/>
     </owl:Ontology>
 
 
@@ -17,7 +15,7 @@
     <!--
     ///////////////////////////////////////////////////////////////////////////////////////
     //
-    // Annotation properties
+    // Data properties
     //
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
@@ -25,16 +23,18 @@
 
 
 
-    <!-- http://rvmi.aau.dk/ontologies/skiros.owl#hasA -->
+    <!-- http://unomaha.edu/ontologies/paintbot#Color -->
 
-    <owl:AnnotationProperty rdf:about="http://rvmi.aau.dk/ontologies/skiros.owl#hasA"/>
+    <owl:DatatypeProperty rdf:about="http://unomaha.edu/ontologies/paintbot#Color">
+        <rdfs:subPropertyOf rdf:resource="http://rvmi.aau.dk/ontologies/skiros.owl#conditionProperty"/>
+    </owl:DatatypeProperty>
 
 
 
     <!--
     ///////////////////////////////////////////////////////////////////////////////////////
     //
-    // Individuals
+    // Classes
     //
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
@@ -42,21 +42,27 @@
 
 
 
-    <!-- http://www.semanticweb.org/unomaha/ontologies/2020/0/paintbot#paintbot -->
+    <!-- http://unomaha.edu/ontologies/paintbot#Paint -->
 
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/unomaha/ontologies/2020/0/paintbot#paintbot">
-        <rdf:type rdf:resource="http://www.inf.ufrgs.br/phi-group/ontologies/cora.owl#Robot"/>
-        <skiros:hasStartLocation rdf:resource="http://rvmi.aau.dk/ontologies/skiros.owl#unknown_location"/>
-        <skiros:hasA rdf:resource="http://www.semanticweb.org/unomaha/ontologies/2020/0/paintbot#paintbot_arm"/>
-    </owl:NamedIndividual>
+    <owl:Class rdf:about="http://unomaha.edu/ontologies/paintbot#Paint">
+        <rdfs:subClassOf rdf:resource="http://www.inf.ufrgs.br/phi-group/ontologies/sumo.owl#Object"/>
+    </owl:Class>
 
 
 
-    <!-- http://www.semanticweb.org/unomaha/ontologies/2020/0/paintbot#paintbot_arm -->
+    <!-- http://unomaha.edu/ontologies/paintbot#PaintTray -->
 
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/unomaha/ontologies/2020/0/paintbot#paintbot_arm">
-        <rdf:type rdf:resource="http://www.inf.ufrgs.br/phi-group/ontologies/RParts.owl#ArmDevice"/>
-    </owl:NamedIndividual>
+    <owl:Class rdf:about="http://unomaha.edu/ontologies/paintbot#PaintTray">
+        <rdfs:subClassOf rdf:resource="http://rvmi.aau.dk/ontologies/skiros.owl#Container"/>
+    </owl:Class>
+
+
+
+    <!-- http://unomaha.edu/ontologies/paintbot#WallSection -->
+
+    <owl:Class rdf:about="http://unomaha.edu/ontologies/paintbot#WallSection">
+        <rdfs:subClassOf rdf:resource="http://rvmi.aau.dk/ontologies/skiros.owl#Location"/>
+    </owl:Class>
 </rdf:RDF>
 
 

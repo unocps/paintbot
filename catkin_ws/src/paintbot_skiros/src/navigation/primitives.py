@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from descriptions import NavigateToWallPrimitiveDescription
+from descriptions import NavigateToLocationPrimitiveDescription
 from geometry_msgs.msg import Quaternion
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 from skiros2_common.core.primitive import PrimitiveBase
@@ -19,15 +19,21 @@ def _normalize_angle(theta):
         theta -= 2 * math.pi
     return theta
 
-class NavigateToWallPrimitive(PrimitiveBase):
+class NavigateToLocationPrimitive(PrimitiveBase):
     def createDescription(self):
-        self.setDescription(NavigateToWallPrimitiveDescription(), self.__class__.__name__)
+        rospy.loginfo('NavigateToLocationPrimitive - createDescription()') # TODO: Debug
+
+        self.setDescription(NavigateToLocationPrimitiveDescription(), self.__class__.__name__)
 
     def onInit(self):
+        rospy.loginfo('NavigateToLocationPrimitive - onInit()') # TODO: Debug
+
         self.mb_client = actionlib.SimpleActionClient('move_base', MoveBaseAction)
         self.mb_client.wait_for_server()
 
     def onStart(self):
+        rospy.loginfo('NavigateToLocationPrimitive - onStart()') # TODO: Debug
+
         wall_loc = self.params['Destination'].value
         wall_facing = euler_from_quaternion([
                 0.0,
@@ -51,6 +57,8 @@ class NavigateToWallPrimitive(PrimitiveBase):
         return True
 
     def execute(self):
+        rospy.loginfo('NavigateToLocationPrimitive - execute()') # TODO: Debug
+
         if self.status == 1:
             return self.step('Navigating to ({}, {}) @ {}'.format(self.x, self.y, self.yaw))
         elif self.status == 3:
@@ -62,4 +70,6 @@ class NavigateToWallPrimitive(PrimitiveBase):
         return self.success('Navigation preempted')
 
     def done_callback(self, status, result):
+        rospy.loginfo('NavigateToLocationPrimitive - done_callback()') # TODO: Debug
+
         self.status = status

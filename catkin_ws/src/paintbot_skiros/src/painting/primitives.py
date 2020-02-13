@@ -11,6 +11,7 @@ import sys
 
 _LOAD_X = (0.375, 0.475)
 _PAINT_Z = (0.4, 0.25)
+_PASSES = 6
 
 class ArmToZeroPrimitive(PrimitiveBase):
     def createDescription(self):
@@ -59,7 +60,7 @@ class LoadPaintPrimitive(PrimitiveBase):
         if self.arm_fail:
             return self.fail('Failed to load paint (unable to plan arm motion)', -1)
 
-        if self.p < self.params['passes'].value:
+        if self.p < _PASSES:
             if self.move:
                 self.mi_cmdr.set_pose_target([_LOAD_X[self.p % 2], 0, 0.05, -math.pi, 0, -math.pi])
                 self.mi_cmdr.go(wait=False)
@@ -99,7 +100,7 @@ class ApplyPaintPrimitive(PrimitiveBase):
         if self.arm_fail:
             return self.fail('Failed to apply paint (unable to plan arm motion)', -1)
 
-        if self.p < self.params['passes'].value:
+        if self.p < _PASSES:
             if self.move:
                 self.mi_cmdr.set_pose_target([0.4, 0, _PAINT_Z[self.p % 2], 0, -math.pi / 2, math.pi])
                 self.mi_cmdr.go(wait=False)
