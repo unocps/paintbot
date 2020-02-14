@@ -9,6 +9,8 @@
 skiros:Scene-0 rdf:type owl:NamedIndividual ,
         skiros:Scene ;
     skiros:contain paintbot:PaintTray-50 ;
+    skiros:contain paintbot:WallSection-100 ;
+    skiros:contain paintbot:WallSection-101 ;
     skiros:DiscreteReasoner "AauSpatialReasoner"^^xsd:string ;
     skiros:FrameId "map"^^xsd:string ;
     skiros:OrientationW "1.0"^^xsd:float ;

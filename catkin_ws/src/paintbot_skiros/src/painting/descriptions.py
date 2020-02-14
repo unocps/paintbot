@@ -45,4 +45,4 @@ class ApplyPaintDescription(SkillDescription):
         self.addHoldCondition(ConditionRelation('RobotAtWall', 'skiros:at', 'Robot', 'Wall', True))
 
         self.addPostCondition(ConditionRelation('WallHasColor', 'skiros:contain', 'Wall', 'PaintColor', True))
-        #self.addPostCondition(ConditionRelation('PaintExpended', 'skiros:contain', 'PaintbotArm', 'PaintColor', False))
+        # self.addPostCondition(ConditionRelation('PaintExpended', 'skiros:contain', 'PaintbotArm', 'PaintColor', False))

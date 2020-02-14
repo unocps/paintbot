@@ -21,19 +21,13 @@ def _normalize_angle(theta):
 
 class NavigateToLocationPrimitive(PrimitiveBase):
     def createDescription(self):
-        rospy.loginfo('NavigateToLocationPrimitive - createDescription()') # TODO: Debug
-
         self.setDescription(NavigateToLocationPrimitiveDescription(), self.__class__.__name__)
 
     def onInit(self):
-        rospy.loginfo('NavigateToLocationPrimitive - onInit()') # TODO: Debug
-
         self.mb_client = actionlib.SimpleActionClient('move_base', MoveBaseAction)
         self.mb_client.wait_for_server()
 
     def onStart(self):
-        rospy.loginfo('NavigateToLocationPrimitive - onStart()') # TODO: Debug
-
         wall_loc = self.params['Destination'].value
         wall_facing = euler_from_quaternion([
                 0.0,
@@ -57,8 +51,6 @@ class NavigateToLocationPrimitive(PrimitiveBase):
         return True
 
     def execute(self):
-        rospy.loginfo('NavigateToLocationPrimitive - execute()') # TODO: Debug
-
         if self.status == 1:
             return self.step('Navigating to ({}, {}) @ {}'.format(self.x, self.y, self.yaw))
         elif self.status == 3:
@@ -70,6 +62,4 @@ class NavigateToLocationPrimitive(PrimitiveBase):
         return self.success('Navigation preempted')
 
     def done_callback(self, status, result):
-        rospy.loginfo('NavigateToLocationPrimitive - done_callback()') # TODO: Debug
-
         self.status = status
