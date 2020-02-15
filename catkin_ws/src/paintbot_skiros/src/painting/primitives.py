@@ -88,6 +88,7 @@ class ApplyPaintPrimitive(PrimitiveBase):
     def onInit(self):
         moveit_commander.roscpp_initialize(sys.argv)
         self.mi_cmdr = moveit_commander.MoveGroupCommander('arm')
+        # TODO: callback is being called in both primitives when only one is executing
         rospy.Subscriber('/move_group/feedback', MoveGroupActionFeedback, self.feedback)
 
     def onStart(self):

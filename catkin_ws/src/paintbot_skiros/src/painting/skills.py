@@ -7,34 +7,31 @@ class LoadPaint(SkillBase):
     def createDescription(self):
         self.setDescription(LoadPaintDescription(), 'loadpaint')
 
-    def set_relation(self, rel, src, dst, state):
-        return self.skill('WmSetRelation', 'wm_set_relation',
-            remap={'Dst': dst},
-            specify={'Src': self.params[src].value, 'Relation': rel, 'RelationState': state})
+    def set_properties(self, src, properties):
+        return self.skill('WmSetProperties', 'wm_set_properties',
+            specify={'Src': self.params[src].value, 'Properties': properties})
 
     def expand(self, skill):
         self.setProcessor(Sequential())
         skill(
             self.skill('LoadPaintPrimitiveDescription', 'LoadPaintPrimitive'),
-            self.skill('ArmToZeroPrimitiveDescription', 'ArmToZeroPrimitive'),
-            self.set_relation('skiros:contain', 'PaintbotArm', 'PaintColor', True)
-            # TODO: Remove previous color from arm
+            self.set_properties('Arm', {'paintbot:Color': self.params['Color'].value}),
+            # self.set_properties('Wall', {'paintbot:Color': -1}),
+            self.skill('ArmToZeroPrimitiveDescription', 'ArmToZeroPrimitive')
         )
 
 class ApplyPaint(SkillBase):
     def createDescription(self):
         self.setDescription(ApplyPaintDescription(), 'applypaint')
 
-    def set_relation(self, rel, src, dst, state):
-        return self.skill('WmSetRelation', 'wm_set_relation',
-            remap={'Dst': dst},
-            specify={'Src': self.params[src].value, 'Relation': rel, 'RelationState': state})
+    def set_properties(self, src, properties):
+        return self.skill('WmSetProperties', 'wm_set_properties',
+            specify={'Src': self.params[src].value, 'Properties': properties})
 
     def expand(self, skill):
         self.setProcessor(Sequential())
         skill(
             self.skill('ApplyPaintPrimitiveDescription', 'ApplyPaintPrimitive'),
-            self.skill('ArmToZeroPrimitiveDescription', 'ArmToZeroPrimitive'),
-            self.set_relation('skiros:contain', 'Wall', 'PaintColor', True),
-            # self.set_relation('skiros:contain', 'PaintbotArm', 'PaintColor', False)
+            self.set_properties('Wall', {'paintbot:Color': self.params['Color'].value}),
+            self.skill('ArmToZeroPrimitiveDescription', 'ArmToZeroPrimitive')
         )

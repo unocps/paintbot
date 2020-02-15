@@ -7,7 +7,7 @@ class NavigateToLocation(SkillBase):
     def createDescription(self):
         self.setDescription(NavigateToLocationDescription(), 'navigatetolocation')
 
-    def set_relation(self, rel, src, dst, state):
+    def set_relation(self, src, rel, dst, state):
         return self.skill('WmSetRelation', 'wm_set_relation',
             remap={'Dst': dst},
             specify={'Src': self.params[src].value, 'Relation': rel, 'RelationState': state})
@@ -15,6 +15,6 @@ class NavigateToLocation(SkillBase):
     def expand(self, skill):
         skill(
             self.skill('NavigateToLocationPrimitiveDescription', 'NavigateToLocationPrimitive'),
-            self.set_relation('skiros:at', 'Robot', 'Start', False),
-            self.set_relation('skiros:at', 'Robot', 'Destination', True)
+            self.set_relation('Robot', 'skiros:at', 'Start', False),
+            self.set_relation('Robot', 'skiros:at', 'Destination', True)
         )
