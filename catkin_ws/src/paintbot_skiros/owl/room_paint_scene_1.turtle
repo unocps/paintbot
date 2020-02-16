@@ -8,7 +8,8 @@
 
 skiros:Scene-0 rdf:type owl:NamedIndividual ,
         skiros:Scene ;
-    skiros:contain paintbot:PaintTray-50 ;
+    skiros:contain paintbot:PaintTray-51 ;
+    skiros:contain paintbot:PaintTray-52 ;
     skiros:contain paintbot:WallSection-100 ;
     skiros:contain paintbot:WallSection-101 ;
     skiros:DiscreteReasoner "AauSpatialReasoner"^^xsd:string ;
@@ -22,7 +23,7 @@ skiros:Scene-0 rdf:type owl:NamedIndividual ,
     skiros:PositionZ "0.0"^^xsd:float ;
     rdfs:label "Scene"^^xsd:string .
 
-paintbot:PaintTray-50 rdf:type owl:NamedIndividual ,
+paintbot:PaintTray-51 rdf:type owl:NamedIndividual ,
         paintbot:PaintTray ;
     skiros:contain paintbot:Paint-1 ;
     skiros:OrientationW "0.707"^^xsd:float ;
@@ -31,10 +32,22 @@ paintbot:PaintTray-50 rdf:type owl:NamedIndividual ,
     skiros:PositionY "1.0"^^xsd:float ;
     rdfs:label "PaintTray_Red"^^xsd:string .
 
+paintbot:PaintTray-52 rdf:type owl:NamedIndividual ,
+        paintbot:PaintTray ;
+    skiros:contain paintbot:Paint-2 ;
+    skiros:OrientationW "0.707"^^xsd:float ;
+    skiros:OrientationZ "-0.707"^^xsd:float ;
+    skiros:PositionX "1.0"^^xsd:float ;
+    skiros:PositionY "-1.0"^^xsd:float ;
+    rdfs:label "PaintTray_Green"^^xsd:string .
+
 paintbot:Paint-1 rdf:type owl:NamedIndividual ,
         paintbot:Paint ;
-    paintbot:Color "red"^^xsd:string ;
     rdfs:label "Paint_Red"^^xsd:string .
+
+paintbot:Paint-2 rdf:type owl:NamedIndividual ,
+        paintbot:Paint ;
+    rdfs:label "Paint_Green"^^xsd:string .
 
 paintbot:WallSection-100 rdf:type owl:NamedIndividual ,
         paintbot:WallSection ;
@@ -42,7 +55,8 @@ paintbot:WallSection-100 rdf:type owl:NamedIndividual ,
     skiros:OrientationZ "-0.707"^^xsd:float ;
     skiros:PositionX "0.0"^^xsd:float ;
     skiros:PositionY "1.0"^^xsd:float ;
-    rdfs:label "Wall_0"^^xsd:string .
+    rdfs:label "Wall_0"^^xsd:string ;
+    paintbot:targetColor paintbot:Paint-1 .
 
 paintbot:WallSection-101 rdf:type owl:NamedIndividual ,
         paintbot:WallSection ;
@@ -50,4 +64,5 @@ paintbot:WallSection-101 rdf:type owl:NamedIndividual ,
     skiros:OrientationZ "-0.707"^^xsd:float ;
     skiros:PositionX "2.0"^^xsd:float ;
     skiros:PositionY "1.0"^^xsd:float ;
-    rdfs:label "Wall_1"^^xsd:string .
+    rdfs:label "Wall_1"^^xsd:string ;
+    paintbot:targetColor paintbot:Paint-2 .
