@@ -67,6 +67,10 @@ class LoadPaintPrimitive(PrimitiveBase):
                 self.move = False
             return self.step('Loading paint (pass {})'.format(self.p + 1))
 
+        arm = self.params['Arm'].value
+        arm.setRelation('-1', 'paintbot:hasColor', self.params['Paint'].value.id)
+        self.params['Arm'].value = arm
+
         return self.success('Finished loading paint')
 
     def onPreempt(self):
@@ -107,6 +111,11 @@ class ApplyPaintPrimitive(PrimitiveBase):
                 self.mi_cmdr.go(wait=False)
                 self.move = False
             return self.step('Applying paint (pass {})'.format(self.p + 1))
+
+        wall = self.params['Wall'].value
+        wall.setRelation('-1', 'paintbot:hasColor', self.params['Paint'].value.id)
+        self.params['Wall'].value = wall
+        # TODO: Remove paint from arm?
 
         return self.success('Finished applying paint')
 
