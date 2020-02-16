@@ -29,6 +29,12 @@
     
 
 
+    <!-- http://unomaha.edu/ontologies/paintbot#targetColor -->
+
+    <owl:ObjectProperty rdf:about="http://unomaha.edu/ontologies/paintbot#targetColor"/>
+    
+
+
     <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
@@ -40,9 +46,9 @@
     
 
 
-    <!-- http://unomaha.edu/ontologies/paintbot#Color -->
+    <!-- http://unomaha.edu/ontologies/paintbot#Painted -->
 
-    <owl:DatatypeProperty rdf:about="http://unomaha.edu/ontologies/paintbot#Color">
+    <owl:DatatypeProperty rdf:about="http://unomaha.edu/ontologies/paintbot#Painted">
         <rdfs:subPropertyOf rdf:resource="http://rvmi.aau.dk/ontologies/skiros.owl#PhysicalObjectProperty"/>
     </owl:DatatypeProperty>
     

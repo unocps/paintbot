@@ -37,10 +37,11 @@ class LoadPaintDescription(SkillDescription):
 
 class ApplyPaintDescription(SkillDescription):
     def createDescription(self):
-        self.addParam('Paint', Element('paintbot:Paint'), ParamTypes.Required)
+        self.addParam('Paint', Element('paintbot:Paint'), ParamTypes.Inferred)
         self.addParam('Wall', Element('paintbot:WallSection'), ParamTypes.Inferred)
         self.addParam('Arm', Element('rparts:ArmDevice'), ParamTypes.Inferred)
 
+        self.addPreCondition(ConditionRelation('WallTargetColor', 'paintbot:targetColor', 'Wall', 'Paint', True))
         self.addPreCondition(ConditionRelation('ArmHasColor', 'paintbot:hasColor', 'Arm', 'Paint', True))
         self.addPreCondition(ConditionRelation('RobotAtWall', 'skiros:at', 'Robot', 'Wall', True))
 
@@ -48,4 +49,5 @@ class ApplyPaintDescription(SkillDescription):
         self.addHoldCondition(ConditionRelation('RobotAtWall', 'skiros:at', 'Robot', 'Wall', True))
 
         self.addPostCondition(ConditionRelation('WallHasColor', 'paintbot:hasColor', 'Wall', 'Paint', True))
-        # self.addPostCondition(ConditionProperty('PaintExpended', 'paintbot:Color', 'Arm', '=', 'red', False))
+        self.addPostCondition(ConditionProperty('WallPainted', 'paintbot:Painted', 'Wall', '=', 'Painted', True))
+        # self.addPostCondition(ConditionRelation('PaintExpended', 'paintbot:hasColor', 'Arm', 'Paint', False))
