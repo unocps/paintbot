@@ -52,10 +52,4 @@
 
     <!-- Load SkiROS -->
     <include file="$(find paintbot_skiros)/launch/paintbot_skiros.launch" />
-
-    <!-- Spawn control node -->
-    <!-- <node name="paintbot"
-        pkg="paintbot_description"
-        type="paintbot"
-        output="screen" /> -->
 </launch>
