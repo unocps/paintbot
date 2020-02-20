@@ -117,9 +117,9 @@ class ApplyPaintPrimitive(PrimitiveBase):
         wall.setRelation('-1', 'paintbot:hasColor', paint.id)
         wall.setProperty('paintbot:Painted', 'Painted')
         self.params['Wall'].value = wall
-        # arm = self.params['Arm'].value
-        # arm.removeRelation(arm.getRelation('-1', 'paintbot:hasColor', paint.id))
-        # self.params['Arm'].value = arm
+        arm = self.params['Arm'].value
+        arm.removeRelation(arm.getRelation('-1', 'paintbot:hasColor', paint.id))
+        self.params['Arm'].value = arm
 
         return self.success('Finished applying paint')
 
