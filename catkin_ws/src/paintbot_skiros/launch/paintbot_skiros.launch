@@ -7,8 +7,5 @@
         <arg name="libraries_list" value="[navigation, painting, skiros2_std_skills]" />
         <arg name="primitive_list" value="[ApplyPaintPrimitive, ArmToZeroPrimitive, LoadPaintPrimitive, NavigateToLocationPrimitive]" />
         <arg name="skill_list" value="[ApplyPaint, LoadPaint, NavigateToLocation, task_plan]" />
-
-        <arg name="verbose" value="true" />
-        <arg name="deploy" value="false" />
     </include>
 </launch>

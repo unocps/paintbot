@@ -3,6 +3,7 @@
 from actionlib_msgs.msg import GoalStatusArray
 from descriptions import ApplyPaintPrimitiveDescription, ArmToZeroPrimitiveDescription, LoadPaintPrimitiveDescription
 from moveit_msgs.msg import MoveGroupActionFeedback
+from skiros2_common.core.abstract_skill import State
 from skiros2_common.core.primitive import PrimitiveBase
 import math
 import moveit_commander
@@ -79,6 +80,9 @@ class LoadPaintPrimitive(PrimitiveBase):
         return self.success('Loading paint preempted')
 
     def feedback(self, msg):
+        if self.state != State.Running:
+            return
+
         if msg.status.status == 3:
             self.p += 1
             self.move = True
@@ -92,7 +96,6 @@ class ApplyPaintPrimitive(PrimitiveBase):
     def onInit(self):
         moveit_commander.roscpp_initialize(sys.argv)
         self.mi_cmdr = moveit_commander.MoveGroupCommander('arm')
-        # TODO: callback is being called in both primitives when only one is executing
         rospy.Subscriber('/move_group/feedback', MoveGroupActionFeedback, self.feedback)
 
     def onStart(self):
@@ -114,9 +117,11 @@ class ApplyPaintPrimitive(PrimitiveBase):
 
         paint = self.params['Paint'].value
         wall = self.params['Wall'].value
+        # Mark wall as painted
         wall.setRelation('-1', 'paintbot:hasColor', paint.id)
         wall.setProperty('paintbot:Painted', 'Painted')
         self.params['Wall'].value = wall
+        # Remove paint from roller
         arm = self.params['Arm'].value
         arm.removeRelation(arm.getRelation('-1', 'paintbot:hasColor', paint.id))
         self.params['Arm'].value = arm
@@ -129,6 +134,9 @@ class ApplyPaintPrimitive(PrimitiveBase):
         return self.success('Applying paint preempted')
 
     def feedback(self, msg):
+        if self.state != State.Running:
+            return
+
         if msg.status.status == 3:
             self.p += 1
             self.move = True
