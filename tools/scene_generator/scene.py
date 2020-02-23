@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import wall_section
+import sys
 
 _PAINT_ROLLER_WIDTH = 0.2286
 _WALL_SECTION_ID_START = 100
@@ -51,7 +52,9 @@ def gen_owl(segments):
     for ws in wall_sections:
         owl += ws[1]
 
-    print(owl)
+    filename = sys.argv[1] if len(sys.argv) > 1 else 'room_paint_scene_1.turtle'
+    with open(filename, 'w') as f:
+        f.write(owl)
 
 # Test
 gen_owl((
