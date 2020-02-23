@@ -3,7 +3,7 @@
 import math
 
 _WALL_SECTION_OWL_TEMPLATE = """
-paintbot:WallSection-{} rdf:type owl:NamedIndividual ,
+{} rdf:type owl:NamedIndividual ,
         paintbot:WallSection ;
     skiros:OrientationX "{}"^^xsd:float ;
     skiros:OrientationY "{}"^^xsd:float ;
@@ -45,14 +45,17 @@ def gen_owl(p1, p2, width, target_color, id_start):
     # Note: Orientation of sections is theta(p2-p1) - math.pi/2
     centers = gen_wall_centers(p1, p2, width)
     id = id_start
-    owl = ''
+    owl = []
     for c in centers:
+        full_id = 'paintbot:WallSection-{}'.format(id)
         q = euler_to_quaternion(0, 0, math.atan2(c[1], c[0]) - (math.pi / 2))
-        owl += _WALL_SECTION_OWL_TEMPLATE.format(
-            id,
-            q[0], q[1], q[2], q[3],
-            c[0], c[1],
-            id - id_start,
-            target_color)
+        owl.append((
+            full_id,
+            _WALL_SECTION_OWL_TEMPLATE.format(
+                full_id,
+                q[0], q[1], q[2], q[3],
+                c[0], c[1],
+                id - id_start,
+                target_color)))
         id += 1
     return owl
