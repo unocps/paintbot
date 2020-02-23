@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import paint, wall_section
+import wall_section
 
 _PAINT_ROLLER_WIDTH = 0.2286
 _WALL_SECTION_ID_START = 100
@@ -23,15 +23,17 @@ skiros:Scene-0 rdf:type owl:NamedIndividual ,
     rdfs:label "Scene"^^xsd:string .
 """
 
-def gen_scene_owl(wall_sections):
-    return
-
-def gen_owl():
-    wall_sections = wall_section.gen_owl(
-        (0, 0), (1, 0),
-        _PAINT_ROLLER_WIDTH,
-        'paintbot:Paint-1',
-        _WALL_SECTION_ID_START)
+def gen_owl(segments):
+    wall_sections = []
+    id_start = _WALL_SECTION_ID_START
+    for seg in segments:
+        sections = wall_section.gen_owl(
+            seg[0], seg[1],
+            _PAINT_ROLLER_WIDTH,
+            seg[2],
+            id_start)
+        id_start += len(sections)
+        wall_sections += sections
     contains = ('    skiros:contain {} ;'.format(ws[0]) for ws in wall_sections)
     owl = _SCENE_OWL_TEMPLATE.format('\n'.join(contains))
     for ws in wall_sections:
@@ -40,4 +42,6 @@ def gen_owl():
     print(owl)
 
 # Test
-gen_owl()
+gen_owl((
+    ((0, 0), (1, 0), 'paintbot:Paint-1'),
+    ((1, 0), (2, 0), 'paintbot:Paint-2')))
