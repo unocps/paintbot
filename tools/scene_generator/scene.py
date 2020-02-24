@@ -58,5 +58,5 @@ def gen_owl(segments):
 
 # Test
 gen_owl((
-    ((0, 0), (1, 0), 'paintbot:Paint-1'),
-    ((1, 0), (2, 0), 'paintbot:Paint-2')))
+    ((-2, -3), (-2, 0.5), 'paintbot:Paint-1'),
+    ((4.5, -3.5), (-1.5, -3.5), 'paintbot:Paint-2')))

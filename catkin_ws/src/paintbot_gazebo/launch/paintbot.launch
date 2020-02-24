@@ -1,10 +1,16 @@
 <launch>
     <arg name="paused" default="false" />
-    <arg name="run_rviz" default="true" />
+    <arg name="run_rviz" default="false" />
     <arg name="rvizconfig" default="$(find paintbot_description)/config/paintbot.rviz" />
+    <arg name="run_moveit" default="true" />
+    <arg name="run_nav_stack" default="true" />
+    <arg name="run_skiros" default="true" />
 
     <env name="ROSCONSOLE_FORMAT"
         value="${time} [${severity}] [${node}]: ${message}" />
+
+    <!-- Load robot information -->
+    <param name="robot_description" textfile="$(find paintbot_description)/urdf/paintbot.urdf"/>
 
     <!-- Launch Gazebo -->
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -13,8 +19,13 @@
         <arg name="paused" value="$(arg paused)" />
     </include>
 
-    <!-- Load robot information -->
-    <param name="robot_description" textfile="$(find paintbot_description)/urdf/paintbot.urdf"/>
+    <!-- Spawn robot -->
+    <node name="spawn_paintbot_model"
+        pkg="gazebo_ros"
+        type="spawn_model"
+        args="-urdf -param robot_description -model paintbot -x 0 -y 0 -z 0.09"
+        respawn="false"
+        output="screen" />
 
     <!-- Spawn state publishers -->
     <node name="robot_state_publisher"
@@ -27,29 +38,30 @@
     </node>
 
     <!-- TODO: Can only move_group.launch be included? -->
-    <!-- Load MoveIt! -->
-    <include file="$(find paintbot_moveit)/launch/planning_context.launch">
+    <!-- MoveIt! -->
+    <!-- <include file="$(find paintbot_moveit)/launch/planning_context.launch">
         <arg name="load_robot_description" value="false" />
-    </include>
-    <include file="$(find paintbot_moveit)/launch/ros_controllers.launch" />
-    <include file="$(find paintbot_moveit)/launch/move_group.launch">
-        <arg name="info" value="true"/>
-    </include>
-
-    <!-- Spawn robot -->
-    <node name="spawn_paintbot_model"
-        pkg="gazebo_ros"
-        type="spawn_model"
-        args="-urdf -param robot_description -model paintbot -x 0 -y 0 -z 0.09"
-        respawn="false"
-        output="screen" />
+    </include> -->
+    <group if="$(arg run_moveit)">
+        <include file="$(find paintbot_moveit)/launch/ros_controllers.launch" />
+        <include file="$(find paintbot_moveit)/launch/move_group.launch">
+            <arg name="info" value="true" />
+            <arg name="load_robot_description" value="false" />
+        </include>
+    </group>
 
     <!-- RViz -->
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" if="$(arg run_rviz)" />
+    <node if="$(arg run_rviz)"
+        name="rviz"
+        pkg="rviz"
+        type="rviz"
+        args="-d $(arg rvizconfig)" />
 
-    <!-- Load navigation stack -->
-    <include file="$(find paintbot_navigation)/launch/navigation.launch" />
+    <!-- Navigation stack -->
+    <include if="$(arg run_nav_stack)"
+        file="$(find paintbot_navigation)/launch/navigation.launch" />
 
-    <!-- Load SkiROS -->
-    <include file="$(find paintbot_skiros)/launch/paintbot_skiros.launch" />
+    <!-- SkiROS -->
+    <include if="$(arg run_skiros)"
+        file="$(find paintbot_skiros)/launch/paintbot_skiros.launch" />
 </launch>

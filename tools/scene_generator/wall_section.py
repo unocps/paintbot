@@ -48,14 +48,14 @@ def gen_owl(p1, p2, width, target_color, id_start):
     owl = []
     for c in centers:
         full_id = 'paintbot:WallSection-{}'.format(id)
-        q = euler_to_quaternion(0, 0, math.atan2(c[1], c[0]) - (math.pi / 2))
+        q = euler_to_quaternion(0, 0, math.atan2(p2[1] - p1[1], p2[0] - p1[0]) - (math.pi / 2))
         owl.append((
             full_id,
             _WALL_SECTION_OWL_TEMPLATE.format(
                 full_id,
                 q[0], q[1], q[2], q[3],
                 c[0], c[1],
-                id - id_start,
+                id,
                 target_color)))
         id += 1
     return owl
