@@ -56,19 +56,18 @@
         <axis xyz="-0.35781 -0.07932  0.93041" />
         <limit effort="0.0" lower="0.0" upper="0.0" velocity="0.0" />
     </joint>
-    <joint name="gripper_finger_joint_l" type="prismatic">
-        <parent link="gripper_palm_link" />
-        <child link="gripper_finger_link_l" />
-        <origin rpy="0       0      -3.14159" xyz="0.00399  0.008    0.04599" />
-        <axis xyz="0 -1  0" />
-        <limit effort="1.0" lower="0.0" upper="0.0115" velocity="-1.0" />
+    <joint name="roller_frame_joint" type="fixed">
+        <parent link="gripper_palm_link"/>
+        <child link="roller_frame"/>
+        <origin rpy="0 0 0" xyz="0   0   0.09"/>
+        <axis xyz="0 0 0"/>
+        <limit effort="0" lower="0" upper="0" velocity="0"/>
     </joint>
-    <joint name="gripper_finger_joint_r" type="prismatic">
-        <parent link="gripper_palm_link" />
-        <child link="gripper_finger_link_r" />
-        <origin rpy="0  0  0" xyz="0.004   -0.008    0.04599" />
-        <axis xyz="0 -1  0" />
-        <limit effort="1.0" lower="0.0" upper="0.0115" velocity="-1.0" />
+    <joint name="roller_joint" type="continuous">
+        <parent link="roller_frame"/>
+        <child link="roller"/>
+        <origin rpy="1.57079 0      0" xyz="0  0  0.1"/>
+        <axis xyz="0  1  0"/>
     </joint>
     <joint name="base_laser_front_hokuyo_urg04_laser_joint" type="fixed">
         <parent link="base_link" />
@@ -287,41 +286,41 @@
             </geometry>
         </visual>
     </link>
-    <link name="gripper_finger_link_l">
+    <link name="roller_frame">
         <inertial>
-            <mass value="0.010000" />
-            <origin rpy="0  0  0" xyz="0    -0.001  0" />
-            <inertia ixx="0.010000" ixy="0" ixz="0" iyy="0.010000" iyz="0" izz="0.010000" />
+            <mass value="1"/>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <inertia ixx="0.145833" ixy="0" ixz="0" iyy="0.145833" iyz="0" izz="0.125"/>
         </inertial>
-        <collision name="gripper_finger_link_l_geom">
-            <origin rpy="0  0  0" xyz="0  0  0" />
+        <collision name="youbot_roller__collision">
+            <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
-                <mesh filename="package://paintbot_description/urdf/meshes/gripper/finger_convex.stl" scale="1.0 1.0 1.0" />
+                <cylinder length="0.1524" radius="0.00635"/>
             </geometry>
         </collision>
-        <visual name="gripper_finger_link_l_geom_visual">
-            <origin rpy="0  0  0" xyz="0  0  0" />
+        <visual name="youbot_roller__visual">
+            <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
-                <mesh filename="package://paintbot_description/urdf/meshes/gripper/finger.stl" scale="1.0 1.0 1.0" />
+                <cylinder length="0.1524" radius="0.00635"/>
             </geometry>
         </visual>
     </link>
-    <link name="gripper_finger_link_r">
+    <link name="roller">
         <inertial>
-            <mass value="0.010000" />
-            <origin rpy="0  0  0" xyz="0    -0.001  0" />
-            <inertia ixx="0.010000" ixy="0" ixz="0" iyy="0.010000" iyz="0" izz="0.010000" />
+            <mass value="1"/>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <inertia ixx="0.145833" ixy="0" ixz="0" iyy="0.145833" iyz="0" izz="0.125"/>
         </inertial>
-        <collision name="gripper_finger_link_r_geom">
-            <origin rpy="0  0  0" xyz="0  0  0" />
+        <collision name="youbot_roller__collision">
+            <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
-                <mesh filename="package://paintbot_description/urdf/meshes/gripper/finger_convex.stl" scale="1.0 1.0 1.0" />
+                <cylinder length="0.2286" radius="0.0254"/>
             </geometry>
         </collision>
-        <visual name="gripper_finger_link_r_geom_visual">
-            <origin rpy="0  0  0" xyz="0  0  0" />
+        <visual name="youbot_roller__visual">
+            <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
-                <mesh filename="package://paintbot_description/urdf/meshes/gripper/finger.stl" scale="1.0 1.0 1.0" />
+                <cylinder length="0.2286" radius="0.0254"/>
             </geometry>
         </visual>
     </link>
@@ -486,26 +485,6 @@
         </joint>
         <actuator name="arm_joint_5_motor">
             <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-            <mechanicalReduction>1</mechanicalReduction>
-        </actuator>
-    </transmission>
-    <transmission name="trans_gripper_finger_joint_l">
-        <type>transmission_interface/SimpleTransmission</type>
-        <joint name="gripper_finger_joint_l">
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-        </joint>
-        <actuator name="gripper_finger_joint_l_motor">
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-            <mechanicalReduction>1</mechanicalReduction>
-        </actuator>
-    </transmission>
-    <transmission name="trans_gripper_finger_joint_r">
-        <type>transmission_interface/SimpleTransmission</type>
-        <joint name="gripper_finger_joint_r">
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-        </joint>
-        <actuator name="gripper_finger_joint_r_motor">
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
     </transmission>

@@ -146,8 +146,8 @@ arm:
     - LazyPRMstar
     - SPARS
     - SPARStwo
-brush:
-  default_planner_config: ""
+roller:
+  default_planner_config: None
   planner_configs:
     - SBL
     - EST

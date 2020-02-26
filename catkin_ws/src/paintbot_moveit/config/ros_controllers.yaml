@@ -9,18 +9,12 @@ generic_hw_control_loop:
 # Settings for ros_control hardware interface
 hardware_interface:
   joints:
-    - virtual_joint
     - arm_joint_1
     - arm_joint_2
     - arm_joint_3
     - arm_joint_4
     - arm_joint_5
-    - gripper_finger_joint_l
-    - gripper_finger_joint_r
-    - wheel_joint_bl
-    - wheel_joint_br
-    - wheel_joint_fl
-    - wheel_joint_fr
+    - roller_joint
   sim_control_mode: 1  # 0: position, 1: velocity
 # Publish all joint states
 # Creates the /joint_states topic necessary in ROS
@@ -30,8 +24,8 @@ joint_state_controller:
 controller_list:
   - name: arm_controller
     action_ns: follow_joint_trajectory
-    type: FollowJointTrajectory
     default: True
+    type: FollowJointTrajectory
     joints:
       - arm_joint_1
       - arm_joint_2
@@ -47,8 +41,28 @@ arm_controller:
     - arm_joint_4
     - arm_joint_5
   gains:
-    arm_joint_1: {p: 100, d: 1, i: 1, i_clamp: 1}
-    arm_joint_2: {p: 100, d: 1, i: 1, i_clamp: 1}
-    arm_joint_3: {p: 100, d: 1, i: 1, i_clamp: 1}
-    arm_joint_4: {p: 100, d: 1, i: 1, i_clamp: 1}
-    arm_joint_5: {p: 100, d: 1, i: 1, i_clamp: 1}
+    arm_joint_1:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
+    arm_joint_2:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
+    arm_joint_3:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
+    arm_joint_4:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
+    arm_joint_5:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
