@@ -63,7 +63,7 @@ class LoadPaintPrimitive(PrimitiveBase):
 
         if self.p < _PASSES:
             if self.move:
-                self.mi_cmdr.set_pose_target([_LOAD_X[self.p % 2], 0, 0.05, -math.pi, 0, -math.pi])
+                self.mi_cmdr.set_pose_target([_LOAD_X[self.p % 2], 0, 0.045, -math.pi, 0, -math.pi])
                 self.mi_cmdr.go(wait=False)
                 self.move = False
             return self.step('Loading paint (pass {})'.format(self.p + 1))
