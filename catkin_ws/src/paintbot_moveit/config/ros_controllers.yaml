@@ -65,3 +65,5 @@ arm_controller:
       d: 1
       i: 1
       i_clamp: 1
+  constraints:
+    stopped_velocity_tolerance: 0
