@@ -37,8 +37,8 @@ paintbot:PaintTray-52 rdf:type owl:NamedIndividual ,
     skiros:contain paintbot:Paint-2 ;
     skiros:OrientationW "0.707"^^xsd:float ;
     skiros:OrientationZ "-0.707"^^xsd:float ;
-    skiros:PositionX "1.0"^^xsd:float ;
-    skiros:PositionY "-1.0"^^xsd:float ;
+    skiros:PositionX "1.5"^^xsd:float ;
+    skiros:PositionY "1.0"^^xsd:float ;
     rdfs:label "PaintTray_Green"^^xsd:string .
 
 paintbot:Paint-1 rdf:type owl:NamedIndividual ,
