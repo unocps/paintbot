@@ -2,7 +2,7 @@ map_frame: map
 odom_frame: odom
 base_frame: virtual_base
 
-map_update_interval: 0.5 # Publish new map
+map_update_interval: 5.0 # Publish new map
 
 maxUrange: 9.9 # Should be just less than sensor range
 maxRange: 10.1 # Should be just greater than sensor range
