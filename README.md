@@ -11,3 +11,4 @@
 
 ## Robot
 The robot used is based directly on the Kuka Youbot model available from the default model database in Gazebo.
+The original YouBot SDF was converted to URDF using the [pysdf](http://wiki.ros.org/pysdf) ([GitHub](https://github.com/andreasBihlmaier/pysdf)) package.
