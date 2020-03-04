@@ -25,13 +25,17 @@
 
     <!-- http://unomaha.edu/ontologies/paintbot#hasColor -->
 
-    <owl:ObjectProperty rdf:about="http://unomaha.edu/ontologies/paintbot#hasColor"/>
+    <owl:ObjectProperty rdf:about="http://unomaha.edu/ontologies/paintbot#hasColor">
+        <rdfs:range rdf:resource="http://unomaha.edu/ontologies/paintbot#Paint"/>
+    </owl:ObjectProperty>
     
 
 
     <!-- http://unomaha.edu/ontologies/paintbot#targetColor -->
 
-    <owl:ObjectProperty rdf:about="http://unomaha.edu/ontologies/paintbot#targetColor"/>
+    <owl:ObjectProperty rdf:about="http://unomaha.edu/ontologies/paintbot#targetColor">
+        <rdfs:range rdf:resource="http://unomaha.edu/ontologies/paintbot#Paint"/>
+    </owl:ObjectProperty>
     
 
 
