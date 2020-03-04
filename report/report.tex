@@ -1,0 +1,68 @@
+\documentclass[12pt]{report}
+
+\usepackage[style=numeric]{biblatex}
+\usepackage{geometry}
+\usepackage{hyperref}
+
+\addbibresource{project_proposal_bibliography.bib}
+\DeclareNameAlias{default}{last-first}
+\geometry{left=1.5in,top=1in,right=1in,bottom=1in}
+
+% Format the chapter headers to look like article sections (http://latex.org/forum/viewtopic.php?t=638)
+\makeatletter
+\renewcommand{\@makechapterhead}[1]{%
+    \vspace*{30 pt}%
+    {\setlength{\parindent}{0pt} \raggedright \normalfont
+        \bfseries\Huge\thechapter\ #1
+        \par\nobreak\vspace{10 pt}}}
+\makeatother
+
+\begin{document}
+    \begin{titlepage}
+        \centering
+
+        {\Large ROS-Based Robot Simulation for Repetitive Labor-Intensive Construction Tasks}
+
+        \vspace{10mm}
+
+        Ryan Lankin\\
+        Advisor: Dr. Pei-Chi Huang\\
+        Department of Computer Science\\
+        College of Information Science and Technology\\
+        University of Nebraska Omaha\\
+        Omaha, NE 68182-0500\\
+        rlankin@unomaha.edu
+
+        \vspace{10mm}
+
+        \underline{Supervisory Committee:}\\
+        Dr. Pei-Chi Huang\\
+        Dr. Kyungi Kim\\
+        Dr. Yuliya Lierler\\
+    \end{titlepage}
+
+    \begin{abstract}
+        % TODO
+    \end{abstract}
+
+    % TODO: Acknowledgements?
+
+    \tableofcontents{}
+
+    \chapter{Introduction} \label{ch:introduction}
+    % TODO
+
+    \chapter{Background and Related Work} \label{ch:relatedwork}
+    % TODO
+
+    \chapter{Method} \label{ch:method}
+    % TODO
+
+    \chapter{Results} \label{ch:results}
+    % TODO
+
+    \chapter{Conclusion} \label{ch:conclusion}
+    % TODO
+
+    \printbibliography
+\end{document}
