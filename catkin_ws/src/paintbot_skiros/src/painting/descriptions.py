@@ -21,7 +21,14 @@ class ApplyPaintPrimitiveDescription(SkillDescription):
         self.addParam('Wall', Element('paintbot:WallSection'), ParamTypes.Inferred)
         self.addParam('Arm', Element('rparts:ArmDevice'), ParamTypes.Inferred)
 
+class GeneratePaintSubGoalPrimitiveDescription(SkillDescription):
+    def createDescription(self):
+        self.addParam('Goal', '', ParamTypes.Optional)
+
 # Skills
+class PaintAllWallSectionsDescription(SkillDescription):
+    pass
+
 class LoadPaintDescription(SkillDescription):
     def createDescription(self):
         self.addParam('Paint', Element('paintbot:Paint'), ParamTypes.Required)
@@ -42,6 +49,7 @@ class ApplyPaintDescription(SkillDescription):
         self.addParam('Wall', Element('paintbot:WallSection'), ParamTypes.Inferred)
         self.addParam('Arm', Element('rparts:ArmDevice'), ParamTypes.Inferred)
 
+        self.addPreCondition(ConditionProperty('NotWallPainted', 'paintbot:Painted', 'Wall', '=', 'Painted', False))
         self.addPreCondition(ConditionRelation('WallTargetColor', 'paintbot:targetColor', 'Wall', 'Paint', True))
         self.addPreCondition(ConditionRelation('ArmHasColor', 'paintbot:hasColor', 'Arm', 'Paint', True))
         self.addPreCondition(ConditionRelation('RobotAtWall', 'skiros:at', 'Robot', 'Wall', True))

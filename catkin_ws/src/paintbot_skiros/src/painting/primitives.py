@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from actionlib_msgs.msg import GoalStatusArray
-from descriptions import ApplyPaintPrimitiveDescription, ArmToZeroPrimitiveDescription, LoadPaintPrimitiveDescription
+from descriptions import ApplyPaintPrimitiveDescription, ArmToZeroPrimitiveDescription, GeneratePaintSubGoalPrimitiveDescription, LoadPaintPrimitiveDescription
 from moveit_msgs.msg import MoveGroupActionFeedback
 from skiros2_common.core.abstract_skill import State
 from skiros2_common.core.primitive import PrimitiveBase
@@ -13,6 +13,22 @@ import sys
 _LOAD_X = (0.375, 0.475)
 _PAINT_Z = (0.4, 0.25)
 _PASSES = 6
+_GOAL_SIZE = 10
+
+class GeneratePaintSubGoalPrimitive(PrimitiveBase):
+    def createDescription(self):
+        self.setDescription(GeneratePaintSubGoalPrimitiveDescription(), self.__class__.__name__)
+
+    def execute(self):
+        goals = []
+        for i in self.wmi.get_individuals('paintbot:WallSection'):
+            e = self.wmi.get_element(i)
+            if len(goals) < _GOAL_SIZE and not e.hasProperty('paintbot:Painted'):
+                goals.append('(Painted {})'.format(i))
+
+        self.params['Goal'].value = ','.join(goals)
+
+        return self.success('Goal: {}'.format(self.params['Goal'].value))
 
 class ArmToZeroPrimitive(PrimitiveBase):
     def createDescription(self):
