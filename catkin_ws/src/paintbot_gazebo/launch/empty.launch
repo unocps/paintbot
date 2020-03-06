@@ -1,0 +1,15 @@
+<launch>
+    <!-- Load robot information -->
+    <param name="robot_description" textfile="$(find paintbot_description)/urdf/paintbot.urdf"/>
+
+    <!-- Launch Gazebo -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch" />
+
+    <!-- Spawn robot -->
+    <node name="spawn_paintbot_model"
+        pkg="gazebo_ros"
+        type="spawn_model"
+        args="-urdf -param robot_description -model paintbot -x 0 -y 0 -z 0.09"
+        respawn="false"
+        output="screen" />
+</launch>
