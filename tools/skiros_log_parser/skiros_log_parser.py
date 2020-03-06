@@ -14,6 +14,7 @@ _SUB_SKILLS = [
     'NavigateToLocationPrimitive',
     'task_plan']
 _LOG_RE = re.compile('(.*;){8,8}.*')
+_NAV_RE = re.compile('Reached \(.*, .*\) @ .* \[Delta: (.*), (.*)\]')
 
 def read_entry(line, f):
     data = line.split(';')
@@ -31,8 +32,7 @@ if len(sys.argv) < 2:
     sys.exit(1)
 
 with open(sys.argv[1]) as f:
-    curr_skill = ''
-    duration = ''
+    curr_data = ''
     tracking = False
 
     line = f.readline()
@@ -40,14 +40,16 @@ with open(sys.argv[1]) as f:
         data, line = read_entry(line, f)
 
         # New skill started
-        if tracking and data[_SUB_SKILL] != curr_skill:
-            print('{},{}'.format(curr_skill, float(duration)))
+        if tracking and data[_SUB_SKILL] != curr_data[_SUB_SKILL]:
+            if curr_data[_SUB_SKILL] == 'NavigateToLocationPrimitive':
+                m = _NAV_RE.match(curr_data[_MSG])
+                print('{},{},{},{}'.format(curr_data[_SUB_SKILL], float(curr_data[_DUR]), m.group(1), m.group(2)))
+            else:
+                print('{},{}'.format(curr_data[_SUB_SKILL], float(curr_data[_DUR])))
 
         if data[_SUB_SKILL] in _SUB_SKILLS and data[_STATE] in ('Running', 'Success'):
-            curr_skill = data[_SUB_SKILL]
-            duration = data[_DUR]
+            curr_data = data
             tracking = True
         else:
-            curr_skill = ''
-            duration = ''
+            curr_data = None
             tracking = False
