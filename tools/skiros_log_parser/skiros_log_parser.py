@@ -6,6 +6,7 @@ import sys
 _DUR = 1
 _SUB_SKILL = 4
 _STATE = 6
+_CODE = 7
 _MSG = 8
 _SUB_SKILLS = [
     'ApplyPaintPrimitive',
@@ -27,29 +28,32 @@ def read_entry(line, f):
             line = f.readline()
     return data, line
 
+def print_stats(stats):
+    print('{},{},{},{},{}'.format(*stats))
+
 if len(sys.argv) < 2:
     print('File required')
     sys.exit(1)
 
 with open(sys.argv[1]) as f:
-    curr_data = ''
-    tracking = False
+    track_data = None
 
     line = f.readline()
     while line:
         data, line = read_entry(line, f)
 
-        # New skill started
-        if tracking and data[_SUB_SKILL] != curr_data[_SUB_SKILL]:
-            if curr_data[_SUB_SKILL] == 'NavigateToLocationPrimitive':
-                m = _NAV_RE.match(curr_data[_MSG])
-                print('{},{},{},{}'.format(curr_data[_SUB_SKILL], float(curr_data[_DUR]), m.group(1), m.group(2)))
-            else:
-                print('{},{}'.format(curr_data[_SUB_SKILL], float(curr_data[_DUR])))
+        if data[_STATE] == 'Failure':
+            print_stats((data[_SUB_SKILL], int(data[_CODE]), float(data[_DUR]), '', ''))
+        elif track_data and data[_SUB_SKILL] != track_data[_SUB_SKILL]:
+            delta_1 = None
+            delta_2 = None
+            if track_data[_SUB_SKILL] == 'NavigateToLocationPrimitive':
+                m = _NAV_RE.match(track_data[_MSG])
+                delta_1 = m.group(1)
+                delta_2 = m.group(2)
+            print_stats((track_data[_SUB_SKILL], int(track_data[_CODE]), float(track_data[_DUR]), delta_1, delta_2))
 
         if data[_SUB_SKILL] in _SUB_SKILLS and data[_STATE] in ('Running', 'Success'):
-            curr_data = data
-            tracking = True
+            track_data = data
         else:
-            curr_data = None
-            tracking = False
+            track_data = None
