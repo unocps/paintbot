@@ -15,7 +15,7 @@ _SUB_SKILLS = [
     'NavigateToLocationPrimitive',
     'task_plan']
 _LOG_RE = re.compile('(.*;){8,8}.*')
-_NAV_RE = re.compile('Reached \(.*, .*\) @ .* \[Delta: (.*), (.*)\]')
+_NAV_RE = re.compile('Reached \(.*, .*\) @ .* \[Delta: (.*), (.*), Dist: (.*)\]')
 
 def read_entry(line, f):
     data = line.split(';')
@@ -29,7 +29,7 @@ def read_entry(line, f):
     return data, line
 
 def print_stats(stats):
-    print('{},{},{},{},{}'.format(*stats))
+    print(','.join('{}' for i in range(len(stats))).format(*stats))
 
 if len(sys.argv) < 2:
     print('File required')
@@ -43,15 +43,15 @@ with open(sys.argv[1]) as f:
         data, line = read_entry(line, f)
 
         if data[_STATE] == 'Failure':
-            print_stats((data[_SUB_SKILL], int(data[_CODE]), float(data[_DUR]), '', ''))
+            print_stats((data[_SUB_SKILL], int(data[_CODE]), float(data[_DUR])))
         elif track_data and data[_SUB_SKILL] != track_data[_SUB_SKILL]:
-            delta_1 = None
-            delta_2 = None
             if track_data[_SUB_SKILL] == 'NavigateToLocationPrimitive':
+                print('NavigateToLocationPrimitive')
                 m = _NAV_RE.match(track_data[_MSG])
-                delta_1 = m.group(1)
-                delta_2 = m.group(2)
-            print_stats((track_data[_SUB_SKILL], int(track_data[_CODE]), float(track_data[_DUR]), delta_1, delta_2))
+                print_stats((track_data[_SUB_SKILL], int(track_data[_CODE]), float(track_data[_DUR]), m.group(1), m.group(2), m.group(3)))
+            else:
+                print('else')
+                print_stats((track_data[_SUB_SKILL], int(track_data[_CODE]), float(track_data[_DUR])))
 
         if data[_SUB_SKILL] in _SUB_SKILLS and data[_STATE] in ('Running', 'Success'):
             track_data = data

@@ -36,16 +36,20 @@ class NavigateToLocationPrimitive(PrimitiveBase):
                 wall_loc.getProperty('skiros:OrientationZ').value,
                 wall_loc.getProperty('skiros:OrientationW').value
             ])[2]
-        self.x = wall_loc.getProperty('skiros:PositionX').value + ((_ACTION_DIST + _WALL_THICKNESS) * math.cos(wall_facing))
-        self.y = wall_loc.getProperty('skiros:PositionY').value + ((_ACTION_DIST + _WALL_THICKNESS) * math.sin(wall_facing))
+        self.dest = (
+            wall_loc.getProperty('skiros:PositionX').value + ((_ACTION_DIST + _WALL_THICKNESS) * math.cos(wall_facing)),
+            wall_loc.getProperty('skiros:PositionY').value + ((_ACTION_DIST + _WALL_THICKNESS) * math.sin(wall_facing))
+        )
+        self.pos_prev = None
         self.yaw = _normalize_angle(wall_facing - math.pi)
+        self.dist = 0
         self.status = 1
 
         goal = MoveBaseGoal()
         goal.target_pose.header.frame_id = 'map'
         goal.target_pose.header.stamp = rospy.Time.now()
-        goal.target_pose.pose.position.x = self.x
-        goal.target_pose.pose.position.y = self.y
+        goal.target_pose.pose.position.x = self.dest[0]
+        goal.target_pose.pose.position.y = self.dest[1]
         goal.target_pose.pose.orientation = Quaternion(*quaternion_from_euler(0, 0, self.yaw))
         self.mb_client.send_goal(goal, self._done_callback)
 
@@ -54,23 +58,25 @@ class NavigateToLocationPrimitive(PrimitiveBase):
         return True
 
     def execute(self):
+        p_delta, o_delta = None, None
+        try:
+            p, o = self.tf_listener.lookupTransform('odom', 'virtual_base', rospy.Time(0))
+            if self.pos_prev:
+                self.dist += math.sqrt((self.pos_prev[0] - p[0])**2 + (self.pos_prev[1] - p[1])**2)
+            self.pos_prev = p
+            p_delta, o_delta = math.sqrt((self.dest[0] - p[0])**2 + (self.dest[1] - p[1])**2), _normalize_angle(self.yaw - euler_from_quaternion(o)[2])
+        except:
+            pass
+
         if self.status == 1:
-            return self.step('Navigating to ({}, {}) @ {}'.format(self.x, self.y, self.yaw))
+            return self.step('Navigating to {} @ {}'.format(self.dest, self.yaw))
         elif self.status == 3:
-            pos_delta, orient_delta = self._calc_deltas()
-            return self.success('Reached ({}, {}) @ {} [Delta: {}, {}]'.format(self.x, self.y, self.yaw, pos_delta, orient_delta))
-        return self.fail('Unable to navigate to ({}, {}) @ {}'.format(self.x, self.y, self.yaw))
+            return self.success('Reached {} @ {} [Delta: {}, {}, Dist: {}]'.format(self.dest, self.yaw, p_delta, o_delta, self.dist))
+        return self.fail('Unable to navigate to {} @ {}'.format(self.dest, self.yaw), -2)
 
     def onPreempt(self):
         self.mb_client.cancel_goal()
         return self.success('Navigation preempted')
-
-    def _calc_deltas(self):
-        try:
-            pos, orient = self.tf_listener.lookupTransform('odom', 'virtual_base', rospy.Time(0))
-            return math.sqrt((self.x - pos[0])**2 + (self.y - pos[1])**2), _normalize_angle(self.yaw - euler_from_quaternion(orient)[2])
-        except:
-            return None, None
 
     def _done_callback(self, status, result):
         self.status = status
