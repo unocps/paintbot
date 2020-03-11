@@ -1,5 +1,8 @@
+import re
 import scene
 import tkinter as tk
+
+_NUM_REGEX = re.compile('^-?[0-9]*\.?[0-9]*$')
 
 class GUI:
     def __init__(self, root):
@@ -136,13 +139,7 @@ class GUI:
         scene.generate(self.paints, self.ws)
 
     def _val_float(self, s):
-        if not s:
-            return True
-        try:
-            float(s)
-            return True
-        except:
-            return False
+        return _NUM_REGEX.search(s) is not None
 
 root = tk.Tk()
 gui = GUI(root)
