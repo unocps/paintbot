@@ -1,9 +1,10 @@
+import scene
 import tkinter as tk
 
 class GUI:
     def __init__(self, root):
-        self.ws = []
         self.paints = []
+        self.ws = []
 
         self.root = root
         root.title('Paintbot Scene Generator')
@@ -32,15 +33,15 @@ class GUI:
         label.grid(row=1, column=0, sticky='e')
 
         self.paint_x_entry = tk.Entry(add_paint_frame, width=5, validate='key', validatecommand=val_float)
-        self.paint_x_entry.grid(row=1, column=1)
+        self.paint_x_entry.grid(row=1, column=1, sticky='ew')
 
         self.paint_y_entry = tk.Entry(add_paint_frame, width=5, validate='key', validatecommand=val_float)
-        self.paint_y_entry.grid(row=1, column=2)
+        self.paint_y_entry.grid(row=1, column=2, sticky='ew')
 
         add_paint_button = tk.Button(add_paint_frame, text='Add', command=self._add_paint)
         add_paint_button.grid(row=1, column=3)
 
-        ws_frame = tk.LabelFrame(main_frame, text='Wall Sections')
+        ws_frame = tk.LabelFrame(main_frame, text='Wall Segments')
         ws_frame.pack(side=tk.RIGHT, fill=tk.Y, expand=True)
 
         self.ws_listbox = tk.Listbox(ws_frame)
@@ -90,7 +91,7 @@ class GUI:
         if not name or not x or not y:
             return
 
-        self.paints.append(((x, y), name))
+        self.paints.append(((float(x), float(y)), name))
         self.paint_listbox.insert(tk.END, '{} - Tray at ({}, {})'.format(name, x, y))
 
         # Update paint menu
@@ -113,7 +114,7 @@ class GUI:
         if not start_x or not start_y or not end_x or not end_y or not paint:
             return
 
-        self.ws.append(((start_x, start_y), (end_x, end_y), paint))
+        self.ws.append(((float(start_x), float(start_y)), (float(end_x), float(end_y)), paint))
         self.ws_listbox.insert(tk.END, '{} - ({}, {}) to ({}, {})'.format(paint, start_x, start_y, end_x, end_y))
 
         # Clear fields
@@ -124,7 +125,7 @@ class GUI:
         self.ws_paint_var.set('')
 
     def _generate(self):
-        pass
+        scene.generate(self.paints, self.ws)
 
     def _val_float(self, s):
         if not s:

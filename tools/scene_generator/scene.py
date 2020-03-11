@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 
-import wall_section
+import paint
 import sys
+import wall_section
 
 _PAINT_ROLLER_WIDTH = 0.2286
+_PAINT_ID_START = 1
+_TRAY_ID_START = 51
 _WALL_SECTION_ID_START = 100
 _SCENE_OWL_TEMPLATE = """
 @prefix paintbot: <http://unomaha.edu/ontologies/paintbot#> .
@@ -14,11 +17,10 @@ _SCENE_OWL_TEMPLATE = """
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skiros: <http://rvmi.aau.dk/ontologies/skiros.owl#> .
 
+# Scene
 skiros:Scene-0 rdf:type owl:NamedIndividual ,
         skiros:Scene ;
-    #####
-    # Tray contains go here
-    #####
+{}
 {}
     skiros:DiscreteReasoner "AauSpatialReasoner"^^xsd:string ;
     skiros:FrameId "map"^^xsd:string ;
@@ -31,32 +33,62 @@ skiros:Scene-0 rdf:type owl:NamedIndividual ,
     skiros:PositionZ "0.0"^^xsd:float ;
     rdfs:label "Scene"^^xsd:string .
 
-    #####
-    # Other elements go here
-    #####
+# Paints
+{}
+
+# Trays
+{}
+
+# Wall sections
+{}
 """
 
-def gen_owl(segments):
+def generate(paints, segments):
+    # Paints and trays
+    paints_owl = ''
+    trays_owl = ''
+    tray_contains = []
+    paint_id = _PAINT_ID_START
+    tray_id = _TRAY_ID_START
+    paint_ids = {}
+    for p in paints:
+        pnt, tray = paint.generate(p[0], p[1], paint_id, tray_id)
+        paint_id += 1
+        tray_id += 1
+        paint_ids[p[1]] = pnt[0]
+        paints_owl += pnt[1]
+        trays_owl += tray[1]
+        tray_contains.append('    skiros.contain {} ;'.format(tray[0]))
+
+    # Wall sections
     wall_sections = []
     id_start = _WALL_SECTION_ID_START
     for seg in segments:
-        sections = wall_section.gen_owl(
+        sections = wall_section.generate(
             seg[0], seg[1],
             _PAINT_ROLLER_WIDTH,
-            seg[2],
+            paint_ids[seg[2]],
             id_start)
         id_start += len(sections)
         wall_sections += sections
-    contains = ('    skiros:contain {} ;'.format(ws[0]) for ws in wall_sections)
-    owl = _SCENE_OWL_TEMPLATE.format('\n'.join(contains))
+    ws_contains = ['    skiros:contain {} ;'.format(ws[0]) for ws in wall_sections]
+
+    ws_owl = ''
     for ws in wall_sections:
-        owl += ws[1]
+        ws_owl += ws[1]
+
+    scene_owl = _SCENE_OWL_TEMPLATE.format(
+        '\n'.join(tray_contains),
+        '\n'.join(ws_contains),
+        paints_owl,
+        trays_owl,
+        ws_owl)
 
     filename = sys.argv[1] if len(sys.argv) > 1 else 'room_paint_scene_1.turtle'
     with open(filename, 'w') as f:
-        f.write(owl)
+        f.write(scene_owl)
 
 # Test
-gen_owl((
-    ((-2, -3), (-2, 0.5), 'paintbot:Paint-1'),
-    ((4.5, -3.5), (-1.5, -3.5), 'paintbot:Paint-2')))
+# gen_owl((
+#     ((-2, -3), (-2, 0.5), 'paintbot:Paint-1'),
+#     ((4.5, -3.5), (-1.5, -3.5), 'paintbot:Paint-2')))

@@ -41,7 +41,7 @@ def gen_wall_centers(p1, p2, width):
         centers.append(((w[0] * d) + p1[0], (w[1] * d) + p1[1]))
     return centers
 
-def gen_owl(p1, p2, width, target_color, id_start):
+def generate(p1, p2, width, target_color, id_start):
     # Note: Orientation of sections is theta(p2-p1) - math.pi/2
     centers = gen_wall_centers(p1, p2, width)
     id = id_start
