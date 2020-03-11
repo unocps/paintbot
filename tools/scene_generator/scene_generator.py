@@ -38,6 +38,12 @@ class GUI:
         self.paint_y_entry = tk.Entry(add_paint_frame, width=5, validate='key', validatecommand=val_float)
         self.paint_y_entry.grid(row=1, column=2, sticky='ew')
 
+        label = tk.Label(add_paint_frame, text='Tray angle (rad):')
+        label.grid(row=2, column=0, sticky='e')
+
+        self.paint_angle_entry = tk.Entry(add_paint_frame, width=5, validate='key', validatecommand=val_float)
+        self.paint_angle_entry.grid(row=2, column=1, sticky='ew')
+
         add_paint_button = tk.Button(add_paint_frame, text='Add', command=self._add_paint)
         add_paint_button.grid(row=1, column=3)
 
@@ -88,22 +94,24 @@ class GUI:
         name = self.paint_name_entry.get().strip()
         x = self.paint_x_entry.get().strip()
         y = self.paint_y_entry.get().strip()
-        if not name or not x or not y:
+        angle = self.paint_angle_entry.get().strip()
+        if not name or not x or not y or not angle:
             return
 
-        self.paints.append(((float(x), float(y)), name))
-        self.paint_listbox.insert(tk.END, '{} - Tray at ({}, {})'.format(name, x, y))
+        self.paints.append((name, (float(x), float(y)), float(angle)))
+        self.paint_listbox.insert(tk.END, '{} - Tray at ({}, {}) [{} rad]'.format(name, x, y, angle))
 
         # Update paint menu
         paint_menu = self.ws_paint_option['menu']
         paint_menu.delete(0, tk.END)
         for p in self.paints:
-            paint_menu.add_command(label=p[1], command=lambda v=p: self.ws_paint_var.set(v[1]))
+            paint_menu.add_command(label=p[0], command=lambda v=p: self.ws_paint_var.set(v[0]))
 
         # Clear fields
         self.paint_name_entry.delete(0, tk.END)
         self.paint_x_entry.delete(0, tk.END)
         self.paint_y_entry.delete(0, tk.END)
+        self.paint_angle_entry.delete(0, tk.END)
 
     def _add_ws(self):
         start_x = self.ws_start_x_entry.get().strip()

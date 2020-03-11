@@ -52,10 +52,10 @@ def generate(paints, segments):
     tray_id = _TRAY_ID_START
     paint_ids = {}
     for p in paints:
-        pnt, tray = paint.generate(p[0], p[1], paint_id, tray_id)
+        pnt, tray = paint.generate(p[0], p[1], p[2], paint_id, tray_id)
         paint_id += 1
         tray_id += 1
-        paint_ids[p[1]] = pnt[0]
+        paint_ids[p[0]] = pnt[0]
         paints_owl += pnt[1]
         trays_owl += tray[1]
         tray_contains.append('    skiros.contain {} ;'.format(tray[0]))
@@ -77,6 +77,7 @@ def generate(paints, segments):
     for ws in wall_sections:
         ws_owl += ws[1]
 
+    # Construct full scene
     scene_owl = _SCENE_OWL_TEMPLATE.format(
         '\n'.join(tray_contains),
         '\n'.join(ws_contains),
@@ -84,11 +85,7 @@ def generate(paints, segments):
         trays_owl,
         ws_owl)
 
+    # Save to file
     filename = sys.argv[1] if len(sys.argv) > 1 else 'room_paint_scene_1.turtle'
     with open(filename, 'w') as f:
         f.write(scene_owl)
-
-# Test
-# gen_owl((
-#     ((-2, -3), (-2, 0.5), 'paintbot:Paint-1'),
-#     ((4.5, -3.5), (-1.5, -3.5), 'paintbot:Paint-2')))

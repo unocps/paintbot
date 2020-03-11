@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import math
+import util
 
 _WALL_SECTION_OWL_TEMPLATE = """
 {} rdf:type owl:NamedIndividual ,
@@ -14,13 +15,6 @@ _WALL_SECTION_OWL_TEMPLATE = """
     rdfs:label "Wall_{}"^^xsd:string ;
     paintbot:targetColor {} .
 """
-
-def euler_to_quaternion(r, p, y):
-    qx = math.sin(r/2) * math.cos(p/2) * math.cos(y/2) - math.cos(r/2) * math.sin(p/2) * math.sin(y/2)
-    qy = math.cos(r/2) * math.sin(p/2) * math.cos(y/2) + math.sin(r/2) * math.cos(p/2) * math.sin(y/2)
-    qz = math.cos(r/2) * math.cos(p/2) * math.sin(y/2) - math.sin(r/2) * math.sin(p/2) * math.cos(y/2)
-    qw = math.cos(r/2) * math.cos(p/2) * math.cos(y/2) + math.sin(r/2) * math.sin(p/2) * math.sin(y/2)
-    return [qx, qy, qz, qw]
 
 def gen_wall_centers(p1, p2, width):
     # Normalized wall vector
@@ -48,7 +42,7 @@ def generate(p1, p2, width, target_color, id_start):
     owl = []
     for c in centers:
         full_id = 'paintbot:WallSection-{}'.format(id)
-        q = euler_to_quaternion(0, 0, math.atan2(p2[1] - p1[1], p2[0] - p1[0]) - (math.pi / 2))
+        q = util.euler_to_quaternion(0, 0, math.atan2(p2[1] - p1[1], p2[0] - p1[0]) - (math.pi / 2))
         owl.append((
             full_id,
             _WALL_SECTION_OWL_TEMPLATE.format(
