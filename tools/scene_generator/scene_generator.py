@@ -1,3 +1,4 @@
+from tkinter import filedialog
 import re
 import scene
 import tkinter as tk
@@ -136,7 +137,12 @@ class GUI:
         self.ws_paint_var.set('')
 
     def _generate(self):
-        scene.generate(self.paints, self.ws)
+        filename = filedialog.asksaveasfilename(title='Select output file', filetypes=[('Turtle', '*.turtle')])
+        owl = scene.generate(self.paints, self.ws)
+
+        # Save to file
+        with open(filename, 'w') as f:
+            f.write(owl)
 
     def _val_float(self, s):
         return _NUM_REGEX.search(s) is not None

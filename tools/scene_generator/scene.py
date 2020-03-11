@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import paint
-import sys
 import wall_section
 
 _PAINT_ROLLER_WIDTH = 0.2286
@@ -78,14 +77,9 @@ def generate(paints, segments):
         ws_owl += ws[1]
 
     # Construct full scene
-    scene_owl = _SCENE_OWL_TEMPLATE.format(
+    return _SCENE_OWL_TEMPLATE.format(
         '\n'.join(tray_contains),
         '\n'.join(ws_contains),
         paints_owl,
         trays_owl,
         ws_owl)
-
-    # Save to file
-    filename = sys.argv[1] if len(sys.argv) > 1 else 'room_paint_scene_1.turtle'
-    with open(filename, 'w') as f:
-        f.write(scene_owl)
