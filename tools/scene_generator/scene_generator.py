@@ -135,8 +135,9 @@ class GUI:
         owl = scene.generate(self.paints, self.ws)
 
         # Save to file
-        with open(filename, 'w') as f:
-            f.write(owl)
+        if filename:
+            with open(filename, 'w') as f:
+                f.write(owl)
 
     def _clear_all(self):
         self.paints = []
