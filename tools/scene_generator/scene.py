@@ -57,7 +57,7 @@ def generate(paints, segments):
         paint_ids[p[0]] = pnt[0]
         paints_owl += pnt[1]
         trays_owl += tray[1]
-        tray_contains.append('    skiros.contain {} ;'.format(tray[0]))
+        tray_contains.append('    skiros:contain {} ;'.format(tray[0]))
 
     # Wall sections
     wall_sections = []
