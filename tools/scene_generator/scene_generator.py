@@ -94,6 +94,9 @@ class GUI:
         gen_button = tk.Button(gen_frame, text='Generate', command=self._generate)
         gen_button.pack(side=tk.RIGHT)
 
+        clear_button = tk.Button(gen_frame, text='Clear', command=self._clear_all)
+        clear_button.pack(side=tk.RIGHT, padx=5)
+
     def _add_paint(self):
         name = self.paint_name_entry.get().strip()
         x = self.paint_x_entry.get().strip()
@@ -111,11 +114,7 @@ class GUI:
         for p in self.paints:
             paint_menu.add_command(label=p[0], command=lambda v=p: self.ws_paint_var.set(v[0]))
 
-        # Clear fields
-        self.paint_name_entry.delete(0, tk.END)
-        self.paint_x_entry.delete(0, tk.END)
-        self.paint_y_entry.delete(0, tk.END)
-        self.paint_angle_entry.delete(0, tk.END)
+        self._clear_paint_entry()
 
     def _add_ws(self):
         start_x = self.ws_start_x_entry.get().strip()
@@ -129,12 +128,7 @@ class GUI:
         self.ws.append(((float(start_x), float(start_y)), (float(end_x), float(end_y)), paint))
         self.ws_listbox.insert(tk.END, '{} - ({}, {}) to ({}, {})'.format(paint, start_x, start_y, end_x, end_y))
 
-        # Clear fields
-        self.ws_start_x_entry.delete(0, tk.END)
-        self.ws_start_y_entry.delete(0, tk.END)
-        self.ws_end_x_entry.delete(0, tk.END)
-        self.ws_end_y_entry.delete(0, tk.END)
-        self.ws_paint_var.set('')
+        self._clear_ws_entry()
 
     def _generate(self):
         filename = filedialog.asksaveasfilename(title='Select output file', filetypes=[('Turtle', '*.turtle')])
@@ -143,6 +137,29 @@ class GUI:
         # Save to file
         with open(filename, 'w') as f:
             f.write(owl)
+
+    def _clear_all(self):
+        self.paints = []
+        self.paint_listbox.delete(0, tk.END)
+        self.ws_paint_option['menu'].delete(0, tk.END)
+        self._clear_paint_entry()
+
+        self.ws = []
+        self.ws_listbox.delete(0, tk.END)
+        self._clear_ws_entry()
+
+    def _clear_paint_entry(self):
+        self.paint_name_entry.delete(0, tk.END)
+        self.paint_x_entry.delete(0, tk.END)
+        self.paint_y_entry.delete(0, tk.END)
+        self.paint_angle_entry.delete(0, tk.END)
+
+    def _clear_ws_entry(self):
+        self.ws_start_x_entry.delete(0, tk.END)
+        self.ws_start_y_entry.delete(0, tk.END)
+        self.ws_end_x_entry.delete(0, tk.END)
+        self.ws_end_y_entry.delete(0, tk.END)
+        self.ws_paint_var.set('')
 
     def _val_float(self, s):
         return _NUM_REGEX.search(s) is not None
