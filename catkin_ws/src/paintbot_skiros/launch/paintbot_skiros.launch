@@ -3,7 +3,7 @@
         <arg name="robot_ontology_prefix" value="paintbot" />
         <arg name="robot_name" value="paintbot" />
         <arg name="workspace_dir" value="$(find paintbot_skiros)/owl" />
-        <arg name="init_scene" value="sec-43_col-2.turtle" />
+        <arg name="init_scene" value="ang_0.turtle" />
         <arg name="libraries_list" value="[navigation, painting, skiros2_std_skills]" />
         <arg name="primitive_list" value="[ApplyPaintPrimitive, ArmToZeroPrimitive, GeneratePaintSubGoalPrimitive, LoadPaintPrimitive, NavigateToLocationPrimitive]" />
         <arg name="skill_list" value="[ApplyPaint, LoadPaint, NavigateToLocation, PaintAllWallSections, task_plan]" />
