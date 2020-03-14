@@ -21,6 +21,10 @@
             <uri>model://PaintTrayGreen</uri>
             <pose>1.5 3 0.02 0 0 1.5707</pose>
         </include>
+        <include>
+            <uri>model://PaintTrayBlue</uri>
+            <pose>2 3 0.02 0 0 1.5707</pose>
+        </include>
 
         <!-- Obstacles -->
         <include>
@@ -37,7 +41,7 @@
         </include>
         <include>
             <uri>model://toolbox_metal_blue</uri>
-            <pose>-4 2 0 0 0 0.7854</pose>
+            <pose>-4 0 0 0 0 0.7854</pose>
         </include>
     </world>
 </sdf>
