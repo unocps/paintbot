@@ -86,10 +86,10 @@ paintbot:WallSection-100 rdf:type owl:NamedIndividual ,
         paintbot:WallSection ;
     skiros:OrientationX "0.0"^^xsd:float ;
     skiros:OrientationY "0.0"^^xsd:float ;
-    skiros:OrientationZ "0.0"^^xsd:float ;
-    skiros:OrientationW "1.0"^^xsd:float ;
+    skiros:OrientationZ "-1.0"^^xsd:float ;
+    skiros:OrientationW "6.123233995736766e-17"^^xsd:float ;
     skiros:PositionX "5.0"^^xsd:float ;
-    skiros:PositionY "-0.8857"^^xsd:float ;
+    skiros:PositionY "-0.1143"^^xsd:float ;
     rdfs:label "Wall_100"^^xsd:string ;
     paintbot:targetColor paintbot:Paint-1 .
 
@@ -97,10 +97,10 @@ paintbot:WallSection-101 rdf:type owl:NamedIndividual ,
         paintbot:WallSection ;
     skiros:OrientationX "0.0"^^xsd:float ;
     skiros:OrientationY "0.0"^^xsd:float ;
-    skiros:OrientationZ "0.0"^^xsd:float ;
-    skiros:OrientationW "1.0"^^xsd:float ;
+    skiros:OrientationZ "-1.0"^^xsd:float ;
+    skiros:OrientationW "6.123233995736766e-17"^^xsd:float ;
     skiros:PositionX "5.0"^^xsd:float ;
-    skiros:PositionY "-0.7"^^xsd:float ;
+    skiros:PositionY "-0.30000000000000004"^^xsd:float ;
     rdfs:label "Wall_101"^^xsd:string ;
     paintbot:targetColor paintbot:Paint-1 .
 
@@ -108,10 +108,10 @@ paintbot:WallSection-102 rdf:type owl:NamedIndividual ,
         paintbot:WallSection ;
     skiros:OrientationX "0.0"^^xsd:float ;
     skiros:OrientationY "0.0"^^xsd:float ;
-    skiros:OrientationZ "0.0"^^xsd:float ;
-    skiros:OrientationW "1.0"^^xsd:float ;
+    skiros:OrientationZ "-1.0"^^xsd:float ;
+    skiros:OrientationW "6.123233995736766e-17"^^xsd:float ;
     skiros:PositionX "5.0"^^xsd:float ;
-    skiros:PositionY "-0.4999999999999999"^^xsd:float ;
+    skiros:PositionY "-0.5000000000000001"^^xsd:float ;
     rdfs:label "Wall_102"^^xsd:string ;
     paintbot:targetColor paintbot:Paint-1 .
 
@@ -119,10 +119,10 @@ paintbot:WallSection-103 rdf:type owl:NamedIndividual ,
         paintbot:WallSection ;
     skiros:OrientationX "0.0"^^xsd:float ;
     skiros:OrientationY "0.0"^^xsd:float ;
-    skiros:OrientationZ "0.0"^^xsd:float ;
-    skiros:OrientationW "1.0"^^xsd:float ;
+    skiros:OrientationZ "-1.0"^^xsd:float ;
+    skiros:OrientationW "6.123233995736766e-17"^^xsd:float ;
     skiros:PositionX "5.0"^^xsd:float ;
-    skiros:PositionY "-0.29999999999999993"^^xsd:float ;
+    skiros:PositionY "-0.7000000000000001"^^xsd:float ;
     rdfs:label "Wall_103"^^xsd:string ;
     paintbot:targetColor paintbot:Paint-1 .
 
@@ -130,10 +130,10 @@ paintbot:WallSection-104 rdf:type owl:NamedIndividual ,
         paintbot:WallSection ;
     skiros:OrientationX "0.0"^^xsd:float ;
     skiros:OrientationY "0.0"^^xsd:float ;
-    skiros:OrientationZ "0.0"^^xsd:float ;
-    skiros:OrientationW "1.0"^^xsd:float ;
+    skiros:OrientationZ "-1.0"^^xsd:float ;
+    skiros:OrientationW "6.123233995736766e-17"^^xsd:float ;
     skiros:PositionX "5.0"^^xsd:float ;
-    skiros:PositionY "-0.11429999999999996"^^xsd:float ;
+    skiros:PositionY "-0.8857"^^xsd:float ;
     rdfs:label "Wall_104"^^xsd:string ;
     paintbot:targetColor paintbot:Paint-1 .
 
