@@ -31,11 +31,12 @@ def read_entry(line, f):
 def print_stats(stats):
     print(','.join('{}' for i in range(len(stats))).format(*stats))
 
-if len(sys.argv) < 2:
-    print('File required')
+if len(sys.argv) < 3:
+    print('Input file and test name required')
     sys.exit(1)
 
 with open(sys.argv[1]) as f:
+    test_name = sys.argv[2]
     track_data = None
 
     line = f.readline()
@@ -43,15 +44,13 @@ with open(sys.argv[1]) as f:
         data, line = read_entry(line, f)
 
         if data[_STATE] == 'Failure':
-            print_stats((data[_SUB_SKILL], int(data[_CODE]), float(data[_DUR])))
+            print_stats((test_name, data[_SUB_SKILL], int(data[_CODE]), float(data[_DUR])))
         elif track_data and data[_SUB_SKILL] != track_data[_SUB_SKILL]:
             if track_data[_SUB_SKILL] == 'NavigateToLocationPrimitive':
-                print('NavigateToLocationPrimitive')
                 m = _NAV_RE.match(track_data[_MSG])
-                print_stats((track_data[_SUB_SKILL], int(track_data[_CODE]), float(track_data[_DUR]), m.group(1), m.group(2), m.group(3)))
+                print_stats((test_name, track_data[_SUB_SKILL], int(track_data[_CODE]), float(track_data[_DUR]), m.group(1), m.group(2), m.group(3)))
             else:
-                print('else')
-                print_stats((track_data[_SUB_SKILL], int(track_data[_CODE]), float(track_data[_DUR])))
+                print_stats((test_name, track_data[_SUB_SKILL], int(track_data[_CODE]), float(track_data[_DUR])))
 
         if data[_SUB_SKILL] in _SUB_SKILLS and data[_STATE] in ('Running', 'Success'):
             track_data = data
