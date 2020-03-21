@@ -15,7 +15,7 @@ _SUB_SKILLS = [
     'NavigateToLocationPrimitive',
     'task_plan']
 _LOG_RE = re.compile('(.*;){8,8}.*')
-_NAV_RE = re.compile('Reached \(.*, .*\) @ .* \[Delta: (.*), (.*), Dist: (.*)\]')
+_NAV_RE = re.compile('Navigating \(\((.*), (.*)\), (.*)\) to \(\((.*), (.*)\), (.*)\) \[Dist: (.*)\]')
 
 def read_entry(line, f):
     data = line.split(';')
@@ -48,7 +48,7 @@ with open(sys.argv[1]) as f:
         elif track_data and data[_SUB_SKILL] != track_data[_SUB_SKILL]:
             if track_data[_SUB_SKILL] == 'NavigateToLocationPrimitive':
                 m = _NAV_RE.match(track_data[_MSG])
-                print_stats((test_name, track_data[_SUB_SKILL], int(track_data[_CODE]), float(track_data[_DUR]), m.group(1), m.group(2), m.group(3)))
+                print_stats((test_name, track_data[_SUB_SKILL], int(track_data[_CODE]), float(track_data[_DUR]), m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6), m.group(7)))
             else:
                 print_stats((test_name, track_data[_SUB_SKILL], int(track_data[_CODE]), float(track_data[_DUR])))
 
