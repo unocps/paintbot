@@ -29,11 +29,13 @@ TebLocalPlannerROS:
 
     # GoalTolerance
     xy_goal_tolerance: 0.2
-    yaw_goal_tolerance: 0.2
+    yaw_goal_tolerance: 0.05
     free_goal_vel: False
 
     # Obstacles
     min_obstacle_dist: 0.1
+    obstacle_association_force_inclusion_factor: 10
+    obstacle_association_cutoff_factor: 50
     include_costmap_obstacles: True
     costmap_obstacles_behind_robot_dist: 1.0
     obstacle_poses_affected: 30

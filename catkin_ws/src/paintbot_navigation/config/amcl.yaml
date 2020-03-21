@@ -1,3 +1,4 @@
 use_map_topic: true
 base_frame_id: virtual_base
 tf_broadcast: false
+odom_model_type: omni-corrected
