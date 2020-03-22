@@ -67,7 +67,7 @@ class NavigateToLocationPrimitive(PrimitiveBase):
             self.dist += math.sqrt((self.pos_prev[0] - pose[0][0])**2 + (self.pos_prev[1] - pose[0][1])**2)
         self.pos_prev = pose[0]
 
-        msg = 'Navigating {} to {} [Dist: {}]'.format(self.pose_start, self.dest, self.dist)
+        msg = 'Navigating {} to {} [Pose: {}, Dist: {}]'.format(self.pose_start, self.dest, pose, self.dist)
         if self.status == 1:
             return self.step(msg)
         elif self.status == 3:
