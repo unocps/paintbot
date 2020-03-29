@@ -84,10 +84,6 @@ class NavigateToLocationPrimitive(PrimitiveBase):
     def _get_pose(self):
         try:
             p, o = self.tf_listener.lookupTransform('odom', 'virtual_base', rospy.Time(0))
-            # if self.pos_prev:
-            #     self.dist += math.sqrt((self.pos_prev[0] - p[0])**2 + (self.pos_prev[1] - p[1])**2)
-            # self.pos_prev = p
-            # p_delta, o_delta = math.sqrt((self.dest[0] - p[0])**2 + (self.dest[1] - p[1])**2), _normalize_angle(self.yaw - euler_from_quaternion(o)[2])
             return ((p[0], p[1]), euler_from_quaternion(o)[2])
         except:
             return None

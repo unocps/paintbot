@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import math
+import os
 import re
 import sys
 
@@ -15,44 +17,65 @@ _SUB_SKILLS = [
     'NavigateToLocationPrimitive',
     'task_plan']
 _LOG_RE = re.compile('(.*;){8,8}.*')
-_NAV_RE = re.compile('Navigating \(\((.*), (.*)\), (.*)\) to \(\((.*), (.*)\), (.*)\) \[Dist: (.*)\]')
+_NAV_RE = re.compile('Navigating \(\((.*), (.*)\), (.*)\) to \(\((.*), (.*)\), (.*)\) \[Pose: \(\((.*), (.*)\), (.*)\), Dist: (.*)\]')
 
 def read_entry(line, f):
-    data = line.split(';')
     if _LOG_RE.match(line):
+        data = line.split(';')
         line = f.readline()
         if not line:
             return data, line
         while not _LOG_RE.match(line):
             data[_MSG] += line
             line = f.readline()
-    return data, line
+        return data, line
+    return None
 
-def print_stats(stats):
-    print(','.join('{}' for i in range(len(stats))).format(*stats))
+def write_header(f):
+    f.write('test,angle,skill,code,duration,delta_st,tot_dist,rel_diff_dist,delta_dest,delta_head\n')
+
+def write_stats(stats, f):
+    f.write(','.join('{}' for i in range(len(stats))).format(*stats) + '\n')
+
+def calc_dist(p1, p2):
+    return math.sqrt((p2[0] - p1[0])**2 + (p2[1] - p1[1])**2)
 
 if len(sys.argv) < 3:
-    print('Input file and test name required')
+    print('Input directory and output directory required')
     sys.exit(1)
 
-with open(sys.argv[1]) as f:
-    test_name = sys.argv[2]
-    track_data = None
+indir = sys.argv[1]
+outdir = sys.argv[2]
+_, _, filenames = next(os.walk(indir))
 
-    line = f.readline()
-    while line:
-        data, line = read_entry(line, f)
+for filename in filenames:
+    print(f'Parsing {indir}/{filename}...')
 
-        if data[_STATE] == 'Failure':
-            print_stats((test_name, data[_SUB_SKILL], int(data[_CODE]), float(data[_DUR])))
-        elif track_data and data[_SUB_SKILL] != track_data[_SUB_SKILL]:
-            if track_data[_SUB_SKILL] == 'NavigateToLocationPrimitive':
-                m = _NAV_RE.match(track_data[_MSG])
-                print_stats((test_name, track_data[_SUB_SKILL], int(track_data[_CODE]), float(track_data[_DUR]), m.group(1), m.group(2), m.group(3), m.group(4), m.group(5), m.group(6), m.group(7)))
+    test_name = filename.split('.')[-2]
+    with open(f'{indir}/{filename}') as fin, open(f'{outdir}/{test_name}.csv', 'w') as fout:
+        write_header(fout)
+
+        track_data = None
+        line = fin.readline()
+        while line:
+            data, line = read_entry(line, fin)
+            stats = [test_name, filename.split('_')[1], track_data[_SUB_SKILL], int(track_data[_CODE]), float(track_data[_DUR])] if track_data else []
+
+            if data[_STATE] == 'Failure':
+                write_stats(stats, fout)
+            elif track_data and data[_SUB_SKILL] != track_data[_SUB_SKILL]:
+                if track_data[_SUB_SKILL] == 'NavigateToLocationPrimitive':
+                    m = _NAV_RE.match(track_data[_MSG])
+                    start, dest = (float(m.group(1)), float(m.group(2))), (float(m.group(4)), float(m.group(5)))
+                    delta_start, total_dist = calc_dist(start, dest), float(m.group(10))
+                    stats.append(delta_start) # Euclidean distance between start and dest
+                    stats.append(total_dist) # Total distance travelled
+                    stats.append((total_dist - delta_start) / delta_start) # Rel. diff. of total_dist and delta_start
+                    stats.append(calc_dist((float(m.group(7)), float(m.group(8))), dest)) # Euclidean distance between dest and final pose
+                    stats.append(float(m.group(6)) - float(m.group(9))) # Diff. between dest heading and final heading
+                write_stats(stats, fout)
+
+            if data[_SUB_SKILL] in _SUB_SKILLS and data[_STATE] in ('Running', 'Success'):
+                track_data = data
             else:
-                print_stats((test_name, track_data[_SUB_SKILL], int(track_data[_CODE]), float(track_data[_DUR])))
-
-        if data[_SUB_SKILL] in _SUB_SKILLS and data[_STATE] in ('Running', 'Success'):
-            track_data = data
-        else:
-            track_data = None
+                track_data = None
