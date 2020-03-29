@@ -30,7 +30,7 @@ class NavigateToLocationPrimitive(PrimitiveBase):
 
     def onStart(self):
         self.tf_listener = tf.TransformListener()
-        self.tf_listener.waitForTransform('odom', 'virtual_base', rospy.Time(0), rospy.Duration(5))
+        self.tf_listener.waitForTransform('world', 'virtual_base', rospy.Time(0), rospy.Duration(5))
 
         wall_loc = self.params['Destination'].value
         wall_facing = euler_from_quaternion([
@@ -83,7 +83,7 @@ class NavigateToLocationPrimitive(PrimitiveBase):
 
     def _get_pose(self):
         try:
-            p, o = self.tf_listener.lookupTransform('odom', 'virtual_base', rospy.Time(0))
+            p, o = self.tf_listener.lookupTransform('world', 'virtual_base', rospy.Time(0))
             return ((p[0], p[1]), euler_from_quaternion(o)[2])
         except:
             return None
