@@ -19,6 +19,7 @@ _SUB_SKILLS = [
 _LOG_RE = re.compile('(.*;){8,8}.*')
 _NAV_RE = re.compile('Navigating \(\((.*), (.*)\), (.*)\) to \(\((.*), (.*)\), (.*)\) \[Pose: \(\((.*), (.*)\), (.*)\), Dist: (.*)\]')
 
+
 def read_entry(line, f):
     if _LOG_RE.match(line):
         data = line.split(';')
@@ -31,14 +32,26 @@ def read_entry(line, f):
         return data, line
     return None
 
+
 def write_header(f):
     f.write('test,angle,skill,code,duration,delta_st,tot_dist,rel_diff_dist,delta_dest,delta_head\n')
+
 
 def write_stats(stats, f):
     f.write(','.join('{}' for i in range(len(stats))).format(*stats) + '\n')
 
+
 def calc_dist(p1, p2):
     return math.sqrt((p2[0] - p1[0])**2 + (p2[1] - p1[1])**2)
+
+
+def norm_angle(theta):
+    while theta > math.pi:
+        theta -= math.pi
+    while theta < -math.pi:
+        theta += math.pi
+    return theta
+
 
 if len(sys.argv) < 3:
     print('Input directory and output directory required')
@@ -68,11 +81,11 @@ for filename in filenames:
                     m = _NAV_RE.match(track_data[_MSG])
                     start, dest = (float(m.group(1)), float(m.group(2))), (float(m.group(4)), float(m.group(5)))
                     delta_start, total_dist = calc_dist(start, dest), float(m.group(10))
-                    stats.append(delta_start) # Euclidean distance between start and dest
-                    stats.append(total_dist) # Total distance travelled
-                    stats.append((total_dist - delta_start) / delta_start) # Rel. diff. of total_dist and delta_start
-                    stats.append(calc_dist((float(m.group(7)), float(m.group(8))), dest)) # Euclidean distance between dest and final pose
-                    stats.append(float(m.group(6)) - float(m.group(9))) # Diff. between dest heading and final heading
+                    stats.append(delta_start)  # Euclidean distance between start and dest
+                    stats.append(total_dist)  # Total distance travelled
+                    stats.append((total_dist - delta_start) / delta_start)  # Rel. diff. of total_dist and delta_start
+                    stats.append(calc_dist((float(m.group(7)), float(m.group(8))), dest))  # Euclidean distance between dest and final pose
+                    stats.append(norm_angle(float(m.group(6)) - float(m.group(9))))  # Diff. between dest heading and final heading
                 write_stats(stats, fout)
 
             if data[_SUB_SKILL] in _SUB_SKILLS and data[_STATE] in ('Running', 'Success'):
