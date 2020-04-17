@@ -27,6 +27,15 @@ skiros:Scene-0 rdf:type owl:NamedIndividual ,
     skiros:contain paintbot:WallSection-111 ;
     skiros:contain paintbot:WallSection-112 ;
     skiros:contain paintbot:WallSection-113 ;
+    skiros:contain paintbot:WallSection-114 ;
+    skiros:contain paintbot:WallSection-115 ;
+    skiros:contain paintbot:WallSection-116 ;
+    skiros:contain paintbot:WallSection-117 ;
+    skiros:contain paintbot:WallSection-118 ;
+    skiros:contain paintbot:WallSection-119 ;
+    skiros:contain paintbot:WallSection-120 ;
+    skiros:contain paintbot:WallSection-121 ;
+    skiros:contain paintbot:WallSection-122 ;
     skiros:DiscreteReasoner "AauSpatialReasoner"^^xsd:string ;
     skiros:FrameId "map"^^xsd:string ;
     skiros:OrientationW "1.0"^^xsd:float ;
@@ -48,6 +57,10 @@ paintbot:Paint-2 rdf:type owl:NamedIndividual ,
         paintbot:Paint ;
     rdfs:label "Paint_Green"^^xsd:string .
 
+paintbot:Paint-3 rdf:type owl:NamedIndividual ,
+        paintbot:Paint ;
+    rdfs:label "Paint_Blue"^^xsd:string .
+
 
 # Trays
 
@@ -56,8 +69,8 @@ paintbot:PaintTray-51 rdf:type owl:NamedIndividual ,
     skiros:contain paintbot:Paint-1 ;
     skiros:OrientationX "0.0"^^xsd:float ;
     skiros:OrientationY "0.0"^^xsd:float ;
-    skiros:OrientationZ "-0.6841954908027259"^^xsd:float ;
-    skiros:OrientationW "0.7292986564948664"^^xsd:float ;
+    skiros:OrientationZ "-0.7071787868720665"^^xsd:float ;
+    skiros:OrientationW "0.7070347681678408"^^xsd:float ;
     skiros:PositionX "1.0"^^xsd:float ;
     skiros:PositionY "3.0"^^xsd:float ;
     rdfs:label "PaintTray_Red"^^xsd:string .
@@ -67,11 +80,22 @@ paintbot:PaintTray-52 rdf:type owl:NamedIndividual ,
     skiros:contain paintbot:Paint-2 ;
     skiros:OrientationX "0.0"^^xsd:float ;
     skiros:OrientationY "0.0"^^xsd:float ;
-    skiros:OrientationZ "-0.6841954908027259"^^xsd:float ;
-    skiros:OrientationW "0.7292986564948664"^^xsd:float ;
+    skiros:OrientationZ "-0.7071787868720665"^^xsd:float ;
+    skiros:OrientationW "0.7070347681678408"^^xsd:float ;
     skiros:PositionX "1.5"^^xsd:float ;
     skiros:PositionY "3.0"^^xsd:float ;
     rdfs:label "PaintTray_Green"^^xsd:string .
+
+paintbot:PaintTray-53 rdf:type owl:NamedIndividual ,
+        paintbot:PaintTray ;
+    skiros:contain paintbot:Paint-3 ;
+    skiros:OrientationX "0.0"^^xsd:float ;
+    skiros:OrientationY "0.0"^^xsd:float ;
+    skiros:OrientationZ "-0.7071787868720665"^^xsd:float ;
+    skiros:OrientationW "0.7070347681678408"^^xsd:float ;
+    skiros:PositionX "2.0"^^xsd:float ;
+    skiros:PositionY "3.0"^^xsd:float ;
+    rdfs:label "PaintTray_Blue"^^xsd:string .
 
 
 # Wall sections
@@ -82,8 +106,8 @@ paintbot:WallSection-100 rdf:type owl:NamedIndividual ,
     skiros:OrientationY "0.0"^^xsd:float ;
     skiros:OrientationZ "0.0"^^xsd:float ;
     skiros:OrientationW "1.0"^^xsd:float ;
-    skiros:PositionX "-2.0"^^xsd:float ;
-    skiros:PositionY "-2.8857"^^xsd:float ;
+    skiros:PositionX "0.0"^^xsd:float ;
+    skiros:PositionY "0.1143"^^xsd:float ;
     rdfs:label "Wall_100"^^xsd:string ;
     paintbot:targetColor paintbot:Paint-1 .
 
@@ -93,8 +117,8 @@ paintbot:WallSection-101 rdf:type owl:NamedIndividual ,
     skiros:OrientationY "0.0"^^xsd:float ;
     skiros:OrientationZ "0.0"^^xsd:float ;
     skiros:OrientationW "1.0"^^xsd:float ;
-    skiros:PositionX "-2.0"^^xsd:float ;
-    skiros:PositionY "-2.678571428571429"^^xsd:float ;
+    skiros:PositionX "0.0"^^xsd:float ;
+    skiros:PositionY "0.33325"^^xsd:float ;
     rdfs:label "Wall_101"^^xsd:string ;
     paintbot:targetColor paintbot:Paint-1 .
 
@@ -104,8 +128,8 @@ paintbot:WallSection-102 rdf:type owl:NamedIndividual ,
     skiros:OrientationY "0.0"^^xsd:float ;
     skiros:OrientationZ "0.0"^^xsd:float ;
     skiros:OrientationW "1.0"^^xsd:float ;
-    skiros:PositionX "-2.0"^^xsd:float ;
-    skiros:PositionY "-2.4642857142857144"^^xsd:float ;
+    skiros:PositionX "0.0"^^xsd:float ;
+    skiros:PositionY "0.5554166666666667"^^xsd:float ;
     rdfs:label "Wall_102"^^xsd:string ;
     paintbot:targetColor paintbot:Paint-1 .
 
@@ -115,8 +139,8 @@ paintbot:WallSection-103 rdf:type owl:NamedIndividual ,
     skiros:OrientationY "0.0"^^xsd:float ;
     skiros:OrientationZ "0.0"^^xsd:float ;
     skiros:OrientationW "1.0"^^xsd:float ;
-    skiros:PositionX "-2.0"^^xsd:float ;
-    skiros:PositionY "-2.25"^^xsd:float ;
+    skiros:PositionX "0.0"^^xsd:float ;
+    skiros:PositionY "0.7775833333333333"^^xsd:float ;
     rdfs:label "Wall_103"^^xsd:string ;
     paintbot:targetColor paintbot:Paint-1 .
 
@@ -126,8 +150,8 @@ paintbot:WallSection-104 rdf:type owl:NamedIndividual ,
     skiros:OrientationY "0.0"^^xsd:float ;
     skiros:OrientationZ "0.0"^^xsd:float ;
     skiros:OrientationW "1.0"^^xsd:float ;
-    skiros:PositionX "-2.0"^^xsd:float ;
-    skiros:PositionY "-2.0357142857142856"^^xsd:float ;
+    skiros:PositionX "0.0"^^xsd:float ;
+    skiros:PositionY "0.99975"^^xsd:float ;
     rdfs:label "Wall_104"^^xsd:string ;
     paintbot:targetColor paintbot:Paint-1 .
 
@@ -137,8 +161,8 @@ paintbot:WallSection-105 rdf:type owl:NamedIndividual ,
     skiros:OrientationY "0.0"^^xsd:float ;
     skiros:OrientationZ "0.0"^^xsd:float ;
     skiros:OrientationW "1.0"^^xsd:float ;
-    skiros:PositionX "-2.0"^^xsd:float ;
-    skiros:PositionY "-1.8214285714285716"^^xsd:float ;
+    skiros:PositionX "0.0"^^xsd:float ;
+    skiros:PositionY "1.2187"^^xsd:float ;
     rdfs:label "Wall_105"^^xsd:string ;
     paintbot:targetColor paintbot:Paint-1 .
 
@@ -148,10 +172,10 @@ paintbot:WallSection-106 rdf:type owl:NamedIndividual ,
     skiros:OrientationY "0.0"^^xsd:float ;
     skiros:OrientationZ "0.0"^^xsd:float ;
     skiros:OrientationW "1.0"^^xsd:float ;
-    skiros:PositionX "-2.0"^^xsd:float ;
-    skiros:PositionY "-1.6143"^^xsd:float ;
+    skiros:PositionX "0.0"^^xsd:float ;
+    skiros:PositionY "1.4473"^^xsd:float ;
     rdfs:label "Wall_106"^^xsd:string ;
-    paintbot:targetColor paintbot:Paint-1 .
+    paintbot:targetColor paintbot:Paint-2 .
 
 paintbot:WallSection-107 rdf:type owl:NamedIndividual ,
         paintbot:WallSection ;
@@ -159,8 +183,8 @@ paintbot:WallSection-107 rdf:type owl:NamedIndividual ,
     skiros:OrientationY "0.0"^^xsd:float ;
     skiros:OrientationZ "0.0"^^xsd:float ;
     skiros:OrientationW "1.0"^^xsd:float ;
-    skiros:PositionX "-2.0"^^xsd:float ;
-    skiros:PositionY "-1.3857"^^xsd:float ;
+    skiros:PositionX "0.0"^^xsd:float ;
+    skiros:PositionY "1.6664999999999999"^^xsd:float ;
     rdfs:label "Wall_107"^^xsd:string ;
     paintbot:targetColor paintbot:Paint-2 .
 
@@ -170,8 +194,8 @@ paintbot:WallSection-108 rdf:type owl:NamedIndividual ,
     skiros:OrientationY "0.0"^^xsd:float ;
     skiros:OrientationZ "0.0"^^xsd:float ;
     skiros:OrientationW "1.0"^^xsd:float ;
-    skiros:PositionX "-2.0"^^xsd:float ;
-    skiros:PositionY "-1.1785714285714286"^^xsd:float ;
+    skiros:PositionX "0.0"^^xsd:float ;
+    skiros:PositionY "1.8888333333333334"^^xsd:float ;
     rdfs:label "Wall_108"^^xsd:string ;
     paintbot:targetColor paintbot:Paint-2 .
 
@@ -181,8 +205,8 @@ paintbot:WallSection-109 rdf:type owl:NamedIndividual ,
     skiros:OrientationY "0.0"^^xsd:float ;
     skiros:OrientationZ "0.0"^^xsd:float ;
     skiros:OrientationW "1.0"^^xsd:float ;
-    skiros:PositionX "-2.0"^^xsd:float ;
-    skiros:PositionY "-0.9642857142857143"^^xsd:float ;
+    skiros:PositionX "0.0"^^xsd:float ;
+    skiros:PositionY "2.1111666666666666"^^xsd:float ;
     rdfs:label "Wall_109"^^xsd:string ;
     paintbot:targetColor paintbot:Paint-2 .
 
@@ -192,8 +216,8 @@ paintbot:WallSection-110 rdf:type owl:NamedIndividual ,
     skiros:OrientationY "0.0"^^xsd:float ;
     skiros:OrientationZ "0.0"^^xsd:float ;
     skiros:OrientationW "1.0"^^xsd:float ;
-    skiros:PositionX "-2.0"^^xsd:float ;
-    skiros:PositionY "-0.75"^^xsd:float ;
+    skiros:PositionX "0.0"^^xsd:float ;
+    skiros:PositionY "2.3335"^^xsd:float ;
     rdfs:label "Wall_110"^^xsd:string ;
     paintbot:targetColor paintbot:Paint-2 .
 
@@ -203,8 +227,8 @@ paintbot:WallSection-111 rdf:type owl:NamedIndividual ,
     skiros:OrientationY "0.0"^^xsd:float ;
     skiros:OrientationZ "0.0"^^xsd:float ;
     skiros:OrientationW "1.0"^^xsd:float ;
-    skiros:PositionX "-2.0"^^xsd:float ;
-    skiros:PositionY "-0.5357142857142857"^^xsd:float ;
+    skiros:PositionX "0.0"^^xsd:float ;
+    skiros:PositionY "2.5526999999999997"^^xsd:float ;
     rdfs:label "Wall_111"^^xsd:string ;
     paintbot:targetColor paintbot:Paint-2 .
 
@@ -214,10 +238,10 @@ paintbot:WallSection-112 rdf:type owl:NamedIndividual ,
     skiros:OrientationY "0.0"^^xsd:float ;
     skiros:OrientationZ "0.0"^^xsd:float ;
     skiros:OrientationW "1.0"^^xsd:float ;
-    skiros:PositionX "-2.0"^^xsd:float ;
-    skiros:PositionY "-0.3214285714285716"^^xsd:float ;
+    skiros:PositionX "0.0"^^xsd:float ;
+    skiros:PositionY "1.7813"^^xsd:float ;
     rdfs:label "Wall_112"^^xsd:string ;
-    paintbot:targetColor paintbot:Paint-2 .
+    paintbot:targetColor paintbot:Paint-3 .
 
 paintbot:WallSection-113 rdf:type owl:NamedIndividual ,
         paintbot:WallSection ;
@@ -225,7 +249,107 @@ paintbot:WallSection-113 rdf:type owl:NamedIndividual ,
     skiros:OrientationY "0.0"^^xsd:float ;
     skiros:OrientationZ "0.0"^^xsd:float ;
     skiros:OrientationW "1.0"^^xsd:float ;
-    skiros:PositionX "-2.0"^^xsd:float ;
-    skiros:PositionY "-0.11430000000000007"^^xsd:float ;
+    skiros:PositionX "0.0"^^xsd:float ;
+    skiros:PositionY "1.9851363636363637"^^xsd:float ;
     rdfs:label "Wall_113"^^xsd:string ;
-    paintbot:targetColor paintbot:Paint-2 .
+    paintbot:targetColor paintbot:Paint-3 .
+
+paintbot:WallSection-114 rdf:type owl:NamedIndividual ,
+        paintbot:WallSection ;
+    skiros:OrientationX "0.0"^^xsd:float ;
+    skiros:OrientationY "0.0"^^xsd:float ;
+    skiros:OrientationZ "0.0"^^xsd:float ;
+    skiros:OrientationW "1.0"^^xsd:float ;
+    skiros:PositionX "0.0"^^xsd:float ;
+    skiros:PositionY "2.1972272727272726"^^xsd:float ;
+    rdfs:label "Wall_114"^^xsd:string ;
+    paintbot:targetColor paintbot:Paint-3 .
+
+paintbot:WallSection-115 rdf:type owl:NamedIndividual ,
+        paintbot:WallSection ;
+    skiros:OrientationX "0.0"^^xsd:float ;
+    skiros:OrientationY "0.0"^^xsd:float ;
+    skiros:OrientationZ "0.0"^^xsd:float ;
+    skiros:OrientationW "1.0"^^xsd:float ;
+    skiros:PositionX "0.0"^^xsd:float ;
+    skiros:PositionY "2.4093181818181817"^^xsd:float ;
+    rdfs:label "Wall_115"^^xsd:string ;
+    paintbot:targetColor paintbot:Paint-3 .
+
+paintbot:WallSection-116 rdf:type owl:NamedIndividual ,
+        paintbot:WallSection ;
+    skiros:OrientationX "0.0"^^xsd:float ;
+    skiros:OrientationY "0.0"^^xsd:float ;
+    skiros:OrientationZ "0.0"^^xsd:float ;
+    skiros:OrientationW "1.0"^^xsd:float ;
+    skiros:PositionX "0.0"^^xsd:float ;
+    skiros:PositionY "2.621409090909091"^^xsd:float ;
+    rdfs:label "Wall_116"^^xsd:string ;
+    paintbot:targetColor paintbot:Paint-3 .
+
+paintbot:WallSection-117 rdf:type owl:NamedIndividual ,
+        paintbot:WallSection ;
+    skiros:OrientationX "0.0"^^xsd:float ;
+    skiros:OrientationY "0.0"^^xsd:float ;
+    skiros:OrientationZ "0.0"^^xsd:float ;
+    skiros:OrientationW "1.0"^^xsd:float ;
+    skiros:PositionX "0.0"^^xsd:float ;
+    skiros:PositionY "2.8335"^^xsd:float ;
+    rdfs:label "Wall_117"^^xsd:string ;
+    paintbot:targetColor paintbot:Paint-3 .
+
+paintbot:WallSection-118 rdf:type owl:NamedIndividual ,
+        paintbot:WallSection ;
+    skiros:OrientationX "0.0"^^xsd:float ;
+    skiros:OrientationY "0.0"^^xsd:float ;
+    skiros:OrientationZ "0.0"^^xsd:float ;
+    skiros:OrientationW "1.0"^^xsd:float ;
+    skiros:PositionX "0.0"^^xsd:float ;
+    skiros:PositionY "3.045590909090909"^^xsd:float ;
+    rdfs:label "Wall_118"^^xsd:string ;
+    paintbot:targetColor paintbot:Paint-3 .
+
+paintbot:WallSection-119 rdf:type owl:NamedIndividual ,
+        paintbot:WallSection ;
+    skiros:OrientationX "0.0"^^xsd:float ;
+    skiros:OrientationY "0.0"^^xsd:float ;
+    skiros:OrientationZ "0.0"^^xsd:float ;
+    skiros:OrientationW "1.0"^^xsd:float ;
+    skiros:PositionX "0.0"^^xsd:float ;
+    skiros:PositionY "3.257681818181818"^^xsd:float ;
+    rdfs:label "Wall_119"^^xsd:string ;
+    paintbot:targetColor paintbot:Paint-3 .
+
+paintbot:WallSection-120 rdf:type owl:NamedIndividual ,
+        paintbot:WallSection ;
+    skiros:OrientationX "0.0"^^xsd:float ;
+    skiros:OrientationY "0.0"^^xsd:float ;
+    skiros:OrientationZ "0.0"^^xsd:float ;
+    skiros:OrientationW "1.0"^^xsd:float ;
+    skiros:PositionX "0.0"^^xsd:float ;
+    skiros:PositionY "3.4697727272727272"^^xsd:float ;
+    rdfs:label "Wall_120"^^xsd:string ;
+    paintbot:targetColor paintbot:Paint-3 .
+
+paintbot:WallSection-121 rdf:type owl:NamedIndividual ,
+        paintbot:WallSection ;
+    skiros:OrientationX "0.0"^^xsd:float ;
+    skiros:OrientationY "0.0"^^xsd:float ;
+    skiros:OrientationZ "0.0"^^xsd:float ;
+    skiros:OrientationW "1.0"^^xsd:float ;
+    skiros:PositionX "0.0"^^xsd:float ;
+    skiros:PositionY "3.6818636363636363"^^xsd:float ;
+    rdfs:label "Wall_121"^^xsd:string ;
+    paintbot:targetColor paintbot:Paint-3 .
+
+paintbot:WallSection-122 rdf:type owl:NamedIndividual ,
+        paintbot:WallSection ;
+    skiros:OrientationX "0.0"^^xsd:float ;
+    skiros:OrientationY "0.0"^^xsd:float ;
+    skiros:OrientationZ "0.0"^^xsd:float ;
+    skiros:OrientationW "1.0"^^xsd:float ;
+    skiros:PositionX "0.0"^^xsd:float ;
+    skiros:PositionY "3.8857"^^xsd:float ;
+    rdfs:label "Wall_122"^^xsd:string ;
+    paintbot:targetColor paintbot:Paint-3 .
+
