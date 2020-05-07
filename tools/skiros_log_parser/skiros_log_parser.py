@@ -85,7 +85,7 @@ for filename in filenames:
                     stats.append(total_dist)  # Total distance travelled
                     stats.append((total_dist - delta_start) / delta_start)  # Rel. diff. of total_dist and delta_start
                     stats.append(calc_dist((float(m.group(7)), float(m.group(8))), dest))  # Euclidean distance between dest and final pose
-                    stats.append(norm_angle(float(m.group(6)) - float(m.group(9))))  # Diff. between dest heading and final heading
+                    stats.append(norm_angle(abs(abs(float(m.group(6))) - abs(float(m.group(9))))))  # Diff. between dest heading and final heading
                 write_stats(stats, fout)
 
             if data[_SUB_SKILL] in _SUB_SKILLS and data[_STATE] in ('Running', 'Success'):
